@@ -1,0 +1,12 @@
+# Files
+*.pdf
+*.txt
+*.out
+*.a
+*.o
+*.json
+*.DS*
+minishell
+
+# Folders
+OLD/
