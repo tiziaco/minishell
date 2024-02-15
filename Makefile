@@ -6,7 +6,7 @@
 #    By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 11:38:10 by tiacovel          #+#    #+#              #
-#    Updated: 2024/02/14 16:57:25 by tiacovel         ###   ########.fr        #
+#    Updated: 2024/02/15 15:31:24 by tiacovel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,12 @@ NAME = minishell
 LIBFT_DIR = lib/libft
 LIBFT	= lib/libft/libft.a
 
-SRC =	$(wildcard src/*.c)
-
+SRC =	$(wildcard src/*.c) $(wildcard src/commands/*.c)
 OBJ	= $(SRC:.c=.o)
 
 RM		= rm -f
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= #-Wall -Wextra -Werror
 LINK = -Llib/libft -lft
 
 all: $(NAME)
