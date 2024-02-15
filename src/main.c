@@ -6,11 +6,11 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/14 17:13:07 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:31:03 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minish.h"
+#include "../include/minish.h"
 
 int	main(int argc, char **argv)
 {
