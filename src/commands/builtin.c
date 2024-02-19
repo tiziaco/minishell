@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/15 16:03:09 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:08:42 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ft_pwd(void)
 	return ;
 }
 
-void	ft_export(char *str)
+int	ft_exit(char **str)
 {
-	return ;
+	return (0);
 }
 
 void	ft_unset(char *str)
