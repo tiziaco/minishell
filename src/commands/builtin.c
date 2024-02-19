@@ -70,7 +70,7 @@ int	ft_unset(char ***envp, const char *name)
 	env = *envp;
 	while (*env != NULL)
 	{
-		if (strncmp(*env, name, strlen(name)) == 0 && (*env)[strlen(name)] == '=')
+		if (ft_strncmp(*env, name, ft_strlen(name)) == 0 && (*env)[ft_strlen(name)] == '=')
 		{
 			free(*env);
 			next = env + 1;

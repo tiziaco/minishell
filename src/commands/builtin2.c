@@ -57,11 +57,12 @@ static char	**copy_existing_environment(char **envp, int env_size)
 			free_env(new_envp);
 			return (NULL);
 		}
+		i++;
 	}
 	return (new_envp);
 }
 
-int ft_export(char ***envp, const char *name, const char *value)
+int	ft_export(char ***envp, const char *name, const char *value)
 {
 	char	**env;
 	char	**new_envp;
@@ -95,7 +96,7 @@ int ft_export(char ***envp, const char *name, const char *value)
 	}
 	new_envp[env_size] = env_var;
 	new_envp[env_size + 1] = NULL;
-	free(*envp);
+	//free(*envp);
 	*envp = new_envp;
 	return (0);
 }
