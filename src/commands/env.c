@@ -6,13 +6,21 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:40:09 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/15 14:40:53 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:04:45 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minish.h"
+#include "../../include/commands.h"
 
-void	env(char **str, char *prog_name)
+void	ft_env(char **envp)
 {
+	char	**curr_env;
+	
+	curr_env = envp;
+	while (*curr_env != NULL)
+	{
+		printf("%s\n", *curr_env);
+		curr_env++;
+	}
 	return ;
 }
