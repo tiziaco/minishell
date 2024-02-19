@@ -6,6 +6,7 @@
 *.o
 *.DS*
 minishell
+main
 
 # Folders
 OLD/
