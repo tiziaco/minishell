@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:39:24 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/19 12:08:48 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:30:51 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	free_env(char **envp)
 		free(envp[i]);
 		i++;
 	}
-	free(envp);
+	//free(envp);
 }
 
 static int	get_env_size(char **envp)
@@ -74,6 +74,9 @@ int	ft_export(char ***envp, const char *name, const char *value)
 	env_var = malloc(ft_strlen(name) + ft_strlen(value) + 2); // +2 for '=' and '\0'
 	if (env_var == NULL)
 		return (-1);
+	ft_strcpy(env_var, (char *)name);
+	ft_strcat(env_var, "=");
+	ft_strcat(env_var, (char *)value);
 	env = *envp;
 	while (*env != NULL)
 	{
@@ -96,7 +99,7 @@ int	ft_export(char ***envp, const char *name, const char *value)
 	}
 	new_envp[env_size] = env_var;
 	new_envp[env_size + 1] = NULL;
-	//free(*envp);
+	//free_env(*envp);
 	*envp = new_envp;
 	return (0);
 }

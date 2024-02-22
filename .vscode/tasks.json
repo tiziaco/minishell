@@ -11,6 +11,7 @@
                 "${fileDirname}/commands/builtin.c",
                 "${fileDirname}/commands/builtin2.c",
                 "${fileDirname}/commands/env.c",
+                "outils.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-L${fileDirname}/../lib/libft",
