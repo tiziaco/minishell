@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/15 17:41:55 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/22 19:59:06 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,38 @@
 
 # include "libft.h"
 
-/* Struct / typedef / enum */
-//no dollar sign here because it should be part of a word and is never seperate, there is either $word or $? (which is also a word)
 typedef enum
 {
-	WORD_TOKEN,
-	PIPE_TOKEN,
-	REDIRECTION_INPUT_TOKEN,
-	REDIRECTION_OUTPUT_TOKEN,
-	REDIRECTION_HEREDOC_TOKEN,
-	REDIRECTION_APPEND_TOKEN,
-	END_TOKEN,
+	SHIFT = 0,
+	REDUCE = 1,
+	ACCEPT = 2
+}	GrammarActions;
+
+typedef	enum
+{
+	WORD_TOKEN = 10,
+	PIPE_TOKEN = 11,
+	REDIRECTION_INPUT_TOKEN = 12, // '<'
+	REDIRECTION_OUTPUT_TOKEN = 13, // '>'
+	REDIRECTION_HEREDOC_TOKEN = 14, // '<<'
+	REDIRECTION_APPEND_TOKEN = 15, // '>>'
+	END_TOKEN = 16,
 } TokenTypes;
+
+typedef enum
+{
+	PIPE_SEQUENCE = 100,
+	SIMPLE_COMMAND = 101,
+	CMD_NAME = 102,
+	CMD_WORD = 103,
+	CMD_PREFIX = 104,
+	CMD_SUFFIX = 105,
+	IO_REDIRECT = 106,
+	IO_FILE = 107,
+	FILENAME = 108,
+	IO_HERE = 109,
+	HERE_END = 110
+}	GrammarTypes;
 
 typedef struct s_token
 {

@@ -6,13 +6,13 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:15:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/15 19:20:06 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/22 21:01:10 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minish.h"
-#include "../../include/parsing.h"
-#include "../../include/libft.h"
+#include "../../../include/minish.h"
+#include "../../../include/parsing.h"
+#include "../../../include/libft.h"
 #include <unistd.h>
 
 void	create_linked_token(char *input, t_token **token_stack)
@@ -37,10 +37,20 @@ void	create_linked_token(char *input, t_token **token_stack)
 	ft_lstadd_back_token(token_stack, new_token);
 }
 
+void	create_linked_list(char *input, t_token **token_stack, int len)
+{
+	char	*token;
+
+	token = (char *)malloc((len + 1) * sizeof(char));
+	ft_strlcpy(token, input, len + 1);
+	create_linked_token(token, token_stack);
+	free(token);
+}
+
 void	tokenize_input_string(char *input_str, t_token **token_stack)
 {
 	int		len;
-	char	*token;
+
 
 	while (*input_str)
 	{
@@ -52,10 +62,7 @@ void	tokenize_input_string(char *input_str, t_token **token_stack)
 			while (input_str[len] != '\0' && input_str[len] != ' '
 				&& input_str[len] != '\t')
 				len++;
-			token = (char *)malloc((len + 1) * sizeof(char));
-			ft_strlcpy(token, input_str, len + 1);
-			create_linked_token(token, token_stack);
-			free(token);
+			create_linked_list(input_str, token_stack, len);
 			input_str += len;
 		}
 		if (*input_str == '\0')

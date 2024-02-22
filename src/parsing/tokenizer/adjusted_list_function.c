@@ -6,13 +6,13 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:18:06 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/15 19:38:24 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/20 12:37:48 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minish.h"
-#include "../../include/parsing.h"
-#include "../../include/libft.h"
+#include "../../../include/minish.h"
+#include "../../../include/parsing.h"
+#include "../../../include/libft.h"
 #include <unistd.h>
 
 void	ft_lstadd_back_token(t_token **lst, t_token *new)
