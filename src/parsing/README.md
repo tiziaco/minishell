@@ -7,6 +7,7 @@ The approach described seems a good way to complete your project. Here are some 
 
 1. Tokenizer: done
 2. Parsing Table: done
+3. read parsing table into a double pointer struct array
 3. Use shift-reduce parsing algo to create parsing tree: https://www.geeksforgeeks.org/shift-reduce-parser-compiler/ && https://youtube.com/results?search_query=shift+reduce+parsing
 
 ## Edge Cases Tokenizer
