@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:32:49 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/23 17:56:35 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/23 18:45:37 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	fill_row(char **row_values, t_table *parsing_table)
 	ft_printf("reduced_token: %i\n", (*parsing_table).reduced_token);
 }
 
-void	fill_table(int fd, t_table **parsing_table)
+void	fill_table(int fd, t_table *parsing_table)
 {
 	int		row;
 	char	*line;
 	char	**row_values;
 
 	row = 0;
-	while (row < 100)
+	while (row < PARSING_TABLE_LENGTH)
 	{
 		line = get_next_line(fd);
 		if (line == 0)
@@ -46,14 +46,14 @@ void	fill_table(int fd, t_table **parsing_table)
 		free(line);
 		if (row_values == 0)
 			break ;
-		parsing_table[row] = (t_table *)malloc(sizeof(t_table));
-		if (parsing_table[row] == NULL)
+		parsing_table = (t_table *)malloc(sizeof(t_table));
+		if (parsing_table == NULL)
 		{
 			free(line);
 			free(row_values);
 			break ;
 		}
-		fill_row(row_values, parsing_table[row]);
+		fill_row(row_values, parsing_table + row);
 		free(row_values);
 		row++;
 	}
@@ -67,12 +67,12 @@ void	initialise_table(t_table *parsing_table)
 	parsing_table->next_state = 0;
 	parsing_table->reduced_token = 0;
 }
-void	parse_table(char *path, t_table **parsing_table)
+
+void	parse_table(char *path, t_table *parsing_table)
 {
 	int		fd;
 
-	//parsing_table = NULL;
-	initialise_table(*parsing_table);
+	initialise_table(parsing_table);
 	fd = open(path, O_RDWR);
 	if (fd == -1)
 		ft_printf("Error opening the file!!");
