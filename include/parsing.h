@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/22 19:59:06 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:54:52 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
-
 # include "libft.h"
+
+# define PARSING_TABLE_LENGTH 100
+
+// Parsing Table
 
 typedef enum
 {
@@ -27,17 +30,6 @@ typedef enum
 	REDUCE = 1,
 	ACCEPT = 2
 }	GrammarActions;
-
-typedef	enum
-{
-	WORD_TOKEN = 10,
-	PIPE_TOKEN = 11,
-	REDIRECTION_INPUT_TOKEN = 12, // '<'
-	REDIRECTION_OUTPUT_TOKEN = 13, // '>'
-	REDIRECTION_HEREDOC_TOKEN = 14, // '<<'
-	REDIRECTION_APPEND_TOKEN = 15, // '>>'
-	END_TOKEN = 16,
-} TokenTypes;
 
 typedef enum
 {
@@ -53,6 +45,28 @@ typedef enum
 	IO_HERE = 109,
 	HERE_END = 110
 }	GrammarTypes;
+
+typedef struct s_table
+{
+	int				state;
+	int				token_grammar_type;
+	int				action;
+	int				next_state;
+	int				reduced_token;
+}	t_table;
+
+// Tokenizer
+
+typedef	enum
+{
+	WORD_TOKEN = 10,
+	PIPE_TOKEN = 11,
+	REDIRECTION_INPUT_TOKEN = 12, // '<'
+	REDIRECTION_OUTPUT_TOKEN = 13, // '>'
+	REDIRECTION_HEREDOC_TOKEN = 14, // '<<'
+	REDIRECTION_APPEND_TOKEN = 15, // '>>'
+	END_TOKEN = 16,
+} TokenTypes;
 
 typedef struct s_token
 {
@@ -70,5 +84,8 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token	*ft_lstnew_token(char *value, TokenTypes token_type);
 void	free_token_stack(t_token *token_stack);
 void	print_token_stack(t_token *token_stack);
+
+// Parse parsing table to data structure
+void	parse_table(char *path, t_table **parsing_table);
 
 #endif
