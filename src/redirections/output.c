@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:37:05 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/22 12:55:58 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:33:08 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	output_redirection(char *redirection, char *file_name)
 		perror("Failed to open file");
 		return ;
 	}
-	if (dup2(file_descriptor, 1) == -1)
+	if (dup2(file_descriptor, STDOUT_FILENO) == -1)
 	{
 		perror("Failed to redirect stdout");
 		close(file_descriptor);
