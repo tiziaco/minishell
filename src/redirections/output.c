@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:37:05 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/23 12:33:08 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:25:57 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	output_redirection(char *redirection, char *file_name)
 {
 	int	file_descriptor;
 
-	if (check_file_name == 0)
+	if (check_file_name(file_name) == 0)
 	{
 		perror("Invalid file name");
 		return ;
@@ -48,4 +48,7 @@ void	output_redirection(char *redirection, char *file_name)
 		perror("Failed to redirect stdout");
 		close(file_descriptor);
 	}
+	// Execute the command
+	// After the execution of the command, restore the value of 
+	// STDIN to the default one
 }

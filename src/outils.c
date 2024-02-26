@@ -39,3 +39,16 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
+
+void	free_double_pointer(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (!str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}

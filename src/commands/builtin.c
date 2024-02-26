@@ -6,12 +6,12 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/19 19:19:30 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:35:03 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
-//#include <linux/limits.h>
+#include <linux/limits.h>
 
 void	ft_echo(char **str)
 {
@@ -70,7 +70,8 @@ int	ft_unset(char ***envp, const char *name)
 	env = *envp;
 	while (*env != NULL)
 	{
-		if (ft_strncmp(*env, name, ft_strlen(name)) == 0 && (*env)[ft_strlen(name)] == '=')
+		if (ft_strncmp(*env, name, ft_strlen(name)) == 0 
+			&& (*env)[ft_strlen(name)] == '=')
 		{
 			free(*env);
 			next = env + 1;

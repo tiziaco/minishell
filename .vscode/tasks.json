@@ -8,14 +8,18 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
+                "outils.c",
                 "${fileDirname}/commands/builtin.c",
                 "${fileDirname}/commands/builtin2.c",
                 "${fileDirname}/commands/env.c",
-                "outils.c",
+                "${fileDirname}/commands/ext_commands.c",
+                "${fileDirname}/redirections/input.c",
+                "${fileDirname}/redirections/output.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-L${fileDirname}/../lib/libft",
-                "-lft"
+                "-lft",
+                "-lreadline"
             ],
             "options": {
                 "cwd": "${fileDirname}"
