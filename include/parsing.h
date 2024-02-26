@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/23 18:48:12 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/26 19:44:54 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,25 @@
 # include <stdbool.h>
 # include "libft.h"
 
-# define PARSING_TABLE_LENGTH 100
+# define PARSING_TABLE_LENGTH 100 // make it so this is not hardcoded
+# define PARSING_TABLE_PATH "src/parsing/files/parsing_table.txt"
+
+// Parsing Tree
+
+typedef struct s_tree_node {
+    int grammar_type;
+    char *token_value;
+    struct s_tree_node *parent;
+    struct s_tree_node *left;
+    struct s_tree_node *right;
+} t_tree_node;
+
+typedef struct s_tree_stack {
+    int grammar_type;
+	int state;
+    struct s_tree_node *next;
+    struct s_tree_node *previous;
+} t_tree_stack;
 
 // Parsing Table
 
@@ -74,6 +92,10 @@ typedef struct s_token
 	TokenTypes		type;
 	struct s_token	*next;
 }	t_token;
+
+/* Parsing Tree */
+int    create_binary_tree(t_token *token_stack, 
+			t_table *parsing_table, t_tree_node **parsing_tree);
 
 /* Initialization functions */
 int parse_input(int argc, char *argv[]);
