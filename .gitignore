@@ -5,6 +5,7 @@
 *.a
 *.o
 *.DS*
+test.*
 minishell
 main
 
