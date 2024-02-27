@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:15:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/22 21:01:10 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:02:52 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,5 @@ int	tokenize_input(int argc, char *argv[], t_token **token_stack)
 		}
 	}
 	print_token_stack(*token_stack);
-	free_token_stack(*token_stack);
 	return (0);
 }

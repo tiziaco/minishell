@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/26 19:44:54 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:36:47 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,19 @@
 // Parsing Tree
 
 typedef struct s_tree_node {
-    int grammar_type;
-    char *token_value;
-    struct s_tree_node *parent;
-    struct s_tree_node *left;
-    struct s_tree_node *right;
+	int grammar_type;
+	char *token_value;
+	struct s_tree_node *parent;
+	struct s_tree_node *left;
+	struct s_tree_node *right;
 } t_tree_node;
 
 typedef struct s_tree_stack {
-    int grammar_type;
+	int grammar_type;
 	int state;
-    struct s_tree_node *next;
-    struct s_tree_node *previous;
+	char *token_value;
+	struct t_tree_stack *next;
+	struct t_tree_stack *previous;
 } t_tree_stack;
 
 // Parsing Table
@@ -89,13 +90,17 @@ typedef	enum
 typedef struct s_token
 {
 	char			*value;
-	TokenTypes		type;
+	int				type;
 	struct s_token	*next;
 }	t_token;
 
 /* Parsing Tree */
 int    create_binary_tree(t_token *token_stack, 
 			t_table *parsing_table, t_tree_node **parsing_tree);
+void	parse_to_stack(t_token *token_stack,
+			t_table *parsing_table, t_tree_stack *tree_stack);
+t_token	*get_next_token(t_token *token_stack);
+
 
 /* Initialization functions */
 int parse_input(int argc, char *argv[]);

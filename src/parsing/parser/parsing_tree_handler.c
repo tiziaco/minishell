@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:23:40 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/26 19:50:34 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:26:40 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 #include "../../../include/libft.h"
 #include <unistd.h>
 
-void	check_grammar(int state, int grammar_type, t_table	*parsing_table)
+t_token	*get_next_token(t_token *token_stack)
 {
-	state = 0;
-	grammar_type = 0;
-	parsing_table = NULL;
+	static t_token	*next_token = NULL;
+	t_token			*current_token;
+
+	if (next_token == NULL)
+		next_token = token_stack;
+	current_token = next_token;
+	next_token = next_token->next;
+	ft_printf("Token Type: %d\n", current_token->type);
+	return (current_token);
 }
 
 void	intialise_tree(t_tree_node *tree_node, t_tree_stack *tree_stack)
@@ -36,54 +42,16 @@ void	intialise_tree(t_tree_node *tree_node, t_tree_stack *tree_stack)
 	tree_stack->previous = NULL;
 }
 
-t_token	*get_next_token(t_token *token_stack)
-{
-	static t_token	*next_token = NULL;
-	t_token			*current_token;
-
-	if (next_token == NULL)
-		next_token = token_stack;
-	current_token = next_token;
-	next_token = next_token->next;
-	return (current_token);
-}
-
 int	create_binary_tree(t_token *token_stack,
 			t_table *parsing_table, t_tree_node **parsing_tree)
 {
-	t_token			*current_token;
 	t_tree_stack	*tree_stack;
 
 	tree_stack = (t_tree_stack *)malloc(sizeof(t_tree_stack));
 	if (!tree_stack)
 		return (-1);
-	current_token = get_next_token(token_stack);
-	//ft_printf("Token Type: %i\n", current_token->type);
 	intialise_tree(*parsing_tree, tree_stack);
-	while (current_token)
-	{
-		check_grammar(tree_stack->state, tree_stack->grammar_type, parsing_table);
-		current_token = get_next_token(token_stack);
-		break ;
-	}
+	parse_to_stack(token_stack, parsing_table, tree_stack);
 	free(tree_stack);
 	return (0);
 }
-
-// t_token	*ft_lstnew_token(char *value, TokenTypes token_type)
-// {
-// 	t_token	*node;
-
-// 	node = (t_token *)malloc(sizeof(t_token));
-// 	node->value = 0;
-// 	node->type = 0;
-// 	if (!node)
-// 		return (NULL);
-// 	if (value == NULL)
-// 		node->value = NULL;
-// 	else
-// 		node->value = ft_strdup(value);
-// 	node->type = token_type;
-// 	node->next = NULL;
-// 	return (node);
-// }

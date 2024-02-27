@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/26 19:46:58 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:03:14 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int	parse_input(int argc, char *argv[])
 	create_binary_tree(token_stack, parsing_table, &parsing_tree);
 	free(parsing_table);
 	free(parsing_tree);
+	free_token_stack(token_stack);
 	return (0);
 }
