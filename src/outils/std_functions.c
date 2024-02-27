@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   outils.c                                           :+:      :+:    :+:   */
+/*   std_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:10:52 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/27 11:10:55 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:00:27 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/commands.h"
+#include "../../include/commands.h"
 
 char	*ft_strcat(char *dest, char *src)
 {
