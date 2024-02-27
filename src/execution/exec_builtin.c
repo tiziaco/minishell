@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:21:59 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/27 11:08:33 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:37:20 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	is_builtin(char *arg)
 	return (false);
 }
 
-/* int	exec_builtin(char **args)
+/* int	exec_builtin(t_data *data, char **args)
 {
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (ft_echo(args));
