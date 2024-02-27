@@ -6,13 +6,15 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:03:26 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/26 15:14:24 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/27 11:35:41 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minish.h"
 
 # define TMP_FILENAME "/home/tiacovel/core_curriculum/minishell/heredoc_tmp.tmp"
+# define OP_SUCCESS	1
+# define OP_FAIL	-1
 
 void	execute_command(char *command, char **arguments, char **envp);
 
