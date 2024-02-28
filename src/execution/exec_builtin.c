@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:21:59 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/27 18:37:20 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:17:00 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,19 @@ bool	is_builtin(char *arg)
 	return (false);
 }
 
-/* int	exec_builtin(t_data *data, char **args)
+int	exec_builtin(t_data *data)
 {
-	if (ft_strcmp(args[0], "echo") == 0)
-		return (ft_echo(args));
-	if (ft_strcmp(args[0], "cd") == 0)
-		return (ft_cd(args[1]));
-	if (ft_strcmp(args[0], "env") == 0)
-		return (ft_env());
-	if (ft_strcmp(args[0], "pwd") == 0)
+	if (ft_strcmp(data->cmd->command, "echo") == 0)
+		return (ft_echo(data->cmd->args));
+	if (ft_strcmp(data->cmd->command, "cd") == 0)
+		return (ft_cd(data->cmd->args[1]));
+	if (ft_strcmp(data->cmd->command, "env") == 0)
+		return (ft_env(data->envp));
+	if (ft_strcmp(data->cmd->command, "pwd") == 0)
 		return (ft_pwd());
-	if (ft_strcmp(args[0], "export") == 0)
-		return (ft_export(args));
-	if (ft_strcmp(args[0], "unset") == 0)
-		return (ft_unset(args));
-	ft_exit(args);
-	return (ENO_GENERAL);
-} */
+	if (ft_strcmp(data->cmd->command, "export") == 0)
+		return (ft_export(data->envp, data->cmd->args));
+	if (ft_strcmp(data->cmd->command, "unset") == 0)
+		return (ft_unset(data->envp, data->cmd->args));
+	return (OP_FAIL);
+}
