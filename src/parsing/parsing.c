@@ -6,13 +6,13 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/27 10:03:14 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/28 18:49:23 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minish.h"
-#include "../../../include/parsing.h"
-#include "../../../include/libft.h"
+#include "../../include/minish.h"
+#include "../../include/parsing.h"
+#include "../../include/libft.h"
 #include <unistd.h>
 
 void	free_table(t_table *parsing_table)
@@ -40,7 +40,7 @@ int	parse_input(int argc, char *argv[])
 		return (-1);
 	tokenize_input(argc, argv, &token_stack);
 	parse_table(PARSING_TABLE_PATH, parsing_table);
-	create_binary_tree(token_stack, parsing_table, &parsing_tree);
+	create_binary_tree(token_stack, &parsing_table, &parsing_tree);
 	free(parsing_table);
 	free(parsing_tree);
 	free_token_stack(token_stack);

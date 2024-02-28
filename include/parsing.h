@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/27 16:36:47 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/02/28 21:23:07 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@
 // Parsing Tree
 
 typedef struct s_tree_node {
+	int leaf_header;
 	int grammar_type;
 	char *token_value;
-	struct s_tree_node *parent;
+	struct s_tree_node *next;
 	struct s_tree_node *left;
 	struct s_tree_node *right;
 } t_tree_node;
 
 typedef struct s_tree_stack {
 	int grammar_type;
-	int state;
+	int next_state;
 	char *token_value;
-	struct t_tree_stack *next;
-	struct t_tree_stack *previous;
+	struct s_tree_stack *next;
 } t_tree_stack;
 
 // Parsing Table
@@ -95,12 +95,25 @@ typedef struct s_token
 }	t_token;
 
 /* Parsing Tree */
-int    create_binary_tree(t_token *token_stack, 
-			t_table *parsing_table, t_tree_node **parsing_tree);
-void	parse_to_stack(t_token *token_stack,
-			t_table *parsing_table, t_tree_stack *tree_stack);
+void	create_binary_tree(t_token *token_stack,
+			t_table **parsing_table, t_tree_node **parsing_tree);
+// parsing_tree_utils
+void	intialise_stack_and_tree(t_tree_node *tree_node, t_tree_stack *tree_stack);
 t_token	*get_next_token(t_token *token_stack);
-
+t_table	*get_next_row(t_table	*parsing_table, t_tree_stack *tree_stack, t_token *token_stack);
+int		get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack);
+// shift operation utils
+void	push_token_to_stack(t_tree_stack **tree_stack, t_token *token_stack);
+void	push_state_to_stack(t_tree_stack **tree_stack, int next_state);
+// reduce operation utils
+void	add_subtree_to_tree(t_tree_node **parsing_tree, t_tree_stack **subtree, int reduced_token);
+void	add_reduction_node(t_tree_stack **tree_stack, int reduction_token);
+t_tree_stack	*create_subtree(t_tree_stack **tree_stack, int tokens_to_reduce);
+// reduce operation utils 2
+t_tree_node	*transform_stack_to_node(t_tree_stack *subtree);
+t_tree_node	*search_for_subtree(t_tree_node **parsing_tree, int reduced_token);
+// list utils
+void	subtree_add_back(t_tree_stack **subtree, t_tree_stack *tree_stack);
 
 /* Initialization functions */
 int parse_input(int argc, char *argv[]);

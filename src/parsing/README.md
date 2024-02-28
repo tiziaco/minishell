@@ -15,3 +15,7 @@
 
 - Why do we need a stack and a parsing tree linked list data structure?
     - If we have the input `"echo "Hello World" | cat -e"` we initially encounter the terminal WORD_TOKEN (i.e. "echo"), which 
+
+
+
+    You start by shifting tokens one by one into the stack, following rules determined by the parsing table. When a reduce operation is encountered, a certain number of items are popped from the stack to form a subtree. This subtree is then added back into the parse tree (not the stack) which is being constructed during the parsing process.
