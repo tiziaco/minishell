@@ -14,7 +14,10 @@
 NAME = minishell
 LIBFT_DIR = lib/libft
 
-SRC = $(wildcard src/*.c) $(wildcard src/commands/*.c) $(wildcard src/redirections/*.c)
+SRC =	$(wildcard src/*.c) $(wildcard src/builtins/*.c) \
+		$(wildcard src/env/*.c) $(wildcard src/errors/*.c) \
+		$(wildcard src/execution/*.c) $(wildcard src/outils/*.c) \
+		$(wildcard src/redirections/*.c)
 
 OBJ	= $(SRC:.c=.o)
 
