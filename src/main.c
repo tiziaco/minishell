@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/27 18:25:14 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:19:32 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_background_mode(t_data	*data, char *arg)
 	while (inputs[i])
 	{
 		data->line = ft_strdup(inputs[i]);
-		if (parse_user_input(data) == true)
+		if (parse_input(data) == OP_SUCCESS)
 			exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
@@ -73,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	data = init_data(*envp);
+	data = init_data(envp);
 	if (!data)
 		return (EXIT_FAILURE);
 	if (data->background_mode)
