@@ -17,7 +17,7 @@ LIBFT_DIR = lib/libft
 SRC =	$(wildcard src/*.c) $(wildcard src/builtins/*.c) \
 		$(wildcard src/env/*.c) $(wildcard src/errors/*.c) \
 		$(wildcard src/execution/*.c) $(wildcard src/outils/*.c) \
-		$(wildcard src/redirections/*.c)
+		$(wildcard src/parser/*.c) $(wildcard src/redirections/*.c)
 
 OBJ	= $(SRC:.c=.o)
 
