@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:39:24 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/28 17:30:04 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:36:58 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_export(t_data *data, char **args)
 	char	**key_val;
 
 	i = 1;
-	while (!args[i])
+	while (args[i] != NULL)
 	{
 		if (!check_key_name(args[i]))
 			return (cmd_error(INVALID_KEY));
@@ -65,11 +65,11 @@ int	ft_unset(t_data *data, char **args)
 	int	key_index;
 
 	i = 1;
-	while (!args[i])
+	while (args[i] != NULL)
 	{
 		if (!check_key_name(args[i]))
 			return (cmd_error(INVALID_KEY));
-		key_index = search_key(data->envp, !args[i]);
+		key_index = search_key(data->envp, args[i]);
 		if (key_index > 0)
 			remove_var(data, key_index);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:21:59 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/28 15:17:00 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:38:28 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	exec_builtin(t_data *data)
 	if (ft_strcmp(data->cmd->command, "pwd") == 0)
 		return (ft_pwd());
 	if (ft_strcmp(data->cmd->command, "export") == 0)
-		return (ft_export(data->envp, data->cmd->args));
+		return (ft_export(data, data->cmd->args));
 	if (ft_strcmp(data->cmd->command, "unset") == 0)
-		return (ft_unset(data->envp, data->cmd->args));
+		return (ft_unset(data, data->cmd->args));
 	return (OP_FAIL);
 }

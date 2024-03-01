@@ -25,6 +25,7 @@ int	ft_echo(char **str)
 			ft_printf("%c", ' ');
 		i++;
 	}
+	printf("\n");
 	return (OP_SUCCESS);
 }
 
@@ -61,11 +62,11 @@ int	ft_exit(void)
 	return (OP_SUCCESS);
 }
 
-int	ft_env(char ***envp)
+int	ft_env(char **envp)
 {
 	char	**curr_env;
 	
-	curr_env = *envp;
+	curr_env = envp;
 	while (*curr_env != NULL)
 	{
 		printf("%s\n", *curr_env);

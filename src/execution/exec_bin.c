@@ -86,6 +86,8 @@ void	exec_bin(char *command, char **arguments, char **envp)
 	char	*command_path;
 
 	command_path = search_command(command);
+	// Fork parent process
 	execve(command_path, arguments, envp);
+	// Waitpid
 	free(command_path);
 }

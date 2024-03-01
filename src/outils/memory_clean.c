@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:10:14 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/29 18:24:02 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:36:59 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	free_pointer(void *ptr)
 {
-	if (ptr != NULL)
+	if (ptr)
 	{
 		free(ptr);
-		ptr = NULL;
+		ptr = "\0";
 	}
 }
 
@@ -25,27 +25,40 @@ void	free_double_pointer(char **str)
 {
 	int	i;
 
+	if (str == NULL)
+		return ;
 	i = 0;
-	while (!str[i])
+	while (str[i])
 	{
-		if (str[i] != NULL)
-			free(str[i]);
+		free(str[i]);
+		str[i] = NULL;
 		i++;
 	}
 	free(str);
 }
 
-void	free_data(t_data *data)
+void	free_cmd(t_cmd **cmd)
 {
-	if (data->envp != NULL)
-		free_double_pointer(data->envp);
-	if (data->cmd != NULL)
+	if (*cmd == NULL)
+		return ;
+	free_pointer((*cmd)->command);
+	free_double_pointer((*cmd)->args);
+	free(*cmd);
+	*cmd = NULL;
+}
+
+void	free_data(t_data *data, bool clear_all)
+{
+	if (data->cmd)
+		free_cmd(&data->cmd);
+	if (data->line)
+		free_pointer(data->line);
+	if (data->token)
+		free_pointer(data->token);
+	if (clear_all)
 	{
-		free_pointer(data->cmd->command);
-		free_double_pointer(data->cmd->args);
+		if (data && data->envp)
+			free_double_pointer(data->envp);
+		rl_clear_history();
 	}
-	if (data->line != NULL)
-		free_pointer(data->line);
-	if (data->token != NULL)
-		free_pointer(data->line);
 }

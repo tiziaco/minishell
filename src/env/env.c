@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:30:21 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/28 17:16:50 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:37:28 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**copy_environment(char **envp, int env_size)
 	if (new_envp == NULL) 
 		return (NULL);
 	i = 0;
-	while (i < env_size)
+	while (envp[i] && i < env_size)
 	{
 		new_envp[i] = ft_strdup(envp[i]);
 		if (new_envp[i] == NULL)
@@ -45,19 +45,19 @@ int	set_var(t_data *data, char *key, char *val)
 	key_index = search_key(data->envp, key);
 	if (key_index < 0)
 	{
-		env_size = get_env_size(*data->envp);
-		*data->envp = copy_environment(*data->envp, env_size + 1);
+		env_size = get_env_size(data->envp);
+		data->envp = copy_environment(data->envp, env_size + 1);
 		if (!data->envp)
 		{
 			free_pointer(env_var);
 			return (sys_error(MEM_ERROR));
 		}
-		*data->envp[key_index] = env_var;
+		data->envp[env_size] = ft_strdup(env_var);
 	}
 	else
 	{
-		free_pointer(*data->envp[key_index]);
-		*data->envp[key_index] = env_var;
+		free_pointer(data->envp[key_index]);
+		data->envp[key_index] = ft_strdup(env_var);
 	}
 	free_pointer(env_var);
 	return(OP_SUCCESS);
@@ -68,20 +68,20 @@ int	remove_var(t_data *data, int key_index)
 	int	i;
 	int	size;
 
-	if (key_index > get_env_size(*data->envp))
+	if (key_index > get_env_size(data->envp))
 		return (cmd_error(INVALID_KEY));
-	free_ptr(*data->envp[key_index]);
+	free_pointer(data->envp[key_index]);
 	i = key_index;
 	size = key_index;
-	while (*data->envp[i + 1])
+	while (data->envp[i + 1])
 	{
-		*data->envp[i] = ft_strdup(*data->envp[i + 1]);
-		free_ptr(data->envp[i + 1]);
+		data->envp[i] = ft_strdup(data->envp[i + 1]);
+		free_pointer(data->envp[i + 1]);
 		size++;
 		i++;
 	}
-	*data->envp = copy_environment(*data->envp, size);
-	if (!*data->envp)
+	data->envp = copy_environment(data->envp, size);
+	if (!data->envp)
 		return (sys_error(MEM_ERROR));
 	return (OP_SUCCESS);
 }

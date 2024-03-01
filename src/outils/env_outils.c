@@ -27,14 +27,15 @@ int	get_env_size(char **envp)
 	return (env_size);
 }
 
-int	search_key(char ***envp, char *key)
+int	search_key(char **envp, char *key)
 {
 	int i;
 
-	while (*envp[i] != NULL)
+	i = 0;
+	while (envp[i] != NULL)
 	{
-		if ((ft_strncmp(*envp[i], key, ft_strlen(key)) == 0)
-			&& *envp[i][ft_strlen(key)] == '=')
+		if ((ft_strncmp(envp[i], key, ft_strlen(key)) == 0)
+			&& envp[i][ft_strlen(key)] == '=')
 			return (i);
 		i++;
 	}
