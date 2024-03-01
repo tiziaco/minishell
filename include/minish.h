@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/29 18:24:17 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:24:20 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,29 @@ typedef struct s_data
 	bool	background_mode;
 	t_term	term;
 	char	*line;
-	char	***envp;
-	char	*token;
+	char	**envp;
+	char	*token; //To be modified accoring to our token struct
 	t_cmd	*cmd;
 }	t_data;
 
 /* Initialization functions */
 t_data	*init_data(char **envp);
+void	exit_shell(t_data *data, int exit_code);
 
 /* Environment functions */
-int		search_key(char ***envp, char *key);
+int		search_key(char **envp, char *key);
 int		get_env_size(char **envp);
 char	*get_env_var(char *key, char *val);
 char	**copy_environment(char **envp, int env_size);
 int		set_var(t_data *data, char *key, char *val);
 int		remove_var(t_data *data, int key_index);
+
+/* Parsing */
+int	parse_input(t_data *data);
+
+/* Execution */
+bool	is_builtin(char *arg);
+int		exec_builtin(t_data *data);
 
 /* Error handlers */
 int		sys_error(int err_code);
@@ -82,6 +90,6 @@ char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);
 void	free_pointer(void *ptr);
 void	free_double_pointer(char **str);
-void	free_data(t_data *data);
+void	free_data(t_data *data, bool clear_all);
 
 #endif

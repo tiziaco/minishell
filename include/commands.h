@@ -21,7 +21,7 @@ int		ft_pwd(void);
 int		ft_export(t_data *data, char **args);
 int		ft_unset(t_data *data, char **args);
 int		ft_exit(void);
-int		ft_env(char ***envp);
+int		ft_env(char **envp);
 
 /* Redirections */
 void	heredoc(char *delimeter);
