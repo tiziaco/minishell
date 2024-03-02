@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/28 21:23:07 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/02 00:24:10 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,16 @@ typedef struct s_token
 void	create_binary_tree(t_token *token_stack,
 			t_table **parsing_table, t_tree_node **parsing_tree);
 // parsing_tree_utils
-void	intialise_stack_and_tree(t_tree_node *tree_node, t_tree_stack *tree_stack);
+t_tree_stack	*intialise_stack();
 t_token	*get_next_token(t_token *token_stack);
-t_table	*get_next_row(t_table	*parsing_table, t_tree_stack *tree_stack, t_token *token_stack);
+t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack);
 int		get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack);
 // shift operation utils
 void	push_token_to_stack(t_tree_stack **tree_stack, t_token *token_stack);
-void	push_state_to_stack(t_tree_stack **tree_stack, int next_state);
+int	push_state_to_stack(t_tree_stack **tree_stack, int next_state);
 // reduce operation utils
-void	add_subtree_to_tree(t_tree_node **parsing_tree, t_tree_stack **subtree, int reduced_token);
-void	add_reduction_node(t_tree_stack **tree_stack, int reduction_token);
+int	add_subtree_to_tree(t_tree_node **parsing_tree, t_tree_stack **subtree, int reduced_token);
+int	add_reduction_node(t_tree_stack **tree_stack, int reduction_token);
 t_tree_stack	*create_subtree(t_tree_stack **tree_stack, int tokens_to_reduce);
 // reduce operation utils 2
 t_tree_node	*transform_stack_to_node(t_tree_stack *subtree);
@@ -127,5 +127,6 @@ void	print_token_stack(t_token *token_stack);
 
 // Parse parsing table to data structure
 void	parse_table(char *path, t_table *parsing_table);
+void	print_parsing_tree(t_tree_node *node);
 
 #endif

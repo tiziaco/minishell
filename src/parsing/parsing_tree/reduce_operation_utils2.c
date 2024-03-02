@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 20:20:53 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/28 21:23:00 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/02 00:44:52 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,22 @@ t_tree_node	*transform_stack_to_node(t_tree_stack *subtree)
 	tree_node = (t_tree_node *)malloc(sizeof(t_tree_node));
 	if (tree_node)
 	{
+		ft_printf("child added: grammar_type:%d, token_value: %s\n", tree_node->grammar_type, tree_node->token_value);
 		tree_node->grammar_type = subtree->grammar_type;
 		tree_node->leaf_header = -1;
+		if (subtree->grammar_type >= 100)
+		{
+			tree_node->grammar_type = -1;
+			tree_node->leaf_header = subtree->grammar_type;
+		}
 		tree_node->token_value = subtree->token_value;
 		subtree->token_value = NULL;
 		tree_node->left = NULL;
 		tree_node->right = NULL;
 		tree_node->next = NULL;
+		ft_printf("child added: grammar_type:%d, token_value: %s\n", tree_node->grammar_type, tree_node->token_value);
+		if (tree_node->next)
+			ft_printf("what is this: grammar_type:%d, token_value: %s\n", tree_node->next->grammar_type, tree_node->next->token_value);
 		return (tree_node);
 	}
 	return (NULL);
@@ -41,7 +50,7 @@ void	disconnect_subtree(t_tree_node **start_of_tree, t_tree_node *subtree_head)
 
 	if (*start_of_tree == subtree_head)
 	{
-		*start_of_tree = (*start_of_tree)->next;
+		*start_of_tree = subtree_head->next;
 		return ;
 	}
 	else
@@ -66,8 +75,9 @@ t_tree_node	*search_for_subtree(t_tree_node **parsing_tree, int reduced_token)
 	t_tree_node *start_of_tree;
 	t_tree_node	*subtree_head;
 
-	start_of_tree = *parsing_tree;
 	subtree_head = NULL;
+	start_of_tree = *parsing_tree;
+	*parsing_tree = (*parsing_tree)->next;
 	while (*parsing_tree)
 	{
 		if ((*parsing_tree)->leaf_header == reduced_token)
@@ -78,6 +88,10 @@ t_tree_node	*search_for_subtree(t_tree_node **parsing_tree, int reduced_token)
 		}
 		*parsing_tree = (*parsing_tree)->next;
 	}
+	ft_printf("---------------");
+	//print_parsing_tree(*parsing_tree);
+	ft_printf("---------------");
 	*parsing_tree = start_of_tree;
+	//print_parsing_tree(*parsing_tree);
 	return (subtree_head);
 }

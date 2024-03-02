@@ -6,7 +6,7 @@
 #    By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 11:38:10 by tiacovel          #+#    #+#              #
-#    Updated: 2024/02/28 13:28:36 by jkaller          ###   ########.fr        #
+#    Updated: 2024/03/02 00:09:55 by jkaller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 LIBFT_DIR = lib/libft
 LIBFT	= lib/libft/libft.a
 
-SRC =	$(wildcard src/*.c) $(wildcard src/parsing/*.c) $(wildcard src/parsing/tokenizer/*.c) $(wildcard src/parsing/parsing_table/*.c) $(wildcard src/parsing/parsing_tree/*.c)
+SRC =	$(wildcard src/*.c) $(wildcard src/parsing/*.c) $(wildcard src/parsing/tokenizer/*.c) $(wildcard src/parsing/parsing_table/*.c) $(wildcard src/parsing/parsing_tree/*.c) $(wildcard src/parsing/cleanup/*.c)
 
 OBJ	= $(SRC:.c=.o)
 
