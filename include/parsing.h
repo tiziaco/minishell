@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/02 00:24:10 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/02 21:11:33 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ typedef enum
 	HERE_END = 110
 }	GrammarTypes;
 
+typedef enum e_ast_types
+{
+	A_CMD = 0,
+	A_RED_TO,
+	A_RED_FROM,
+	A_DLESS,
+	A_DGREAT,
+	A_PIPE,
+	A_PARAM,
+	A_FILE,
+	A_LIMITER
+}	t_ast_types;
+
 typedef struct s_table
 {
 	int				state;
@@ -95,9 +108,9 @@ typedef struct s_token
 }	t_token;
 
 /* Parsing Tree */
-void	create_binary_tree(t_token *token_stack,
-			t_table **parsing_table, t_tree_node **parsing_tree);
-// parsing_tree_utils
+t_tree_node	*create_syntax_tree(t_token *token_stack,
+			t_table **parsing_table);
+			// parsing_tree_utils
 t_tree_stack	*intialise_stack();
 t_token	*get_next_token(t_token *token_stack);
 t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack);
@@ -127,6 +140,6 @@ void	print_token_stack(t_token *token_stack);
 
 // Parse parsing table to data structure
 void	parse_table(char *path, t_table *parsing_table);
-void	print_parsing_tree(t_tree_node *node);
+void print_parsing_tree(t_tree_node *root, int depth);
 
 #endif

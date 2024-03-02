@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:18:06 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/20 12:37:48 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/02 17:59:49 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ void	print_token_stack(t_token *token_stack)
 	while (token_stack)
 	{
 		current = token_stack;
-		ft_printf("Token Value: %s Token Type: %d \n",
-			current->value, current->type);
+		ft_printf("Token Value: %s Token Type: %d \n",current->value, current->type);
 		token_stack = token_stack->next;
 	}
 }

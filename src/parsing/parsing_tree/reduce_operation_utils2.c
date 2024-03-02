@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 20:20:53 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/02 00:44:52 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/02 17:44:26 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_tree_node	*transform_stack_to_node(t_tree_stack *subtree)
 	tree_node = (t_tree_node *)malloc(sizeof(t_tree_node));
 	if (tree_node)
 	{
-		ft_printf("child added: grammar_type:%d, token_value: %s\n", tree_node->grammar_type, tree_node->token_value);
+		//ft_printf("child added: grammar_type:%d, token_value: %s\n", tree_node->grammar_type, tree_node->token_value);
 		tree_node->grammar_type = subtree->grammar_type;
 		tree_node->leaf_header = -1;
 		if (subtree->grammar_type >= 100)
@@ -35,9 +35,7 @@ t_tree_node	*transform_stack_to_node(t_tree_stack *subtree)
 		tree_node->left = NULL;
 		tree_node->right = NULL;
 		tree_node->next = NULL;
-		ft_printf("child added: grammar_type:%d, token_value: %s\n", tree_node->grammar_type, tree_node->token_value);
-		if (tree_node->next)
-			ft_printf("what is this: grammar_type:%d, token_value: %s\n", tree_node->next->grammar_type, tree_node->next->token_value);
+		//ft_printf("child added: grammar_type:%d, token_value: %s\n", tree_node->grammar_type, tree_node->token_value);
 		return (tree_node);
 	}
 	return (NULL);
@@ -88,10 +86,6 @@ t_tree_node	*search_for_subtree(t_tree_node **parsing_tree, int reduced_token)
 		}
 		*parsing_tree = (*parsing_tree)->next;
 	}
-	ft_printf("---------------");
-	//print_parsing_tree(*parsing_tree);
-	ft_printf("---------------");
 	*parsing_tree = start_of_tree;
-	//print_parsing_tree(*parsing_tree);
 	return (subtree_head);
 }
