@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 13:16:53 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/04 18:17:01 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef PARSER_H
+# define PARSER_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -19,9 +19,10 @@
 # include <limits.h>
 # include <stdbool.h>
 # include "libft.h"
+# include "minish.h"
 
 # define PARSING_TABLE_LENGTH 100 // make it so this is not hardcoded
-# define PARSING_TABLE_PATH "src/parsing/files/parsing_table.txt"
+# define PARSING_TABLE_PATH "/home/jkaller/Desktop/HomeOf42/Core_Curriculum_Projects/Rank03/minishell/src/parser/files/parsing_table"
 
 // Parsing Tree
 
@@ -130,8 +131,7 @@ t_tree_node	*search_for_subtree(t_tree_node **parsing_tree, int reduced_token);
 void	subtree_add_back(t_tree_stack **subtree, t_tree_stack *tree_stack);
 
 /* Initialization functions */
-int parse_input(int argc, char *argv[]);
-int	tokenize_input(int argc, char *argv[], t_token **token_stack);
+int	tokenize_input(char *input_line, t_token **token_stack);
 
 /* Utility functions */
 void	ft_lstadd_back_token(t_token **lst, t_token *new);

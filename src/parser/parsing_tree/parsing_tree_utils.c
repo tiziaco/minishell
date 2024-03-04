@@ -6,12 +6,12 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 19:29:01 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 13:33:53 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:32:56 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minish.h"
-#include "../../../include/parsing.h"
+#include "../../../include/parser.h"
 #include "../../../include/libft.h"
 #include <unistd.h>
 
@@ -84,4 +84,22 @@ t_tree_stack	*intialise_stack()
 	start_of_stack->next_state = 0;
 	start_of_stack->next = NULL;
 	return (start_of_stack);
+}
+
+void	print_parsing_tree(t_tree_node *root, int depth)
+{
+	int	i;
+
+	if (root == NULL)
+		return ;
+	i = 0;
+	while (i < depth)
+	{
+		i++;
+		ft_printf("  ");
+	}
+	ft_printf("%i: Leaf Header: %d, Grammar Type: %d, Token Value: %s\n",
+		depth, root->leaf_header, root->grammar_type, root->token_value);
+	print_parsing_tree(root->left, depth + 1);
+	print_parsing_tree(root->right, depth + 1);
 }

@@ -6,12 +6,12 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:08:54 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 12:22:28 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:30:51 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minish.h"
-#include "../../../include/parsing.h"
+#include "../../../include/parser.h"
 #include "../../../include/libft.h"
 #include <unistd.h>
 

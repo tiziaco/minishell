@@ -19,3 +19,12 @@
 
 
     You start by shifting tokens one by one into the stack, following rules determined by the parsing table. When a reduce operation is encountered, a certain number of items are popped from the stack to form a subtree. This subtree is then added back into the parse tree (not the stack) which is being constructed during the parsing process.
+
+
+
+
+
+
+    ## Next things to do
+    - figure out how to best add the parsing tree to the cmd_struct
+    - what kind of structure makes the most sense?

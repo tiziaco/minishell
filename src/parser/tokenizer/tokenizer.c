@@ -6,12 +6,12 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:15:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/01 21:36:36 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:46:28 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minish.h"
-#include "../../../include/parsing.h"
+#include "../../../include/parser.h"
 #include "../../../include/libft.h"
 #include <unistd.h>
 
@@ -70,24 +70,13 @@ void	tokenize_input_string(char *input_str, t_token **token_stack)
 	}
 }
 
-int	tokenize_input(int argc, char *argv[], t_token **token_stack)
+int	tokenize_input(char *input_line, t_token **token_stack)
 {
 	int		i;
 
 	*token_stack = NULL;
-	if (argc == 2)
-	{
-		tokenize_input_string(argv[1], token_stack);
-	}
-	else if (argc > 2)
-	{
-		i = 1;
-		while (i < argc)
-		{
-			create_linked_token(argv[i], token_stack);
-			i++;
-		}
-	}
+
+	tokenize_input_string(input_line, token_stack);
 	print_token_stack(*token_stack);
 	return (0);
 }

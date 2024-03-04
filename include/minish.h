@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 15:43:33 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:52:42 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <termios.h>
 
 # include "libft.h"
+# include "parser.h"
 
 /* Macros */
 # define MSH_PROMPT "msh-> "
@@ -55,7 +56,7 @@ typedef struct s_cmd
 	char			*command;
 	char			**args;
 	bool 			is_piped;
-	bool 			redirect;
+	int 			redirect;
 	struct s_cmd	*next;
 	struct s_cmd	*previous;
 }	t_cmd;
@@ -87,6 +88,7 @@ int		remove_var(t_data *data, int key_index);
 
 /* Parsing */
 int		mini_parse_input(t_data *data);
+int		parse_input(t_data *data);
 
 /* Execution */
 bool	is_builtin(char *arg);

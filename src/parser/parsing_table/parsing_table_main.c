@@ -6,12 +6,12 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:32:49 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/02 23:27:42 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/04 18:21:44 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minish.h"
-#include "../../../include/parsing.h"
+#include "../../../include/parser.h"
 #include "../../../include/libft.h"
 #include <unistd.h>
 #include <fcntl.h>
@@ -77,7 +77,9 @@ void	parse_table(char *path, t_table *parsing_table)
 	int		fd;
 
 	initialise_table(parsing_table);
-	fd = open(path, O_RDWR);
+	path = NULL;
+	chdir("/home/jkaller/Desktop/HomeOf42/Core_Curriculum_Projects/Rank03");
+	fd = open("minishell/src/parser/files/parsing_table", O_RDWR);
 	if (fd == -1)
 		ft_printf("Error opening the file!!");
 	fill_table(fd, parsing_table);
