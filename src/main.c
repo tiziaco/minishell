@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/01 16:35:02 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:37:02 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	init_background_mode(t_data	*data, char *arg)
 	free_double_pointer(inputs);
 }
 
-/* int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
@@ -84,9 +84,11 @@ void	init_background_mode(t_data	*data, char *arg)
 		init_foreground_mode(data);
 	exit_shell(data, EXIT_SUCCESS);
 	return (0);
-} */
+}
 
-int	main(int _, char **__, char **envp)
+/* TEST main for background mode */
+
+/* int	main(int _, char **__, char **envp)
 {
 	t_data	*data;
 	int		argc = 3;
@@ -102,4 +104,4 @@ int	main(int _, char **__, char **envp)
 		init_foreground_mode(data);
 	exit_shell(data, EXIT_SUCCESS);
 	return (0);
-}
+} */

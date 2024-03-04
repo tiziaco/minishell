@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:50:51 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/28 10:37:12 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:49:32 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,20 @@ char	*search_command(char *command)
 	return (command_path);
 }
 
-void	exec_bin(char *command, char **arguments, char **envp)
+int	exec_bin(t_data *data)
 {
 	char	*command_path;
+	int		status;
 
-	command_path = search_command(command);
-	// Fork parent process
-	execve(command_path, arguments, envp);
-	// Waitpid
+	command_path = search_command(data->cmd->command);
+	if (command_path == NULL)
+		return (cmd_error(CMD_NOT_FOUND));
+	execve(command_path, data->cmd->args, data->envp);
+	/* if (execve(command_path, data->cmd->args, data->envp))
+	{
+		free(command_path);
+		return (EXIT_FAILURE);
+	} */
 	free(command_path);
+	return (EXIT_SUCCESS);
 }
