@@ -1,3 +1,4 @@
+
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -12,16 +13,22 @@
 
 NAME = minishell
 LIBFT_DIR = lib/libft
-LIBFT	= lib/libft/libft.a
 
-SRC =	$(wildcard src/*.c) $(wildcard src/parsing/*.c) $(wildcard src/parsing/tokenizer/*.c) $(wildcard src/parsing/parsing_table/*.c) $(wildcard src/parsing/parsing_tree/*.c) $(wildcard src/parsing/cleanup/*.c)
+SRC =	$(wildcard src/*.c) $(wildcard src/builtins/*.c) \
+		$(wildcard src/env/*.c) $(wildcard src/errors/*.c) \
+		$(wildcard src/execution/*.c) $(wildcard src/outils/*.c) \
+		$(wildcard src/parser/*.c) $(wildcard src/redirections/*.c) \
+		$(wildcard src/parsing/*.c) $(wildcard src/parsing/tokenizer/*.c) \
+		$(wildcard src/parsing/parsing_table/*.c) \
+		$(wildcard src/parsing/parsing_tree/*.c) \
+		$(wildcard src/parsing/cleanup/*.c)
 
 OBJ	= $(SRC:.c=.o)
 
 RM		= rm -f
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
-LINK = -Llib/libft -lft
+CFLAGS	= #-Wall -Wextra -Werror
+LINK = -Llib/libft -lft -lreadline
 
 all: $(NAME)
 
@@ -32,7 +39,7 @@ $(NAME): $(OBJ)
 	else \
 		echo "libft.a already exists."; \
 	fi
-		$(CC) -g -O0 $(OBJ) -Llib/libft -lft -o $(NAME)
+		$(CC) -g -O0 $(OBJ) $(LINK) -o $(NAME)
 
 src/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@

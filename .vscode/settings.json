@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "libft.h": "c",
+        "fcntl.h": "c",
+        "stdbool.h": "c",
+        "minish.h": "c",
+        "commands.h": "c",
+        "limits.h": "c",
+        "termios.h": "c",
+        "dirent.h": "c"
+    }
+}

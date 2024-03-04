@@ -4,9 +4,10 @@
 *.out
 *.a
 *.o
-*.json
 *.DS*
+test.*
 minishell
+main
 
 # Folders
 OLD/
