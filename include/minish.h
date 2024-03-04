@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 15:43:33 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:32:09 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_cmd
 	char			*command;
 	char			**args;
 	bool 			is_piped;
-	bool 			redirect;
+	int 			redirect;
 	struct s_cmd	*next;
 	struct s_cmd	*previous;
 }	t_cmd;

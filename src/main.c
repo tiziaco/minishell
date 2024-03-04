@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 15:43:15 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:39:30 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_foreground_mode(t_data *data)
 			exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
-		free_data(data, false);
+		//free_data(data, false);
 	}
 }
 

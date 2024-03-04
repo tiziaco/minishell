@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 15:41:31 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:49:17 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	execute_in_child_process(t_data *data)
 	return (wait_processes(data));
 }
 
-int	execute_command(t_data *data)
+/* int	execute_command(t_data *data)
 {
 	char	*command_path;
 
@@ -65,4 +65,39 @@ int	execute_command(t_data *data)
 	else
 		exec_bin(data);
 	return (OP_SUCCESS);
+} */
+
+int	execute_command(t_data *data)
+{
+	int		status;
+	char	*command_path;
+	t_cmd	*current_cmd;
+
+	current_cmd = data->cmd;
+	while (current_cmd != NULL)
+	{
+		if (is_builtin(current_cmd->command))
+			exec_builtin(data);
+		else
+		{
+			data->pid = fork();
+			if (data->pid == -1)
+				return (sys_error(FORK_ERROR));
+			else if (data->pid == 0)
+			{ // Child process
+				if (is_path(current_cmd->command))
+					exec_local_bin(data);
+				else
+					exec_bin(data);
+				// return (EXIT_SUCCESS);
+			}
+			else
+			{ // Parent process
+				// Wait for the child process to complete
+				waitpid(data->pid, &status, 0);
+			}
+		}
+	current_cmd = current_cmd->next;
+	}
+	return (EXIT_SUCCESS);
 }
