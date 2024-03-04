@@ -6,6 +6,8 @@
         "stdbool.h": "c",
         "minish.h": "c",
         "commands.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "termios.h": "c",
+        "dirent.h": "c"
     }
 }

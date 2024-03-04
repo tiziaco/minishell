@@ -15,6 +15,7 @@
                 "${fileDirname}/errors/sys_errors.c",
                 "${fileDirname}/execution/exec_bin.c", 
                 "${fileDirname}/execution/exec_builtin.c",
+                "${fileDirname}/execution/exec_local_bin.c", 
                 "${fileDirname}/execution/execute.c",
                 "${fileDirname}/parser/mini_parser.c",
                 "${fileDirname}/outils/env_outils.c",
