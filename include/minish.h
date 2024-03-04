@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/01 17:24:20 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/04 14:48:27 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
 # include <dirent.h>
 # include <termios.h>
 
@@ -31,14 +33,19 @@
 # define MSH_PROMPT "msh-> "
 # define TMP_FILENAME "/home/tiacovel/core_curriculum/minishell/heredoc_tmp.tmp"
 
-/* Error codes */
+/* System error */
 # define OP_SUCCESS		1
 # define OP_FAIL		-1
 # define MEM_ERROR  	2
 # define ARG_ERROR  	3
 # define CMD_ERROR		4
+# define FORK_ERROR		5
+
+/* Command errors */
 # define INVALID_KEY	10
 # define INVALID_PARM	11
+# define CMD_NOT_FOUND	12
+# define CMD_NOT_EXEC	13
 
 /* Struct / typedef / enum */
 typedef struct termios	t_term;
@@ -47,6 +54,10 @@ typedef struct s_cmd
 {
 	char	*command;
 	char	**args;
+	bool 	is_piped;
+	bool 	redirect;
+	t_cmd	*next;
+
 }	t_cmd;
 
 typedef struct s_data
@@ -59,6 +70,7 @@ typedef struct s_data
 	char	**envp;
 	char	*token; //To be modified accoring to our token struct
 	t_cmd	*cmd;
+	pid_t	pid;
 }	t_data;
 
 /* Initialization functions */
@@ -74,11 +86,15 @@ int		set_var(t_data *data, char *key, char *val);
 int		remove_var(t_data *data, int key_index);
 
 /* Parsing */
-int	parse_input(t_data *data);
+int		parse_input(t_data *data);
 
 /* Execution */
 bool	is_builtin(char *arg);
+bool	is_path(char *str);
 int		exec_builtin(t_data *data);
+int		exec_local_bin(t_data *data);
+int		exec_bin(t_data *data);
+int		execute_command(t_data *data);
 
 /* Error handlers */
 int		sys_error(int err_code);
