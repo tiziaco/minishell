@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/02 21:11:33 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/04 13:16:53 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,19 @@ typedef enum
 	HERE_END = 110
 }	GrammarTypes;
 
-typedef enum e_ast_types
+typedef enum
 {
-	A_CMD = 0,
-	A_RED_TO,
-	A_RED_FROM,
-	A_DLESS,
-	A_DGREAT,
-	A_PIPE,
-	A_PARAM,
-	A_FILE,
-	A_LIMITER
-}	t_ast_types;
+	TREE_ROOT = -2,
+	TREE_CMD = 0,
+	TREE_RED_TO = 1,
+	TREE_RED_FROM = 2,
+	TREE_DLESS = 3,
+	TREE_DGREAT = 4,
+	TREE_PIPE = 5,
+	TREE_PARAM = 6,
+	TREE_FILE = 7,
+	TREE_LIMITER = 8
+}	TreeTypes;
 
 typedef struct s_table
 {
@@ -135,11 +136,20 @@ int	tokenize_input(int argc, char *argv[], t_token **token_stack);
 /* Utility functions */
 void	ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token	*ft_lstnew_token(char *value, TokenTypes token_type);
-void	free_token_stack(t_token *token_stack);
 void	print_token_stack(t_token *token_stack);
 
 // Parse parsing table to data structure
 void	parse_table(char *path, t_table *parsing_table);
 void print_parsing_tree(t_tree_node *root, int depth);
+
+//clean up
+t_tree_node	*clarify_grammar_types(t_tree_node *parsing_tree);
+void	free_all(t_table *parsing_table,
+	t_token *token_stack, t_tree_node *abstract_syntax_tree);
+void	free_syntax_tree(t_tree_node *abstract_syntax_tree);
+void	free_table(t_table *parsing_table);
+void	free_token_stack(t_token *token_stack);
+void	free_stack(t_tree_stack *tree_stack);
+void	free_subtree(t_tree_stack *subtree);
 
 #endif

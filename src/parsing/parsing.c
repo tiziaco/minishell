@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/02 21:48:44 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/04 13:15:11 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,60 +15,22 @@
 #include "../../include/libft.h"
 #include <unistd.h>
 
-void	free_table(t_table *parsing_table)
+void	print_parsing_tree(t_tree_node *root, int depth)
 {
-	while (parsing_table != NULL)
+	int	i;
+
+	if (root == NULL)
+		return ;
+	i = 0;
+	while (i < depth)
 	{
-		free(parsing_table);
-		parsing_table++;
+		i++;
+		ft_printf("  ");
 	}
-	free(parsing_table);
-}
-
-// void	print_parsing_tree(t_tree_node *node)
-// {
-// 	static int count = 0;
-// 	if (!node)
-// 		return ;
-// 	count++;
-// 	ft_printf("%i:Node Info - leaf_header: %d, grammar_type: %d, token_value: %s\n",
-// 		count, node->leaf_header, node->grammar_type, node->token_value);
-// 	if (node->left)
-// 	{
-// 		//ft_printf("Going left\n");
-// 		//sleep(1);
-// 		print_parsing_tree(node->left);
-// 	}
-// 	if (node->right)
-// 	{
-// 		//ft_printf("Going right\n");
-// 		//sleep(1);
-// 		print_parsing_tree(node->right);
-// 	}
-// 	if (node->next)
-// 	{
-// 		//ft_printf("Going next\n");
-// 		//sleep(1);
-// 		print_parsing_tree(node->next);
-// 	}
-// }
-
-void print_parsing_tree(t_tree_node *root, int depth)
-{
-    if (root == NULL) {
-        return;
-    }
-
-    // Print the current node
-    for (int i = 0; i < depth; i++) {
-        ft_printf("  "); // Adjust spacing for better visualization
-    }
-    ft_printf("%i: Leaf Header: %d, Grammar Type: %d, Token Value: %s\n",
-           depth, root->leaf_header, root->grammar_type, root->token_value);
-
-    // Recursively print the left and right subtrees
-    print_parsing_tree(root->left, depth + 1);
-    print_parsing_tree(root->right, depth + 1);
+	ft_printf("%i: Leaf Header: %d, Grammar Type: %d, Token Value: %s\n",
+		depth, root->leaf_header, root->grammar_type, root->token_value);
+	print_parsing_tree(root->left, depth + 1);
+	print_parsing_tree(root->right, depth + 1);
 }
 
 int	parse_input(int argc, char *argv[])
@@ -84,8 +46,6 @@ int	parse_input(int argc, char *argv[])
 	parse_table(PARSING_TABLE_PATH, parsing_table);
 	abstract_syntax_tree = create_syntax_tree(token_stack, &parsing_table);
 	print_parsing_tree(abstract_syntax_tree, 0);
-	free(parsing_table);
-	free(abstract_syntax_tree);
-	free_token_stack(token_stack);
+	free_all(parsing_table, token_stack, abstract_syntax_tree);
 	return (0);
 }

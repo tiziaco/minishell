@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_table_handler.c                            :+:      :+:    :+:   */
+/*   parsing_table_main.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:32:49 by jkaller           #+#    #+#             */
-/*   Updated: 2024/02/26 15:43:17 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/02 23:27:42 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,10 @@ void	free_row(char **row_values)
 void	fill_row(char **row_values, t_table *parsing_table)
 {
 	(*parsing_table).state = ft_atoi(row_values[0]);
-	//ft_printf("state: %i\n", (*parsing_table).state);
 	(*parsing_table).token_grammar_type = ft_atoi(row_values[1]);
-	//ft_printf("token_grammar_type: %i\n", (*parsing_table).token_grammar_type);
 	(*parsing_table).action = ft_atoi(row_values[2]);
-	///ft_printf("action: %i\n", (*parsing_table).action);
 	(*parsing_table).next_state = ft_atoi(row_values[3]);
-	//ft_printf("next_state: %i\n", (*parsing_table).next_state);
 	(*parsing_table).reduced_token = ft_atoi(row_values[4]);
-	//ft_printf("reduced_token: %i\n", (*parsing_table).reduced_token);
 }
 
 int	fill_table(int fd, t_table *parsing_table)
