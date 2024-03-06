@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 17:49:17 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:20:39 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,12 @@ int	execute_command(t_data *data)
 	char	*command_path;
 	t_cmd	*current_cmd;
 
+	init_pipes(data);
 	current_cmd = data->cmd;
 	while (current_cmd != NULL)
 	{
+		set_pipe_fds(data->cmd, current_cmd);
+		// close_fds(data->cmd, false);
 		if (is_builtin(current_cmd->command))
 			exec_builtin(data);
 		else
@@ -89,7 +92,6 @@ int	execute_command(t_data *data)
 					exec_local_bin(data);
 				else
 					exec_bin(data);
-				// return (EXIT_SUCCESS);
 			}
 			else
 			{ // Parent process

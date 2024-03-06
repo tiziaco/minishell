@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:15:37 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/01 17:35:46 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:42:57 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ t_data	*init_data(char **envp)
 	data->envp = copy_environment(envp, get_env_size(envp));
 	if (!data->envp)
 		exit_shell(data, EXIT_FAILURE);
-	// Save the default STDIN and STDOUT
+	data->std_in = dup(STDIN_FILENO);
+	data->std_out = dup(STDOUT_FILENO);
+	tcgetattr(STDIN_FILENO, &data->term);
 	data->cmd->command = NULL;
 	data->cmd->args = NULL;
 	data->line = NULL;
