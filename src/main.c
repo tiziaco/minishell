@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 17:39:30 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:15:42 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void	init_foreground_mode(t_data *data)
 
 	while (1)
 	{
-		/* set_signals_interactive();
-		set_signals_noninteractive(); */
+		init_signals(data);
+		/* set_signals_noninteractive(); */
 		data->line = readline(MSH_PROMPT);
-		// Add line to history
+		if (data->line[0])
+			add_history(data->line);
 		if (mini_parse_input(data) == OP_SUCCESS)
 			exit_code = execute_command(data);
 		else
