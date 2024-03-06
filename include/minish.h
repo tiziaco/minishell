@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 16:32:09 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:55:02 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ typedef struct s_cmd
 	char			**args;
 	bool 			is_piped;
 	int 			redirect;
+	int				*pipe_fd;
 	struct s_cmd	*next;
-	struct s_cmd	*previous;
+	struct s_cmd	*prev;
 }	t_cmd;
 
 typedef struct s_data
@@ -75,6 +76,7 @@ typedef struct s_data
 
 /* Initialization functions */
 t_data	*init_data(char **envp);
+void	init_signals(t_data *data);
 void	exit_shell(t_data *data, int exit_code);
 
 /* Environment functions */
@@ -87,6 +89,11 @@ int		remove_var(t_data *data, int key_index);
 
 /* Parsing */
 int		mini_parse_input(t_data *data);
+
+/* Redirections and pipes */
+int		init_pipes(t_data *data);
+int		set_pipe_fds(t_cmd *cmds, t_cmd *cmd);
+void	close_pipe_fds(t_cmd *cmds, t_cmd *skip_cmd);
 
 /* Execution */
 bool	is_builtin(char *arg);
