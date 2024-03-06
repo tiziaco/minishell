@@ -36,6 +36,8 @@
                 "${fileDirname}/parsing/parsing.c",
                 "${fileDirname}/redirections/input.c",
                 "${fileDirname}/redirections/output.c",
+                "${fileDirname}/redirections/pipe.c",
+                "${fileDirname}/redirections/redirect.c",
                 "-L${fileDirname}/../lib/libft",
                 "-L/opt/homebrew/opt/readline/lib",
                 "-I/opt/homebrew/opt/readline/include",
