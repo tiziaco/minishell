@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/05 15:55:02 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:07:13 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@
 
 # include "libft.h"
 
-/* Macros */
+/* System vars */
 # define MSH_PROMPT "msh-> "
 # define TMP_FILENAME "/home/tiacovel/core_curriculum/minishell/heredoc_tmp.tmp"
+
+/* Redirections */
+# define RED_OUT_APP	1
+# define RED_OUT_TRUNC	2
+# define RED_IN			3
+# define RED_IN_HERE	4
 
 /* System error */
 # define OP_SUCCESS		1
@@ -47,6 +53,13 @@
 # define CMD_NOT_FOUND	12
 # define CMD_NOT_EXEC	13
 
+/* Redirection errors */
+# define FILE_NF		20
+# define RED_IN_ERR		21
+# define RED_OUT_ERR	22
+# define INVALID_FNAME	23
+
+
 /* Struct / typedef / enum */
 typedef struct termios	t_term;
 
@@ -57,6 +70,12 @@ typedef struct s_cmd
 	bool 			is_piped;
 	int 			redirect;
 	int				*pipe_fd;
+	char			*file_name;
+	char			*heredoc_delim;
+	int 			pipe_in;
+	int				pipe_out;
+	int				fd_in;
+	int				fd_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -69,7 +88,6 @@ typedef struct s_data
 	t_term	term;
 	char	*line;
 	char	**envp;
-	char	*token; //To be modified accoring to our token struct
 	t_cmd	*cmd;
 	pid_t	pid;
 }	t_data;
@@ -95,6 +113,13 @@ int		init_pipes(t_data *data);
 int		set_pipe_fds(t_cmd *cmds, t_cmd *cmd);
 void	close_pipe_fds(t_cmd *cmds, t_cmd *skip_cmd);
 
+int		set_redirection(t_data *data, t_cmd *cmd);
+int		restore_std_io(t_data *data, t_cmd *cmd);
+int		output_truncate(t_cmd *cmd);
+int		output_append(t_cmd *cmd);
+int		input_redirection(t_cmd *cmd);
+int		input_heredoc(t_cmd *cmd);
+
 /* Execution */
 bool	is_builtin(char *arg);
 bool	is_path(char *str);
@@ -106,6 +131,7 @@ int		execute_command(t_data *data);
 /* Error handlers */
 int		sys_error(int err_code);
 int		cmd_error(int err_code);
+int		red_error(int err_code);
 
 /* Outils */
 char	*ft_strcat(char *dest, char *src);
