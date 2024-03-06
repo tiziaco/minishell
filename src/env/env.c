@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:30:21 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/01 12:37:28 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:19:16 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	set_var(t_data *data, char *key, char *val)
 		data->envp[key_index] = ft_strdup(env_var);
 	}
 	free_pointer(env_var);
-	return(OP_SUCCESS);
+	return (OP_SUCCESS);
 }
 
 int	remove_var(t_data *data, int key_index)

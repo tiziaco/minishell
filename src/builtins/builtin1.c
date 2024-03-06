@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/05 11:16:39 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:19:59 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_exit(void)
 int	ft_env(char **envp)
 {
 	char	**curr_env;
-	
+
 	curr_env = envp;
 	while (*curr_env != NULL)
 	{

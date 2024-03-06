@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 16:18:09 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:03:10 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 			ret = EXIT_FAILURE;
 		// close(io->stdin_backup);
 	}
-	if (cmd->fd_out!= data->std_out)
+	if (cmd->fd_out != data->std_out)
 	{
 		if (dup2(data->std_out, STDOUT_FILENO) == -1)
 			ret = EXIT_FAILURE;

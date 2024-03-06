@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:37:05 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 16:06:56 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:01:07 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	input_heredoc(t_cmd *cmd)
 	int		fd;
 
 	fd = open(TMP_FILENAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd == -1)
+	if (fd == -1)
 		return (red_error(FILE_NF));
 	line_read = readline("> ");
 	while (ft_strcmp(line_read, cmd->heredoc_delim))

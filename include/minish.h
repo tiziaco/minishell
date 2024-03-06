@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 16:07:13 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:04:41 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -95,6 +96,7 @@ typedef struct s_data
 /* Initialization functions */
 t_data	*init_data(char **envp);
 void	init_signals(t_data *data);
+void	sigquit_handler(int num);
 void	exit_shell(t_data *data, int exit_code);
 
 /* Environment functions */
