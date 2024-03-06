@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:37:05 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/26 12:25:57 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:02:12 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,38 @@ static int	check_file_name(char *file_name)
 		return (0);
 	if (file_name[0] == '\0')
 		return (0);
-	if (ft_strcmp(file_name, ".") == 0)
-		return (0);
 	return (1);
 }
 
-void	output_redirection(char *redirection, char *file_name)
+int	output_truncate(t_cmd *cmd)
 {
-	int	file_descriptor;
+	int	fd;
 
-	if (check_file_name(file_name) == 0)
-	{
-		perror("Invalid file name");
-		return ;
-	}
-	if (ft_strcmp(redirection, ">") == 0)
-		file_descriptor = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	else if (ft_strcmp(redirection, ">>") == 0)
-		file_descriptor = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	if (file_descriptor == -1)
-	{
-		perror("Failed to open file");
-		return ;
-	}
-	if (dup2(file_descriptor, STDOUT_FILENO) == -1)
-	{
-		perror("Failed to redirect stdout");
-		close(file_descriptor);
-	}
+	if (check_file_name(cmd->file_name) == 0)
+		return (red_error(INVALID_FNAME));
+	fd = open(cmd->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (fd == -1)
+		return (red_error(FILE_NF));
+	if (dup2(fd, STDOUT_FILENO) == -1)
+		return (red_error(RED_OUT_ERR));
+	close(fd);
 	// Execute the command
 	// After the execution of the command, restore the value of 
 	// STDIN to the default one
+	return (EXIT_SUCCESS);
+}
+
+int	output_append(t_cmd *cmd)
+{
+	int	fd;
+
+	if (check_file_name(cmd->file_name) == 0)
+		return (red_error(INVALID_FNAME));
+	fd = open(cmd->file_name, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (fd == -1)
+		return (red_error(FILE_NF));
+	if (dup2(fd, STDOUT_FILENO) == -1)
+		return (red_error(RED_OUT_ERR));
+	close(fd);
+	return (EXIT_SUCCESS);
 }

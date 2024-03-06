@@ -6,32 +6,30 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/05 16:30:22 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:18:09 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
 
-int	restore_io(t_data *data, t_cmd *cmd)
+int	restore_std_io(t_data *data, t_cmd *cmd)
 {
 	int	ret;
 
-	ret = true;
+	ret = EXIT_SUCCESS;
 	if (!cmd)
 		return (ret);
-	if (data->std_in != -1)
+	if (cmd->fd_in != data->std_in)
 	{
-		if (dup2(io->stdin_backup, STDIN_FILENO) == -1)
+		if (dup2(data->std_in, STDIN_FILENO) == -1)
 			ret = EXIT_FAILURE;
-		close(io->stdin_backup);
-		io->stdin_backup = -1;
+		// close(io->stdin_backup);
 	}
-	if (io->stdout_backup != -1)
+	if (cmd->fd_out!= data->std_out)
 	{
-		if (dup2(io->stdout_backup, STDOUT_FILENO) == -1)
+		if (dup2(data->std_out, STDOUT_FILENO) == -1)
 			ret = EXIT_FAILURE;
-		close(io->stdout_backup);
-		io->stdout_backup = -1;
+		// close(io->stdout_backup);
 	}
 	return (ret);
 }
@@ -42,12 +40,24 @@ int	restore_io(t_data *data, t_cmd *cmd)
 *	to restore them after execution.
 *	Returns 1 for success, 0 in case of error.
 */
-int	redirect_io(t_io_fds *io)
+int	set_redirection(t_data *data, t_cmd *cmd)
+{
+	if (cmd->redirect == RED_OUT_TRUNC)
+		return (output_truncate(cmd));
+	else if (cmd->redirect == RED_OUT_APP)
+		return (output_append(cmd));
+	else if (cmd->redirect == RED_IN)
+		return (input_redirection(cmd));
+	else if (cmd->redirect == RED_IN_HERE)
+		return (input_heredoc(cmd));
+	return (EXIT_SUCCESS);
+}
+/* int	redirect_io(t_data *data, t_cmd *cmd)
 {
 	int	ret;
 
-	ret = true;
-	if (!io)
+	ret = EXIT_SUCCESS;
+	if (!cmd)
 		return (ret);
 	io->stdin_backup = dup(STDIN_FILENO);
 	if (io->stdin_backup == -1)
@@ -62,4 +72,4 @@ int	redirect_io(t_io_fds *io)
 		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
 			ret = errmsg_cmd("dup2", io->outfile, strerror(errno), false);
 	return (ret);
-}
+} */
