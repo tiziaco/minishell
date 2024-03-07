@@ -6,13 +6,13 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 15:41:31 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:42:19 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
 
-static int	wait_processes(t_data *data)
+/* static int	wait_processes(t_data *data)
 {
 	pid_t	wpid;
 	int		status;
@@ -35,34 +35,45 @@ static int	wait_processes(t_data *data)
 	else
 		status = save_status;
 	return (status);
-}
+} */
 
-static int	execute_in_child_process(t_data *data)
+static int	execute_in_child_process(t_data *data, t_cmd *current_cmd)
 {
-	t_cmd	*cmd;
+	int	status;
 
-	cmd = data->cmd;
-	while (data->pid != 0 && cmd)
+	data->pid = fork();
+	if (data->pid == -1)
+		return (sys_error(FORK_ERROR));
+	else if (data->pid == 0)
 	{
-		data->pid = fork();
-		if (data->pid == -1)
-			return (sys_error(FORK_ERROR));
-		else if (data->pid == 0)
-			execute_command(data);
-		cmd = cmd->next;
+		if (is_path(current_cmd->command))
+			status = exec_local_bin(data);
+		else
+			status = exec_bin(data);
 	}
-	return (wait_processes(data));
+	else
+		waitpid(data->pid, &status, 0);
+	return (status);
 }
 
 int	execute_command(t_data *data)
 {
+	int		status;
 	char	*command_path;
+	t_cmd	*current_cmd;
 
-	if (is_builtin(data->cmd->command))
-		exec_builtin(data);
-	else if (is_path(data->cmd->command))
-		exec_local_bin(data);
-	else
-		exec_bin(data);
-	return (OP_SUCCESS);
+	init_pipes(data);
+	current_cmd = data->cmd;
+	while (current_cmd != NULL)
+	{
+		set_pipe_fds(data->cmd, current_cmd);
+		set_redirection(data, current_cmd);
+		if (is_builtin(current_cmd->command))
+			status = exec_builtin(data);
+		else
+			status = execute_in_child_process(data, current_cmd);
+		restore_std_io(data, current_cmd);
+		current_cmd = current_cmd->next;
+	}
+	return (status);
 }

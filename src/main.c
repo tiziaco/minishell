@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 15:43:15 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:27:43 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,19 @@ void	init_foreground_mode(t_data *data)
 {
 	int	exit_code;
 
+	init_signals(data);
 	while (1)
 	{
-		/* set_signals_interactive();
-		set_signals_noninteractive(); */
 		data->line = readline(MSH_PROMPT);
-		// Add line to history
+		if (data->line == NULL)
+			break;
+		if (data->line && data->line[0])
+			add_history(data->line);
 		if (mini_parse_input(data) == OP_SUCCESS)
 			exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
-		free_data(data, false);
+		//free_data(data, false);
 	}
 }
 
@@ -65,7 +67,7 @@ void	init_background_mode(t_data	*data, char *arg)
 		else
 			exit_code = OP_FAIL;
 		i++;
-		free_data(data, false);
+		//free_data(data, false);
 	}
 	free_double_pointer(inputs);
 }

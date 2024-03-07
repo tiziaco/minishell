@@ -6,12 +6,12 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/02/28 17:19:02 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:19:59 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
-#include <linux/limits.h>
+// #include <linux/limits.h>
 
 int	ft_echo(char **str)
 {
@@ -65,7 +65,7 @@ int	ft_exit(void)
 int	ft_env(char **envp)
 {
 	char	**curr_env;
-	
+
 	curr_env = envp;
 	while (*curr_env != NULL)
 	{
