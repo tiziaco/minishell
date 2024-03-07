@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 18:17:01 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 15:04:26 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_token
 /* Parsing Tree */
 t_tree_node	*create_syntax_tree(t_token *token_stack,
 			t_table **parsing_table);
-			// parsing_tree_utils
+// parsing_tree_utils
 t_tree_stack	*intialise_stack();
 t_token	*get_next_token(t_token *token_stack);
 t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack);
@@ -151,5 +151,8 @@ void	free_table(t_table *parsing_table);
 void	free_token_stack(t_token *token_stack);
 void	free_stack(t_tree_stack *tree_stack);
 void	free_subtree(t_tree_stack *subtree);
+
+
+//tree to cmd
 
 #endif

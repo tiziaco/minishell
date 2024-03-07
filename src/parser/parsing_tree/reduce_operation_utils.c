@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 19:28:12 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 17:31:02 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:54:22 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,9 @@ int	add_children(t_tree_node **parsing_tree, t_tree_node *leaf_header, t_tree_st
 		if (!child)
 			return (-1);
 		if (++child_added_flag == 0)
-		{
 			leaf_header->right = child;
-		}
 		else
-		{
 			leaf_header->left = child;
-		}
 		if (child_added_flag == 1 && (*subtree)->next)
 			leaf_header = leaf_header->left;
 		(*subtree) = (*subtree)->next;

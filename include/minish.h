@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 17:52:42 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 15:00:13 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,20 @@ typedef struct termios	t_term;
 
 typedef struct s_cmd
 {
-	char			*command;
-	char			**args;
-	bool 			is_piped;
-	int 			redirect;
-	struct s_cmd	*next;
-	struct s_cmd	*previous;
-}	t_cmd;
+    char            *command;
+    char            **args;
+    bool            is_piped;
+    int             redirect;
+    int             *pipe_fd;
+    char            *filename;
+    char            *heredoc_delim;
+    int             pipe_in;
+    int             pipe_out;
+    int             fd_in;
+    int             fd_out;
+    struct s_cmd    *next;
+    struct s_cmd    *prev;
+}   t_cmd;
 
 typedef struct s_data
 {
@@ -69,7 +76,7 @@ typedef struct s_data
 	t_term	term;
 	char	*line;
 	char	**envp;
-	char	*token; //To be modified accoring to our token struct
+	char	*token; //To be modified accoring to our token struct (probably dont need this)
 	t_cmd	*cmd;
 	pid_t	pid;
 }	t_data;
@@ -89,6 +96,15 @@ int		remove_var(t_data *data, int key_index);
 /* Parsing */
 int		mini_parse_input(t_data *data);
 int		parse_input(t_data *data);
+void	fill_command_struct(t_tree_node *tree, t_cmd *commands);
+t_cmd	*add_to_command_struct(t_tree_node *tree);
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+void	print_command_struct(t_cmd	*commands);
+void    print_node(t_tree_node *tree);
+void	print_command_args(char	**args);
+void	print_entire_command_struct(t_cmd	*commands);
+void	free_command_struct(t_cmd *command_stack);
+
 
 /* Execution */
 bool	is_builtin(char *arg);

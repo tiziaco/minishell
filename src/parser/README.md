@@ -26,5 +26,7 @@
 
 
     ## Next things to do
-    - figure out how to best add the parsing tree to the cmd_struct
-    - what kind of structure makes the most sense?
+    - check for edge cases
+        - `< in wc`
+        - the parsing table correctly interprets this, but how should we handle this?
+    - how to add prefixes into the command struct

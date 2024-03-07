@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 17:42:54 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/05 20:05:40 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_foreground_mode(t_data *data)
 		// Add line to history
 		if (mini_parse_input(data) == OP_SUCCESS)
 		{
-			parse_input(data);
+			parse_input(data); //this should replace mini_parse_input
 			exit_code = execute_command(data);
 		}
 		else
@@ -73,21 +73,45 @@ void	init_background_mode(t_data	*data, char *arg)
 	free_double_pointer(inputs);
 }
 
-int	main(int argc, char **argv, char **envp)
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_data	*data;
+
+// 	data = init_data(envp);
+// 	if (!data)
+// 		return (EXIT_FAILURE);
+// 	check_args(data, argc, argv);
+// 	if (data->background_mode)
+// 		init_background_mode(data, argv[2]);
+// 	else
+// 		init_foreground_mode(data);
+// 	exit_shell(data, EXIT_SUCCESS);
+// 	return (0);
+// }
+
+t_data	*init(t_data *data, char *str)
+{
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!data->cmd)
+		return (NULL);
+	data->envp = NULL;
+	data->cmd = NULL;
+	data->line =ft_strdup(str);
+	data->token = NULL;
+	return (data);
+}
+
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data = init_data(envp);
-	if (!data)
-		return (EXIT_FAILURE);
-	check_args(data, argc, argv);
-	if (data->background_mode)
-		init_background_mode(data, argv[2]);
-	else
-		init_foreground_mode(data);
-	exit_shell(data, EXIT_SUCCESS);
-	return (0);
+	data = init(data, argv[1]);
+	parse_input(data);
 }
+
 
 /* TEST main for background mode */
 

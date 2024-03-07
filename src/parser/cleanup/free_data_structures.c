@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 17:30:35 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 15:05:09 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,41 @@ void	free_syntax_tree(t_tree_node *root)
 	if (root->token_value)
 		free(root->token_value);
 	free(root);
+}
+
+void	free_args(char **args)
+{
+	int index;
+
+	index = 0;
+	while (args[index])
+	{
+		free(args[index]);
+		index++;
+	}
+	free(args);
+}
+
+void	free_command_struct(t_cmd *command_stack)
+{
+	t_cmd *current_node;
+	
+	
+	while (command_stack)
+	{
+		current_node = command_stack;
+		if (current_node->command)
+			free(current_node->command);
+		if (current_node->args)
+			free_args(current_node->args);
+		if (current_node->filename)
+			free(current_node->filename);
+		if (current_node->heredoc_delim)
+			free(current_node->heredoc_delim);
+		current_node->prev = NULL;
+		command_stack = command_stack->next;
+		free(current_node);
+	}
 }
 
 void	free_all(t_table *parsing_table,
