@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 14:49:29 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 16:41:53 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	add_args(t_tree_node *tree_node, t_cmd *command, char *token_value)
 
 void	add_file(t_tree_node *tree_node, t_cmd *command, char *filename)
 {
-	if (!command->filename)
-		command->filename = (char *)malloc((ft_strlen(filename) + 1) * sizeof(char));
-	(*command).filename = filename;
+	if (!command->file_name)
+		command->file_name = (char *)malloc((ft_strlen(filename) + 1) * sizeof(char));
+	(*command).file_name = filename;
 	filename = NULL;
 	ft_printf("file detected\n");
 	print_command_struct(command);

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 15:05:09 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 16:41:08 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	free_command_struct(t_cmd *command_stack)
 			free(current_node->command);
 		if (current_node->args)
 			free_args(current_node->args);
-		if (current_node->filename)
-			free(current_node->filename);
+		if (current_node->file_name)
+			free(current_node->file_name);
 		if (current_node->heredoc_delim)
 			free(current_node->heredoc_delim);
 		current_node->prev = NULL;

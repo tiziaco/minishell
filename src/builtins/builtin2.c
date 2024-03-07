@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:39:24 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/01 12:36:58 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:19:40 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	check_key_name(char *var)
 static char	**get_key_val(char *arg)
 {
 	char	**key_val;
-	
+
 	key_val = ft_split(arg, '=');
 	return (key_val);
 }

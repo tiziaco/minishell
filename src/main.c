@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/05 20:05:40 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 16:40:44 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ void	init_foreground_mode(t_data *data)
 {
 	int	exit_code;
 
+	init_signals(data);
 	while (1)
 	{
-		/* set_signals_interactive();
-		set_signals_noninteractive(); */
 		data->line = readline(MSH_PROMPT);
-		// Add line to history
+		if (data->line == NULL)
+			break;
+		if (data->line && data->line[0])
+			add_history(data->line);
 		if (mini_parse_input(data) == OP_SUCCESS)
 		{
 			parse_input(data); //this should replace mini_parse_input
@@ -46,7 +48,7 @@ void	init_foreground_mode(t_data *data)
 		}
 		else
 			exit_code = OP_FAIL;
-		free_data(data, false);
+		//free_data(data, false);
 	}
 }
 
@@ -68,7 +70,7 @@ void	init_background_mode(t_data	*data, char *arg)
 		else
 			exit_code = OP_FAIL;
 		i++;
-		free_data(data, false);
+		//free_data(data, false);
 	}
 	free_double_pointer(inputs);
 }
@@ -100,7 +102,6 @@ t_data	*init(t_data *data, char *str)
 	data->envp = NULL;
 	data->cmd = NULL;
 	data->line =ft_strdup(str);
-	data->token = NULL;
 	return (data);
 }
 

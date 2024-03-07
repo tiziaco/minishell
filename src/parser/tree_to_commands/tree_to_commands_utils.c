@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:28:01 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 15:52:09 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 16:42:30 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_command_struct(t_cmd	*commands)
 		(*commands).is_piped,
 		(*commands).redirect,
 		(*commands).pipe_fd,
-		(*commands).filename,
+		(*commands).file_name,
 		(*commands).heredoc_delim,
 		(*commands).pipe_in,
 		(*commands).pipe_out,
@@ -57,7 +57,7 @@ void	print_entire_command_struct(t_cmd	*commands)
 		(*commands).is_piped,
 		(*commands).redirect,
 		(*commands).pipe_fd,
-		(*commands).filename,
+		(*commands).file_name,
 		(*commands).heredoc_delim,
 		(*commands).pipe_in,
 		(*commands).pipe_out,

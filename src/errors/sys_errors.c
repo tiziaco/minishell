@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:48:07 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 14:48:48 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:16:22 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,18 @@ int	cmd_error(int err_code)
 		printf("Command not found.\n");
 	else if (err_code == CMD_NOT_EXEC)
 		printf("Command not executable.\n");
+	return (err_code);
+}
+
+int	red_error(int err_code)
+{
+	if (err_code == FILE_NF)
+		printf("File not found.\n");
+	else if (err_code == RED_IN_ERR)
+		printf("Failed to redirect stdin.\n");
+	else if (err_code == RED_OUT_ERR)
+		printf("Failed to redirect stdout.\n");
+	else if (err_code == INVALID_FNAME)
+		printf("Invalid file name.\n");
 	return (err_code);
 }
