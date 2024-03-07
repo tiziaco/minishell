@@ -37,12 +37,10 @@ HIDE = @
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@if [ ! -f $(LIBFT_DIR)/libft.a ]; then \
-		$(HIDE) make -C $(LIBFT_DIR); \
-	fi
-		@echo "\033[0;32mlibft COMPILED.\033[0m"
-		$(HIDE) $(CC) -g -O0 $(OBJ) $(LINK_DIR) $(INCLUDE) -o $(NAME) $(LINK_LIB)
-		@echo "\033[1;32mPROGRAM COMPILED 🥳\033[0m"
+	@if [ ! -f $(LIBFT_DIR)/libft.a ]; then make -C $(LIBFT_DIR); fi
+	@echo "\033[0;32mlibft COMPILED.\033[0m"
+	$(HIDE) $(CC) -g -O0 $(OBJ) $(LINK_DIR) $(INCLUDE) -o $(NAME) $(LINK_LIB)
+	@echo "\033[1;32mPROGRAM COMPILED 🥳\033[0m"
 
 src/%.o: src/%.c
 	$(HIDE) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
