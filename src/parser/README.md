@@ -28,5 +28,13 @@
     ## Next things to do
     - check for edge cases
         - `< in wc`
-        - the parsing table correctly interprets this, but how should we handle this?
+        - the parsing table correctly interprets this, but how should we handle this? -> add command as NULL 
     - how to add prefixes into the command struct
+
+
+
+
+    Things to finish
+    - double free
+    - why deos it detect the suffix twice?
+    - fill initialised header
