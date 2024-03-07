@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/07 16:40:44 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 16:47:49 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_foreground_mode(t_data *data)
 {
 	int	exit_code;
 
+	init_signals(data);
 	init_signals(data);
 	while (1)
 	{
@@ -70,6 +71,7 @@ void	init_background_mode(t_data	*data, char *arg)
 		else
 			exit_code = OP_FAIL;
 		i++;
+		//free_data(data, false);
 		//free_data(data, false);
 	}
 	free_double_pointer(inputs);

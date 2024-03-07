@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/07 16:38:45 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 16:46:51 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ typedef struct s_data
 t_data	*init_data(char **envp);
 void	init_signals(t_data *data);
 void	sigquit_handler(int num);
+void	init_signals(t_data *data);
+void	sigquit_handler(int num);
 void	exit_shell(t_data *data, int exit_code);
 
 /* Environment functions */
@@ -132,6 +134,18 @@ void	print_command_args(char	**args);
 void	print_entire_command_struct(t_cmd	*commands);
 void	free_command_struct(t_cmd *command_stack);
 
+
+/* Redirections and pipes */
+int		init_pipes(t_data *data);
+int		set_pipe_fds(t_cmd *cmds, t_cmd *cmd);
+void	close_pipe_fds(t_cmd *cmds, t_cmd *skip_cmd);
+
+int		set_redirection(t_data *data, t_cmd *cmd);
+int		restore_std_io(t_data *data, t_cmd *cmd);
+int		output_truncate(t_cmd *cmd);
+int		output_append(t_cmd *cmd);
+int		input_redirection(t_cmd *cmd);
+int		input_heredoc(t_cmd *cmd);
 
 /* Execution */
 bool	is_builtin(char *arg);
