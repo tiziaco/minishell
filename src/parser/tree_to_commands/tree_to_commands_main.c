@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:37:20 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 16:42:16 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 20:07:12 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*init_cmd(void)
 
 	commmand_stack = (t_cmd *)ft_calloc(sizeof(*commmand_stack), 1);
 	if (!commmand_stack)
-		exit(-1);
+		return (NULL); //COMMENT: modify this
 	commmand_stack->redirect = -1;
 	return (commmand_stack);
 }
@@ -32,5 +32,5 @@ t_cmd	*add_to_command_struct(t_tree_node *tree)
 	
 	commmand_stack = init_cmd();
 	fill_command_struct(tree, commmand_stack);
-	return(commmand_stack);
+	return (commmand_stack);
 }

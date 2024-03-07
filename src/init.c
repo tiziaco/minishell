@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:15:37 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 16:24:41 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:08:20 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/commands.h"
 
-void	init_cmd(t_cmd *cmd)
-{
-	cmd->command = NULL;
-	cmd->args = NULL;
-	cmd->file_name = NULL;
-	cmd->heredoc_delim = NULL;
-	cmd->pipe_fd = NULL;
-	cmd->fd_in = -1;
-	cmd->fd_out = -1;
-	cmd->pipe_in = -1;
-	cmd->pipe_out = -1;
-	cmd->next = NULL;
-	cmd->prev = NULL;
-}
+// void	init_cmd(t_cmd *cmd)
+// {
+// 	cmd->command = NULL;
+// 	cmd->args = NULL;
+// 	cmd->file_name = NULL;
+// 	cmd->heredoc_delim = NULL;
+// 	cmd->pipe_fd = NULL;
+// 	cmd->fd_in = -1;
+// 	cmd->fd_out = -1;
+// 	cmd->pipe_in = -1;
+// 	cmd->pipe_out = -1;
+// 	cmd->next = NULL;
+// 	cmd->prev = NULL;
+// }
 
 t_data	*init_data(char **envp)
 {
@@ -44,7 +44,7 @@ t_data	*init_data(char **envp)
 	data->std_out = dup(STDOUT_FILENO);
 	data->line = NULL;
 	tcgetattr(STDIN_FILENO, &data->term);
-	init_cmd(data->cmd);
+	//init_cmd(data->cmd);
 	return (data);
 }
 

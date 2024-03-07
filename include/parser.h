@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 15:04:26 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 17:56:37 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,9 @@ void print_parsing_tree(t_tree_node *root, int depth);
 
 //clean up
 t_tree_node	*clarify_grammar_types(t_tree_node *parsing_tree);
-void	free_all(t_table *parsing_table,
-	t_token *token_stack, t_tree_node *abstract_syntax_tree);
 void	free_syntax_tree(t_tree_node *abstract_syntax_tree);
-void	free_table(t_table *parsing_table);
 void	free_token_stack(t_token *token_stack);
 void	free_stack(t_tree_stack *tree_stack);
-void	free_subtree(t_tree_stack *subtree);
 
 
 //tree to cmd

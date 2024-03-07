@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/07 16:47:49 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 17:50:55 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,8 @@ void	init_foreground_mode(t_data *data)
 			break;
 		if (data->line && data->line[0])
 			add_history(data->line);
-		if (mini_parse_input(data) == OP_SUCCESS)
-		{
-			parse_input(data); //this should replace mini_parse_input
+		if (parse_input(data) == OP_SUCCESS)
 			exit_code = execute_command(data);
-		}
 		else
 			exit_code = OP_FAIL;
 		//free_data(data, false);
@@ -66,7 +63,7 @@ void	init_background_mode(t_data	*data, char *arg)
 	while (inputs[i])
 	{
 		data->line = ft_strdup(inputs[i]);
-		if (mini_parse_input(data) == OP_SUCCESS)
+		if (parse_input(data) == OP_SUCCESS)
 			exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
@@ -77,43 +74,43 @@ void	init_background_mode(t_data	*data, char *arg)
 	free_double_pointer(inputs);
 }
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_data	*data;
-
-// 	data = init_data(envp);
-// 	if (!data)
-// 		return (EXIT_FAILURE);
-// 	check_args(data, argc, argv);
-// 	if (data->background_mode)
-// 		init_background_mode(data, argv[2]);
-// 	else
-// 		init_foreground_mode(data);
-// 	exit_shell(data, EXIT_SUCCESS);
-// 	return (0);
-// }
-
-t_data	*init(t_data *data, char *str)
-{
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (NULL);
-	data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!data->cmd)
-		return (NULL);
-	data->envp = NULL;
-	data->cmd = NULL;
-	data->line =ft_strdup(str);
-	return (data);
-}
-
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	data = init(data, argv[1]);
-	parse_input(data);
+	data = init_data(envp);
+	if (!data)
+		return (EXIT_FAILURE);
+	check_args(data, argc, argv);
+	if (data->background_mode)
+		init_background_mode(data, argv[2]);
+	else
+		init_foreground_mode(data);
+	exit_shell(data, EXIT_SUCCESS);
+	return (0);
 }
+
+// t_data	*init(t_data *data, char *str)
+// {
+// 	data = malloc(sizeof(t_data));
+// 	if (!data)
+// 		return (NULL);
+// 	data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
+// 	if (!data->cmd)
+// 		return (NULL);
+// 	data->envp = NULL;
+// 	data->cmd = NULL;
+// 	data->line =ft_strdup(str);
+// 	return (data);
+// }
+
+// int	main(int argc, char **argv)
+// {
+// 	t_data	*data;
+
+// 	data = init(data, argv[1]);
+// 	parse_input(data);
+// }
 
 
 /* TEST main for background mode */

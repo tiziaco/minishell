@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/07 16:46:51 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/07 17:57:00 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int		output_truncate(t_cmd *cmd);
 int		output_append(t_cmd *cmd);
 int		input_redirection(t_cmd *cmd);
 int		input_heredoc(t_cmd *cmd);
+
+//parser
 int		parse_input(t_data *data);
 void	fill_command_struct(t_tree_node *tree, t_cmd *commands);
 t_cmd	*add_to_command_struct(t_tree_node *tree);
@@ -133,6 +135,8 @@ void    print_node(t_tree_node *tree);
 void	print_command_args(char	**args);
 void	print_entire_command_struct(t_cmd	*commands);
 void	free_command_struct(t_cmd *command_stack);
+void	free_all(t_table *parsing_table,
+	t_token *token_stack, t_tree_node *abstract_syntax_tree);
 
 
 /* Redirections and pipes */
