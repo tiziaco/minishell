@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 14:04:12 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:26:20 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include "minish.h"
 
 # define PARSING_TABLE_LENGTH 100 // make it so this is not hardcoded
-# define PARSING_TABLE_PATH "/home/jkaller/Desktop/HomeOf42/Core_Curriculum_Projects/Rank03/minishell/src/parser/files/parsing_table"
+// # define PARSING_TABLE_PATH "/data/parsing_table"
+# define PARSING_TABLE_PATH "/../data/parsing_table" // !!! For debugging only !!!
 
 // Parsing Tree
 
@@ -114,7 +115,6 @@ t_tree_node	*create_syntax_tree(t_token *token_stack,
 			t_table **parsing_table);
 // parsing_tree_utils
 t_tree_stack	*intialise_stack();
-t_token	*get_next_token(t_token *token_stack);
 t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack);
 int		get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack);
 // shift operation utils
@@ -139,7 +139,6 @@ t_token	*ft_lstnew_token(char *value, TokenTypes token_type);
 void	print_token_stack(t_token *token_stack);
 
 // Parse parsing table to data structure
-int	parse_table(char *path, t_table *parsing_table);
 void print_parsing_tree(t_tree_node *root, int depth);
 
 //clean up

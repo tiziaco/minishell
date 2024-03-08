@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/07 17:57:00 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:25:33 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,20 @@ typedef struct s_data
 	int		std_out;
 	bool	background_mode;
 	t_term	term;
+	char	*main_path;
 	char	*line;
 	char	**envp;
+	t_table	*parsing_table;
 	t_cmd	*cmd;
 	pid_t	pid;
 }	t_data;
 
 /* Initialization functions */
 t_data	*init_data(char **envp);
+t_table *init_parsing_table(char *main_path);
 void	init_signals(t_data *data);
 void	sigquit_handler(int num);
 void	init_signals(t_data *data);
-void	sigquit_handler(int num);
 void	exit_shell(t_data *data, int exit_code);
 
 /* Environment functions */
@@ -165,6 +167,7 @@ int		cmd_error(int err_code);
 int		red_error(int err_code);
 
 /* Outils */
+char	*get_cwd(void);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);

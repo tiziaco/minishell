@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverse_algo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 14:29:37 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:44:33 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	add_args(t_tree_node *tree_node, t_cmd *current_command, char *token_value)
 	//argc = 0;
 	if (!current_command->args)
 	{
-		current_command->args = (char **)ft_calloc(sizeof(char *), 10);
+		current_command->args = (char **)ft_calloc(sizeof(char *), 2);
 		//argc = argc_len(last_command->args);
 	}
 	(*current_command).args[array_index] = token_value;
@@ -49,8 +49,8 @@ void	add_args(t_tree_node *tree_node, t_cmd *current_command, char *token_value)
 t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, t_cmd *new_command, char *token_value)
 {
 	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
-    new_command->command = token_value;
-	add_args(tree_node, new_command, token_value);
+    new_command->command = ft_strdup(token_value);
+	add_args(tree_node, new_command, ft_strdup(token_value));
 	//new_command->args[0] = token_value;
     token_value = NULL;
     if (commands->command == NULL)

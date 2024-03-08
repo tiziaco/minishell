@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_table_main.c                               :+:      :+:    :+:   */
+/*   init_parsing_table.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:32:49 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 16:14:44 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:31:49 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minish.h"
-#include "../../../include/parser.h"
-#include "../../../include/libft.h"
-#include <unistd.h>
-#include <fcntl.h>
+#include "../../include/minish.h"
+#include "../../include/parser.h"
+#include "../../include/libft.h"
 
-/* void	free_row(char **row_values)
+void	free_row(char **row_values)
 {
 	char	**temp;
 
@@ -61,27 +59,21 @@ int	fill_table(int fd, t_table *parsing_table)
 	line = NULL;
 	row_values = NULL;
 	return (EXIT_SUCCESS);
-} */
-
-/* void	initialise_table(t_table *parsing_table)
-{
-	parsing_table->state = 0;
-	parsing_table->token_grammar_type = 0;
-	parsing_table->action = 0;
-	parsing_table->next_state = 0;
-	parsing_table->reduced_token = 0;
 }
 
-int	parse_table(char *main_path, t_table *parsing_table)
+t_table	*init_parsing_table(char *main_path)
 {
 	int		fd;
+	t_table	*parsing_table;
 
-	initialise_table(parsing_table);
+	parsing_table = (t_table *)ft_calloc(sizeof(t_table), PARSING_TABLE_LENGTH);
+	if (!parsing_table)
+		return (NULL);
 	main_path = ft_strcat(main_path, PARSING_TABLE_PATH);
 	fd = open(main_path, O_RDWR);
 	if (fd == -1)
-		return (EXIT_FAILURE);
+		return (NULL);
 	fill_table(fd, parsing_table);
 	close(fd);
-	return (EXIT_SUCCESS);
-} */
+	return (parsing_table);
+}

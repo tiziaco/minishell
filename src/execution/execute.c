@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/07 19:36:26 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 15:37:38 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
+#include "../../include/minish.h"
 
 /* static int	wait_processes(t_data *data)
 {
@@ -75,5 +76,6 @@ int	execute_command(t_data *data)
 		restore_std_io(data, current_cmd);
 		current_cmd = current_cmd->next;
 	}
+	free_command_struct(data->cmd);
 	return (status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data_structures.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 16:41:08 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:41:55 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ void	free_args(char **args)
 	while (args[index])
 	{
 		free(args[index]);
+		args[index] = NULL;
 		index++;
 	}
 	free(args);
+	args = NULL;
 }
 
 void	free_command_struct(t_cmd *command_stack)
@@ -82,10 +84,11 @@ void	free_command_struct(t_cmd *command_stack)
 			free(current_node->file_name);
 		if (current_node->heredoc_delim)
 			free(current_node->heredoc_delim);
-		current_node->prev = NULL;
+		current_node = NULL;
 		command_stack = command_stack->next;
 		free(current_node);
 	}
+	free(command_stack);
 }
 
 void	free_all(t_table *parsing_table,
