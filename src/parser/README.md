@@ -22,6 +22,7 @@
 
 - What about two redirections in the same command line?
     - `ls < input.txt >> output.txt | grep 'keyword' > filtered_output.txt << EOF\n content_here \nEOF`
+- Still a weird error with super long echoes
 
 
 
