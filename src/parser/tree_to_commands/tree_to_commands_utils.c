@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:28:01 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 16:42:30 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 13:51:08 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	print_entire_command_struct(t_cmd	*commands)
 		(*commands).fd_out,
 		(*commands).next,
 		(*commands).prev);
+		if ((*commands).args != NULL)
+			print_command_args((*commands).args);
 		commands = commands->next;
 		ft_printf("\n");
 	}
@@ -73,12 +75,12 @@ void	print_entire_command_struct(t_cmd	*commands)
 void	print_command_args(char	**args)
 {
 	int	index;
-
-	ft_printf("\n\n");
+	
 	index = 0;
+	ft_printf("\nCommand List: \n");
 	while (args[index] != NULL)
 	{
-		ft_printf("arg command: %s\n", args[index]);
+		ft_printf("arg[%i]: %s\n", index, args[index]);
 		index++;
 	}
 }

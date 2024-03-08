@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 17:56:37 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:04:12 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ t_token	*ft_lstnew_token(char *value, TokenTypes token_type);
 void	print_token_stack(t_token *token_stack);
 
 // Parse parsing table to data structure
-void	parse_table(char *path, t_table *parsing_table);
+int	parse_table(char *path, t_table *parsing_table);
 void print_parsing_tree(t_tree_node *root, int depth);
 
 //clean up

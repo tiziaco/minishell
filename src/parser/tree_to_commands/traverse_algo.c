@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 20:07:55 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:29:37 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,6 @@ static int	argc_len(char **args)
 	return (argc);
 }
 
-t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, t_cmd *new_command, char *token_value)
-{
-	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
-    new_command->command = token_value;
-    token_value = NULL;
-    if (commands->command == NULL)
-	{
-        *commands = *new_command;
-		//ft_printf("new command created\n");
-    	//print_command_struct(new_command);
-		return (commands);
-	}
-	else
-        ft_cmdadd_back(&commands, new_command);
-    //ft_printf("new command created\n");
-    //print_command_struct(new_command);
-    return (new_command);
-}
-
 void	add_args(t_tree_node *tree_node, t_cmd *current_command, char *token_value)
 {
 	static int	array_index = 0;
@@ -63,6 +44,27 @@ void	add_args(t_tree_node *tree_node, t_cmd *current_command, char *token_value)
 	token_value = NULL;
 	//ft_printf("suffix detected and added");
 	//print_command_struct(current_command);
+}
+
+t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, t_cmd *new_command, char *token_value)
+{
+	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
+    new_command->command = token_value;
+	add_args(tree_node, new_command, token_value);
+	//new_command->args[0] = token_value;
+    token_value = NULL;
+    if (commands->command == NULL)
+	{
+        *commands = *new_command;
+		//ft_printf("new command created\n");
+    	//print_command_struct(new_command);
+		return (commands);
+	}
+	else
+        ft_cmdadd_back(&commands, new_command);
+    //ft_printf("new command created\n");
+    //print_command_struct(new_command);
+    return (new_command);
 }
 
 void	add_file(t_tree_node *tree_node, t_cmd *current_command, char *filename)

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:15:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 20:08:12 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:33:45 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ void	create_linked_list(char *input, t_token **token_stack, int len)
 	free(token);
 }
 
-void	tokenize_input_string(char *input_str, t_token **token_stack)
+int	tokenize_input_string(char *input_str, t_token **token_stack)
 {
 	int		len;
-
 
 	while (*input_str)
 	{
@@ -59,29 +58,28 @@ void	tokenize_input_string(char *input_str, t_token **token_stack)
 		if (*input_str != '\0' && *input_str != ' ' && *input_str != '\t')
 		{
 			len = 0;
-            if (input_str[len] == '"')
-            {
-                len++;
-                while (input_str[len] != '"' && input_str[len] != '\0')
-                {
-                    len++;
-                }
+			if (input_str[len] == '"')
+			{
+				len++;
+				while (input_str[len] != '"' && input_str[len] != '\0')
+				{
+					len++;
+				}
 				if (input_str[len] == '"')
 					len++; //COMMENT: what if the string ends without a closing double.
-            }
-            else
-            {
-                while (input_str[len] != '\0' && input_str[len] != ' ' && input_str[len] != '\t')
-                {
-                    len++;
-                }
-            }
+			}
+			else
+			{
+				while (input_str[len] != '\0' && input_str[len] != ' ' && input_str[len] != '\t')
+					len++;
+			}
 			create_linked_list(input_str, token_stack, len);
 			input_str += len;
 		}
 		if (*input_str == '\0')
 			create_linked_token(NULL, token_stack);
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	tokenize_input(char *input_line, t_token **token_stack)
@@ -89,8 +87,9 @@ int	tokenize_input(char *input_line, t_token **token_stack)
 	int		i;
 
 	*token_stack = NULL;
-
-	tokenize_input_string(input_line, token_stack);
+	if (tokenize_input_string(input_line, token_stack) == EXIT_SUCCESS)
+		return (EXIT_SUCCESS);
+	else
+		return (EXIT_FAILURE);
 	//print_token_stack(*token_stack);
-	return (0);
 }

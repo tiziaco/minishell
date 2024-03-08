@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:32:49 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 18:21:44 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:32:04 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int	fill_table(int fd, t_table *parsing_table)
 	{
 		line = get_next_line(fd);
 		if (line == 0)
-			return (0);
+			return (EXIT_FAILURE);
 		row_values = ft_split(line, '\t');
 		if (row_values == 0)
-			return (0);
+			return (EXIT_FAILURE);
 		free(line);
 		fill_row(row_values, parsing_table + row);
 		free_row(row_values);
@@ -60,7 +60,7 @@ int	fill_table(int fd, t_table *parsing_table)
 	}
 	line = NULL;
 	row_values = NULL;
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 void	initialise_table(t_table *parsing_table)
@@ -72,16 +72,16 @@ void	initialise_table(t_table *parsing_table)
 	parsing_table->reduced_token = 0;
 }
 
-void	parse_table(char *path, t_table *parsing_table)
+int	parse_table(char *path, t_table *parsing_table)
 {
 	int		fd;
 
 	initialise_table(parsing_table);
 	path = NULL;
-	chdir("/home/jkaller/Desktop/HomeOf42/Core_Curriculum_Projects/Rank03");
-	fd = open("minishell/src/parser/files/parsing_table", O_RDWR);
+	fd = open("/home/jkaller/Desktop/HomeOf42/Core_Curriculum_Projects/Rank03/minishell/data/parsing_table", O_RDWR);
 	if (fd == -1)
-		ft_printf("Error opening the file!!");
+		return (EXIT_FAILURE);
 	fill_table(fd, parsing_table);
 	close(fd);
+	return (EXIT_SUCCESS);
 }
