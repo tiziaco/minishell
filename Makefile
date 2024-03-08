@@ -22,7 +22,8 @@ SRC =	$(wildcard src/*.c) $(wildcard src/builtins/*.c) \
 		$(wildcard src/parser/parsing_table/*.c) \
 		$(wildcard src/parser/parsing_tree/*.c) \
 		$(wildcard src/parser/cleanup/*.c) \
-		$(wildcard src/parser/tree_to_commands/*.c)
+		$(wildcard src/parser/tree_to_commands/*.c) \
+		$(wildcard src/init/*.c)
 
 OBJ	= $(SRC:.c=.o)
 

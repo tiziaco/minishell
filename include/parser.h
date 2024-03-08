@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 16:26:20 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/08 21:11:54 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "minish.h"
 
 # define PARSING_TABLE_LENGTH 100 // make it so this is not hardcoded
-// # define PARSING_TABLE_PATH "/data/parsing_table"
-# define PARSING_TABLE_PATH "/../data/parsing_table" // !!! For debugging only !!!
+# define PARSING_TABLE_PATH "/data/parsing_table"
+//# define PARSING_TABLE_PATH "/../data/parsing_table" // !!! For debugging only !!!
 
 // Parsing Tree
 

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:28:01 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 13:51:08 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/08 21:16:35 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	print_command_args(char	**args)
 	int	index;
 	
 	index = 0;
-	ft_printf("\nCommand List: \n");
-	while (args[index] != NULL)
+	ft_printf("\nArg List: \n");
+	while (args[index])
 	{
 		ft_printf("arg[%i]: %s\n", index, args[index]);
 		index++;

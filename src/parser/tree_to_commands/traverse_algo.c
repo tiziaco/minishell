@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverse_algo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 16:44:33 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/08 21:14:38 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,26 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static int	argc_len(char **args)
-{
-	int	argc;
-
-	argc = 0;
-
-	while (args[argc] != NULL)
-		argc++;
-	return (argc);
-}
-
 void	add_args(t_tree_node *tree_node, t_cmd *current_command, char *token_value)
 {
-	static int	array_index = 0;
-	int			argc;
-
-	//argc = 0;
-	if (!current_command->args)
-	{
-		current_command->args = (char **)ft_calloc(sizeof(char *), 2);
-		//argc = argc_len(last_command->args);
-	}
-	(*current_command).args[array_index] = token_value;
-	//print_command_args((*current_command).args);
-	array_index++;
+	if (token_value == NULL)
+		return ;
+	current_command->args[current_command->argc] = ft_strdup(token_value);
+	current_command->argc++;
+	current_command->args[current_command->argc] = NULL;
+	//print_command_args(current_command->args);
 	token_value = NULL;
-	//ft_printf("suffix detected and added");
 	//print_command_struct(current_command);
 }
 
-t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, t_cmd *new_command, char *token_value)
+t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, char *token_value)
 {
+	t_cmd	*new_command;
+
 	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
     new_command->command = ft_strdup(token_value);
+	new_command->args = (char **)ft_calloc(sizeof(char *), (new_command->argc + 1));
+	//ft_printf("new command created\n");
 	add_args(tree_node, new_command, ft_strdup(token_value));
 	//new_command->args[0] = token_value;
     token_value = NULL;
@@ -62,13 +48,15 @@ t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, t_cmd *new_co
 	}
 	else
         ft_cmdadd_back(&commands, new_command);
-    //ft_printf("new command created\n");
+	//ft_printf("\nArg added! Complete struct below:");
     //print_command_struct(new_command);
     return (new_command);
 }
 
 void	add_file(t_tree_node *tree_node, t_cmd *current_command, char *filename)
 {
+	if (filename == NULL)
+		return ;
 	if (!current_command->file_name)
 		current_command->file_name = (char *)malloc((ft_strlen(filename) + 1) * sizeof(char));
 	(*current_command).file_name = filename;
@@ -79,6 +67,8 @@ void	add_file(t_tree_node *tree_node, t_cmd *current_command, char *filename)
 
 void	add_heredoc_delim(t_tree_node *tree_node, t_cmd *current_command, char *heredoc_delim)
 {
+	if (heredoc_delim == NULL)
+		return ;
 	if (!current_command->heredoc_delim)
 		current_command->heredoc_delim = (char *)malloc((ft_strlen(heredoc_delim) + 1) * sizeof(char));
 	(*current_command).heredoc_delim = heredoc_delim;
@@ -90,6 +80,7 @@ void	add_heredoc_delim(t_tree_node *tree_node, t_cmd *current_command, char *her
 void	check_node(t_tree_node *tree_node, t_cmd *commands)
 {
 	// static int			argc;
+	static int			array_index = 0;
 	static t_cmd		*current_command = NULL;
 	static char 		*tmp_token_val = NULL;
 
@@ -100,7 +91,7 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 	}
 	if (tree_node->leaf_header == CMD_NAME)
 	{
-		current_command = create_new_command(tree_node, commands, current_command, tmp_token_val);
+		current_command = create_new_command(tree_node, commands, tmp_token_val);
 	}
 	if (tree_node->leaf_header == CMD_SUFFIX)
 	{
@@ -120,10 +111,19 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 		//print_command_struct(current_command);
 	}
 	if (tree_node->leaf_header == FILENAME)
+	{
 		add_file(tree_node, current_command, tmp_token_val);
+		tmp_token_val = NULL;
+	}
 	if (tree_node->leaf_header == HERE_END)
 		add_heredoc_delim(tree_node, current_command, tmp_token_val);
-}
+	if (tree_node->grammar_type == -2)
+	{
+		array_index = 0;
+		free(tmp_token_val);
+		tmp_token_val = NULL;
+	}
+}	
 
 void	fill_command_struct(t_tree_node *tree, t_cmd *command_stack)
 {

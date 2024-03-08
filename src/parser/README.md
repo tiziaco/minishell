@@ -15,26 +15,14 @@
 
 - Why do we need a stack and a parsing tree linked list data structure?
     - If we have the input `"echo "Hello World" | cat -e"` we initially encounter the terminal WORD_TOKEN (i.e. "echo"), which 
+-   You start by shifting tokens one by one into the stack, following rules determined by the parsing table. When a reduce operation is encountered, a certain number of items are popped from the stack to form a subtree. This subtree is then added back into the parse tree (not the stack) which is being constructed during the parsing process.
 
 
+## Edge cases
 
-    You start by shifting tokens one by one into the stack, following rules determined by the parsing table. When a reduce operation is encountered, a certain number of items are popped from the stack to form a subtree. This subtree is then added back into the parse tree (not the stack) which is being constructed during the parsing process.
-
-
-
-
-
-
-    ## Next things to do
-    - check for edge cases
-        - `< in wc`
-        - the parsing table correctly interprets this, but how should we handle this? -> add command as NULL 
-    - how to add prefixes into the command struct
+- What about two redirections in the same command line?
+    - `ls < input.txt >> output.txt | grep 'keyword' > filtered_output.txt << EOF\n content_here \nEOF`
 
 
 
 
-    Things to finish
-    - double free
-    - why deos it detect the suffix twice?
-    - fill initialised header
