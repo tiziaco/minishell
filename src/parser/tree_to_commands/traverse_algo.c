@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/11 13:56:14 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/11 18:56:28 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	add_args(t_tree_node *tree_node, t_cmd *current_command, char *token_value)
 {
 	if (token_value == NULL)
 		return ;
+	//get sixe args args
+	// copy
+	current_command->args = copy_environment(current_command->args, current_command->argc + 2);
+	//current_command->args = (char **)realloc(current_command->args, sizeof(char *) * (current_command->argc + 2));
 	current_command->args[current_command->argc] = ft_strdup(token_value);
 	current_command->argc++;
 	current_command->args[current_command->argc] = NULL;
@@ -34,11 +38,12 @@ t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, char *token_v
 
 	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
     new_command->command = ft_strdup(token_value);
-	new_command->args = (char **)ft_calloc(sizeof(char *), (new_command->argc + 1));
+	new_command->argc = 0;
+	new_command->args = (char **)ft_calloc(sizeof(char *), (new_command->argc + 2));
 	//ft_printf("new command created\n");
-	add_args(tree_node, new_command, ft_strdup(token_value));
+	add_args(tree_node, new_command, token_value);
 	//new_command->args[0] = token_value;
-    token_value = NULL;
+    //token_value = NULL;
     if (commands->command == NULL)
 	{
         *commands = *new_command;
@@ -97,6 +102,7 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 	{
 		if (tmp_token_val != NULL)
 			add_args(tree_node, current_command, tmp_token_val);
+		tmp_token_val = NULL;
 	}
 	if (tree_node->grammar_type == PIPE_TOKEN)
 	{
@@ -126,6 +132,7 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 		free(tmp_token_val);
 		tmp_token_val = NULL;
 	}
+	
 }	
 
 void	fill_command_struct(t_tree_node *tree, t_cmd *command_stack)
@@ -134,6 +141,6 @@ void	fill_command_struct(t_tree_node *tree, t_cmd *command_stack)
 		return ;
 	fill_command_struct(tree->left, command_stack);
 	fill_command_struct(tree->right, command_stack);
-	//print_node(tree);
+	print_node(tree);
 	check_node(tree, command_stack);
 }
