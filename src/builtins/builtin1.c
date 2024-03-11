@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:19:59 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:08:23 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 int	ft_echo(char **str)
 {
 	int	i;
+	char *test;
 
 	i = 1;
 	while (str[i] != NULL)
 	{
+		test = str[i];
 		ft_printf("%s", str[i]);
 		if (str[i + 1] != NULL)
 			ft_printf("%c", ' ');

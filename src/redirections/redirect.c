@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:03:10 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:23:10 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 */
 int	set_redirection(t_data *data, t_cmd *cmd)
 {
-	if (cmd->redirect == RED_OUT_TRUNC)
+	if (cmd->redirect == REDIRECTION_OUTPUT_TOKEN)
 		return (output_truncate(cmd));
-	else if (cmd->redirect == RED_OUT_APP)
+	else if (cmd->redirect == REDIRECTION_APPEND_TOKEN)
 		return (output_append(cmd));
-	else if (cmd->redirect == RED_IN)
+	else if (cmd->redirect == REDIRECTION_INPUT_TOKEN)
 		return (input_redirection(cmd));
-	else if (cmd->redirect == RED_IN_HERE)
+	else if (cmd->redirect == REDIRECTION_HEREDOC_TOKEN)
 		return (input_heredoc(cmd));
 	return (EXIT_SUCCESS);
 }
