@@ -6,13 +6,13 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:47:53 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 18:28:59 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:09:57 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/commands.h"
 
-static void	sigint_handler(int num)
+void	sigint_handler(int num)
 {
 	(void)num;
 	ft_printf("\n", 1);

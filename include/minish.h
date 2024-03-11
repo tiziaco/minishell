@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 14:31:29 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:14:59 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 /* System vars */
 # define MSH_PROMPT "msh-> "
 # define TMP_FILENAME "/tmp/heredoc_tmp.tmp"
+//# define TMP_FILENAME "/home/tiacovel/core_curriculum/minishell/heredoc_tmp.tmp"
 
 /* Redirections */
 # define RED_OUT_APP	1
@@ -69,12 +70,12 @@ typedef struct s_cmd
 {
 	char			*command;
 	char			**args;
-	bool 			is_piped;
-	int 			redirect;
+	bool			is_piped;
+	int				redirect;
 	int				*pipe_fd;
 	char			*file_name;
 	char			*heredoc_delim;
-	int 			pipe_in;
+	int				pipe_in;
 	int				pipe_out;
 	int				argc;
 	int				fd_in;
@@ -101,9 +102,11 @@ typedef struct s_data
 t_data	*init_data(char **envp);
 t_table *init_parsing_table(char *main_path);
 void	init_signals(t_data *data);
-void	sigquit_handler(int num);
-void	init_signals(t_data *data);
 void	exit_shell(t_data *data, int exit_code);
+
+/* Signals */
+void	sigint_handler(int num);
+void	sigquit_handler(int num);
 
 /* Environment functions */
 int		search_key(char **envp, char *key);
@@ -112,9 +115,6 @@ char	*get_env_var(char *key, char *val);
 char	**copy_environment(char **envp, int env_size);
 int		set_var(t_data *data, char *key, char *val);
 int		remove_var(t_data *data, int key_index);
-
-/* Parsing */
-int		mini_parse_input(t_data *data);
 
 /* Redirections and pipes */
 int		init_pipes(t_data *data);
