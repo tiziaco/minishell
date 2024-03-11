@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/08 16:25:33 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:59:45 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_cmd
 	char			*heredoc_delim;
 	int 			pipe_in;
 	int				pipe_out;
+	int				argc;
 	int				fd_in;
 	int				fd_out;
 	struct s_cmd	*next;

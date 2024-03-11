@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data_structures.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 16:41:55 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/08 20:55:53 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,14 @@ void	free_args(char **args)
 	while (args[index])
 	{
 		free(args[index]);
-		args[index] = NULL;
 		index++;
 	}
-	free(args);
-	args = NULL;
+	//free(args); COMMENT WHY DOES THIS FAIL IT??
 }
 
 void	free_command_struct(t_cmd *command_stack)
 {
 	t_cmd *current_node;
-	
 	
 	while (command_stack)
 	{
