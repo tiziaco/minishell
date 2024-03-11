@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 21:11:54 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:18:32 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef	enum
 {
 	WORD_TOKEN = 10,
 	PIPE_TOKEN = 11,
-	REDIRECTION_INPUT_TOKEN = 12, // '<'
+	REDIRECTION_INPUT_TOKEN = 12, // '<'REDIRECTION_APPEND_TOKEN
 	REDIRECTION_OUTPUT_TOKEN = 13, // '>'
 	REDIRECTION_HEREDOC_TOKEN = 14, // '<<'
 	REDIRECTION_APPEND_TOKEN = 15, // '>>'

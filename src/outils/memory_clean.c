@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:10:14 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/08 15:35:53 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:12:04 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	free_cmd(t_cmd *cmd)
 
 void	free_data(t_data *data, bool clear_all)
 {
-	if (data->cmd)
+/* 	if (data->cmd)
 		free_cmd(data->cmd);
 	if (data->line)
-		free_pointer(data->line);
+		free_pointer(data->line); */
 	if (clear_all)
 	{
 		if (data && data->envp)

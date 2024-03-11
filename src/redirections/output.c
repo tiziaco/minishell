@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:37:05 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:01:30 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:18:19 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	output_truncate(t_cmd *cmd)
 	if (check_file_name(cmd->file_name) == 0)
 		return (red_error(INVALID_FNAME));
 	fd = open(cmd->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	printf("file descriptor %d\n", fd);
+	printf("file name %s\n", cmd->file_name);
 	if (fd == -1)
 		return (red_error(FILE_NF));
 	if (dup2(fd, STDOUT_FILENO) == -1)
