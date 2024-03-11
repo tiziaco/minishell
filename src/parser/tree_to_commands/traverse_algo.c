@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 21:14:38 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/11 13:56:14 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	add_file(t_tree_node *tree_node, t_cmd *current_command, char *filename)
 	if (filename == NULL)
 		return ;
 	if (!current_command->file_name)
-		current_command->file_name = (char *)malloc((ft_strlen(filename) + 1) * sizeof(char));
-	(*current_command).file_name = filename;
+		current_command->file_name = ft_strdup(filename);
+	//free(filename);
 	filename = NULL;
 	//ft_printf("file detected\n");
 	//print_command_struct(current_command);
@@ -70,8 +70,8 @@ void	add_heredoc_delim(t_tree_node *tree_node, t_cmd *current_command, char *her
 	if (heredoc_delim == NULL)
 		return ;
 	if (!current_command->heredoc_delim)
-		current_command->heredoc_delim = (char *)malloc((ft_strlen(heredoc_delim) + 1) * sizeof(char));
-	(*current_command).heredoc_delim = heredoc_delim;
+		current_command->heredoc_delim = ft_strdup(heredoc_delim);
+	//free(heredoc_delim);
 	heredoc_delim = NULL;
 	//ft_printf("heredoc delim detected\n");
 	//print_command_struct(current_command);
@@ -116,7 +116,10 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 		tmp_token_val = NULL;
 	}
 	if (tree_node->leaf_header == HERE_END)
+	{
 		add_heredoc_delim(tree_node, current_command, tmp_token_val);
+		tmp_token_val = NULL;
+	}
 	if (tree_node->grammar_type == -2)
 	{
 		array_index = 0;
