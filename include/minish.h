@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/08 18:59:45 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:31:29 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 /* System vars */
 # define MSH_PROMPT "msh-> "
-# define TMP_FILENAME "/home/tiacovel/core_curriculum/minishell/heredoc_tmp.tmp"
+# define TMP_FILENAME "/tmp/heredoc_tmp.tmp"
 
 /* Redirections */
 # define RED_OUT_APP	1
