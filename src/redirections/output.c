@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:37:05 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 14:18:19 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:30:36 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	check_file_name(char *file_name)
 	if (file_name == NULL)
 		return (0);
 	if (file_name[0] == '\0')
+		return (0);
+	if (is_directory(file_name))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/08 15:37:38 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:11:07 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,15 @@ int	execute_command(t_data *data)
 	while (current_cmd != NULL)
 	{
 		set_pipe_fds(data->cmd, current_cmd);
-		set_redirection(data, current_cmd);
-		if (is_builtin(current_cmd->command))
+		if (set_redirection(data, current_cmd) != EXIT_SUCCESS)
+			current_cmd = current_cmd->next;
+		if (current_cmd && is_builtin(current_cmd->command))
 			status = exec_builtin(data);
-		else
+		else if (current_cmd)
 			status = execute_in_child_process(data, current_cmd);
 		restore_std_io(data, current_cmd);
-		current_cmd = current_cmd->next;
+		if (current_cmd)
+			current_cmd = current_cmd->next;
 	}
 	free_command_struct(data->cmd);
 	return (status);
