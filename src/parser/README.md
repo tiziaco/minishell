@@ -28,5 +28,5 @@
 ## Things to do next
 - fix memory leaks (check is the allocation with one array too much works (since you are using array_index but argc))
 - possibly implement prefixes
-- expansion, single quotes, dobule quotes
-open all files -> fds, store the most right for the redirection
+- single quotes, dobule quotes
+- empty line && echo ""

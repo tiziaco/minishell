@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 14:31:29 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 13:44:13 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,14 @@ typedef struct s_data
 	char	*line;
 	char	**envp;
 	t_table	*parsing_table;
+	int		table_length;
 	t_cmd	*cmd;
 	pid_t	pid;
 }	t_data;
 
 /* Initialization functions */
 t_data	*init_data(char **envp);
-t_table *init_parsing_table(char *main_path);
+t_table	*init_parsing_table(t_data *data);
 void	init_signals(t_data *data);
 void	sigquit_handler(int num);
 void	init_signals(t_data *data);

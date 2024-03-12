@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/11 18:05:48 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 14:00:53 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "libft.h"
 # include "minish.h"
 
-# define PARSING_TABLE_LENGTH 100 // make it so this is not hardcoded
 # define PARSING_TABLE_PATH "/data/parsing_table"
 //# define PARSING_TABLE_PATH "/../data/parsing_table" // !!! For debugging only !!!
 
@@ -96,7 +95,7 @@ typedef	enum
 {
 	WORD_TOKEN = 10,
 	PIPE_TOKEN = 11,
-	REDIRECTION_INPUT_TOKEN = 12, // '<'REDIRECTION_APPEND_TOKEN
+	REDIRECTION_INPUT_TOKEN = 12, // '<'
 	REDIRECTION_OUTPUT_TOKEN = 13, // '>'
 	REDIRECTION_HEREDOC_TOKEN = 14, // '<<'
 	REDIRECTION_APPEND_TOKEN = 15, // '>>'
@@ -110,44 +109,34 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-/* Parsing Tree */
-t_tree_node	*create_syntax_tree(t_token *token_stack,
-			t_table **parsing_table);
-// parsing_tree_utils
-t_tree_stack	*intialise_stack();
-t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack);
-int		get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack);
-// shift operation utils
-void	push_token_to_stack(t_tree_stack **tree_stack, t_token *token_stack);
-int	push_state_to_stack(t_tree_stack **tree_stack, int next_state);
-// reduce operation utils
-int	add_subtree_to_tree(t_tree_node **parsing_tree, t_tree_stack **subtree, int reduced_token);
-int	add_reduction_node(t_tree_stack **tree_stack, int reduction_token);
-t_tree_stack	*create_subtree(t_tree_stack **tree_stack, int tokens_to_reduce);
-// reduce operation utils 2
-t_tree_node	*transform_stack_to_node(t_tree_stack *subtree);
-t_tree_node	*search_for_subtree(t_tree_node **parsing_tree, int reduced_token);
-// list utils
-void	subtree_add_back(t_tree_stack **subtree, t_tree_stack *tree_stack);
-
-/* Initialization functions */
+/* Tokenizer */
 int	tokenize_input(char *input_line, t_token **token_stack);
-
-/* Utility functions */
 void	ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token	*ft_lstnew_token(char *value, TokenTypes token_type);
 void	print_token_stack(t_token *token_stack);
 
-// Parse parsing table to data structure
+/* Parsing Table */
 void print_parsing_tree(t_tree_node *root, int depth);
+
+/* Parsing Tree Functions */
+t_tree_node	*create_syntax_tree(t_token *token_stack,
+			t_table **parsing_table, int table_length);
+t_tree_stack	*intialise_stack();
+t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack, int table_length);
+int	get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack, int table_length);
+void	push_token_to_stack(t_tree_stack **tree_stack, t_token *token_stack);
+int	push_state_to_stack(t_tree_stack **tree_stack, int next_state);
+int	add_subtree_to_tree(t_tree_node **parsing_tree, t_tree_stack **subtree, int reduced_token);
+int	add_reduction_node(t_tree_stack **tree_stack, int reduction_token);
+t_tree_stack	*create_subtree(t_tree_stack **tree_stack, int tokens_to_reduce);
+t_tree_node	*transform_stack_to_node(t_tree_stack *subtree);
+t_tree_node	*search_for_subtree(t_tree_node **parsing_tree, int reduced_token);
+void	subtree_add_back(t_tree_stack **subtree, t_tree_stack *tree_stack);
 
 //clean up
 t_tree_node	*clarify_grammar_types(t_tree_node *parsing_tree);
 void	free_syntax_tree(t_tree_node *abstract_syntax_tree);
 void	free_token_stack(t_token *token_stack);
 void	free_stack(t_tree_stack *tree_stack);
-
-
-//tree to cmd
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:15:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 14:33:45 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 15:21:09 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,39 @@ void	create_linked_token(char *input, t_token **token_stack)
 	ft_lstadd_back_token(token_stack, new_token);
 }
 
-void	create_linked_list(char *input, t_token **token_stack, int len)
-{
-	char	*token;
+// void	create_linked_list(char *input, t_token **token_stack, int len)
+// {
+// 	char	*token;
 
-	token = (char *)malloc((len + 1) * sizeof(char));
-	ft_strlcpy(token, input, len + 1);
-	create_linked_token(token, token_stack);
-	free(token);
+// 	token = (char *)malloc((len + 1) * sizeof(char));
+// 	ft_strlcpy(token, input, len + 1);
+// 	create_linked_token(token, token_stack);
+// 	free(token);
+// }
+
+void	create_linked_list(char *input, t_token **token_stack, int len, int quotes)
+{
+    char	*token;
+
+    token = (char *)malloc((len + 1) * sizeof(char));
+    ft_strlcpy(token, input + quotes, len - (quotes * 2) + 1);
+    create_linked_token(token, token_stack);
+    free(token);
+}
+
+int	handle_single_double_quotes(char *quote, int len)
+{
+    char quote_type;
+	
+	quote_type = quote[len];
+    len++;
+    while (quote[len] != quote_type && quote[len] != '\0')
+        len++;
+    if (quote[len] == quote_type)
+        len++;
+    else if (quote[len] == '\0')
+        return (EXIT_FAILURE);
+    return (len);
 }
 
 int	tokenize_input_string(char *input_str, t_token **token_stack)
@@ -58,22 +83,19 @@ int	tokenize_input_string(char *input_str, t_token **token_stack)
 		if (*input_str != '\0' && *input_str != ' ' && *input_str != '\t')
 		{
 			len = 0;
-			if (input_str[len] == '"')
+			if (input_str[len] == '"' || input_str[len] == 39)
 			{
-				len++;
-				while (input_str[len] != '"' && input_str[len] != '\0')
-				{
-					len++;
-				}
-				if (input_str[len] == '"')
-					len++; //COMMENT: what if the string ends without a closing double.
+				len = handle_single_double_quotes(&input_str[len], len);
+				if (len == EXIT_FAILURE)
+					return (EXIT_FAILURE);
+				create_linked_list(input_str, token_stack, len, 1);
 			}
 			else
 			{
 				while (input_str[len] != '\0' && input_str[len] != ' ' && input_str[len] != '\t')
 					len++;
+				create_linked_list(input_str, token_stack, len, 0);
 			}
-			create_linked_list(input_str, token_stack, len);
 			input_str += len;
 		}
 		if (*input_str == '\0')

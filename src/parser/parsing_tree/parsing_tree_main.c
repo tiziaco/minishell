@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:14:38 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 18:00:39 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 14:00:19 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "../../../include/libft.h"
 #include <unistd.h>
 
-void	perform_reduce(t_tree_stack **tree_stack, t_table *current_row, t_table **parsing_table, t_tree_node **parsing_tree)
+void	perform_reduce(t_tree_stack **tree_stack, t_table *current_row, t_table **parsing_table,
+	t_tree_node **parsing_tree, int table_length)
 {
 	t_tree_stack	*subtree;
 	int				next_state;
@@ -25,7 +26,7 @@ void	perform_reduce(t_tree_stack **tree_stack, t_table *current_row, t_table **p
 	{
 		if (!add_reduction_node(tree_stack, current_row->next_state))
 		{
-			next_state = get_next_state(parsing_table, *tree_stack);
+			next_state = get_next_state(parsing_table, *tree_stack, table_length);
 			if (!push_state_to_stack(tree_stack, next_state))
 				if (!add_subtree_to_tree(parsing_tree, &subtree, current_row->next_state))
 				{
@@ -45,7 +46,7 @@ void	perform_shift(t_tree_stack **tree_stack, t_token **token_stack, int next_st
 }
 
 t_tree_node	*create_syntax_tree(t_token *token_stack,
-			t_table **parsing_table)
+			t_table **parsing_table, int table_length)
 {
 	int				process_done_flag;
 	t_tree_stack	*tree_stack;
@@ -59,11 +60,11 @@ t_tree_node	*create_syntax_tree(t_token *token_stack,
 	parsing_tree = NULL;
 	while (process_done_flag == 0)
 	{
-		next_row = get_next_row(*parsing_table, tree_stack, token_stack);
+		next_row = get_next_row(*parsing_table, tree_stack, token_stack, table_length);
 		if (next_row && next_row->action == SHIFT)
 			perform_shift(&tree_stack, &token_stack, next_row->next_state);
 		else if (next_row && next_row->action == REDUCE)
-			perform_reduce(&tree_stack, next_row, parsing_table, &parsing_tree);
+			perform_reduce(&tree_stack, next_row, parsing_table, &parsing_tree, table_length);
 		else if (next_row && next_row->action == ACCEPT)
 			process_done_flag = 1;
 		else
