@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 21:16:09 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:32:03 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parse_input(t_data *data)
 		if (abstract_syntax_tree != NULL)
 		{
 			data->cmd = add_to_command_struct(abstract_syntax_tree);
-			print_entire_command_struct(data->cmd);
+			//print_entire_command_struct(data->cmd);
 			if (data->cmd != NULL)
 			{
 				//free_all(parsing_table, token_stack, abstract_syntax_tree);

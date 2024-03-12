@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/12 16:51:57 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:29:06 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static int	execute_in_child_process(t_data *data, t_cmd *current_cmd)
 		return (sys_error(FORK_ERROR));
 	else if (data->pid == 0)
 	{
-		printf("Child process executing command: %s\n", current_cmd->command);
-    	printf("Child process ID: %d\n", getpid());
+		/* printf("Child process executing command: %s\n", current_cmd->command);
+    	printf("Child process ID: %d\n", getpid()); */
 		if (is_path(current_cmd->command))
 			status = exec_local_bin(data);
 		else
@@ -65,7 +65,7 @@ int	execute_command(t_data *data)
 	t_cmd	*current_cmd;
 
 	init_pipes(data);
-	printf("Parent process ID: %d\n", getpid());
+	//printf("Parent process ID: %d\n", getpid());
 	current_cmd = data->cmd;
 	while (current_cmd != NULL)
 	{
