@@ -6,14 +6,14 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/12 12:11:07 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:51:57 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
 #include "../../include/minish.h"
 
-/* static int	wait_processes(t_data *data)
+static int	wait_processes(t_data *data)
 {
 	pid_t	wpid;
 	int		status;
@@ -36,7 +36,7 @@
 	else
 		status = save_status;
 	return (status);
-} */
+}
 
 static int	execute_in_child_process(t_data *data, t_cmd *current_cmd)
 {
@@ -47,14 +47,15 @@ static int	execute_in_child_process(t_data *data, t_cmd *current_cmd)
 		return (sys_error(FORK_ERROR));
 	else if (data->pid == 0)
 	{
+		printf("Child process executing command: %s\n", current_cmd->command);
+    	printf("Child process ID: %d\n", getpid());
 		if (is_path(current_cmd->command))
 			status = exec_local_bin(data);
 		else
 			status = exec_bin(data);
+		exit(status);
 	}
-	else
-		waitpid(data->pid, &status, 0);
-	return (status);
+	return (EXIT_SUCCESS);
 }
 
 int	execute_command(t_data *data)
@@ -64,6 +65,7 @@ int	execute_command(t_data *data)
 	t_cmd	*current_cmd;
 
 	init_pipes(data);
+	printf("Parent process ID: %d\n", getpid());
 	current_cmd = data->cmd;
 	while (current_cmd != NULL)
 	{
@@ -76,7 +78,10 @@ int	execute_command(t_data *data)
 			status = execute_in_child_process(data, current_cmd);
 		restore_std_io(data, current_cmd);
 		if (current_cmd)
+		{
 			current_cmd = current_cmd->next;
+			wait_processes(data);
+		}
 	}
 	free_command_struct(data->cmd);
 	return (status);
