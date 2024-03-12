@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/12 21:32:52 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:21:43 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,7 @@ void    print_node(t_tree_node *tree);
 void	print_command_args(char	**args);
 void	print_entire_command_struct(t_cmd	*commands);
 void	free_command_struct(t_cmd *command_stack);
-void	free_all(t_table *parsing_table,
-	t_token *token_stack, t_tree_node *abstract_syntax_tree, int error);
+void	free_all(t_token *token_stack, t_tree_node *abstract_syntax_tree);
 
 /* Redirections and pipes */
 int		init_pipes(t_data *data);

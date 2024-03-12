@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:14:38 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 21:59:00 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:17:00 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_tree_node	*create_syntax_tree(t_token *token_stack,
 	while (process_done_flag == 0)
 	{
 		next_row = get_next_row(*parsing_table, tree_stack, token_stack, table_length);
-		ft_printf("hey");
 		if (next_row && next_row->action == SHIFT)
 			perform_shift(&tree_stack, &token_stack, next_row->next_state);
 		else if (next_row && next_row->action == REDUCE)
@@ -74,6 +73,6 @@ t_tree_node	*create_syntax_tree(t_token *token_stack,
 			process_done_flag = -1; 
 		}
 	}
-	free_all(*parsing_table, start_of_token_stack, parsing_tree, process_done_flag);
+	free_stack(tree_stack);
 	return (clarify_grammar_types(parsing_tree));
 }

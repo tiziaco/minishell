@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:15:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 21:51:19 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:43:29 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int	tokenize_input(char *input_line, t_token **token_stack)
 	int		i;
 
 	*token_stack = NULL;
-	if (tokenize_input_string(input_line, token_stack) == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	else
+	tokenize_input_string(input_line, token_stack);
+	if (*token_stack == NULL || (*token_stack)->value == NULL)
 		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
