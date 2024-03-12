@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:14:38 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 14:00:19 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 21:59:00 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	perform_reduce(t_tree_stack **tree_stack, t_table *current_row, t_table **p
 			if (!push_state_to_stack(tree_stack, next_state))
 				if (!add_subtree_to_tree(parsing_tree, &subtree, current_row->next_state))
 				{
-					//free_stack(subtree);
+					free_stack(subtree);
 					return ;
 				}
 		}
-		//free_stack(subtree);
+		free_stack(subtree);
 	}
 }
 
@@ -61,6 +61,7 @@ t_tree_node	*create_syntax_tree(t_token *token_stack,
 	while (process_done_flag == 0)
 	{
 		next_row = get_next_row(*parsing_table, tree_stack, token_stack, table_length);
+		ft_printf("hey");
 		if (next_row && next_row->action == SHIFT)
 			perform_shift(&tree_stack, &token_stack, next_row->next_state);
 		else if (next_row && next_row->action == REDUCE)
@@ -70,10 +71,9 @@ t_tree_node	*create_syntax_tree(t_token *token_stack,
 		else
 		{
 			ft_printf("Syntax Error\n");
-			//free_all(*parsing_table, start_of_token_stack, parsing_tree);
-			exit(-1); 
+			process_done_flag = -1; 
 		}
 	}
-	//free_stack(tree_stack);
+	free_all(*parsing_table, start_of_token_stack, parsing_tree, process_done_flag);
 	return (clarify_grammar_types(parsing_tree));
 }

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 19:29:01 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 14:00:37 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:05:07 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token 
 		token_type = token_stack->type;
 	current_row = parsing_table;
 	row_index = 0;
-	while (row_index <= table_length)
+	while (row_index < table_length)
 	{
 		if (current_row->state == tree_stack->next_state)
 		{

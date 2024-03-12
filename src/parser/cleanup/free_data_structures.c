@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/08 20:55:53 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 16:53:52 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ void	free_command_struct(t_cmd *command_stack)
 }
 
 void	free_all(t_table *parsing_table,
-	t_token *token_stack, t_tree_node *abstract_syntax_tree)
+	t_token *token_stack, t_tree_node *abstract_syntax_tree, int error)
 {
+	if (error == -1)
+		free_syntax_tree(abstract_syntax_tree);
 	free(parsing_table);
 	free_token_stack(token_stack);
-	free_syntax_tree(abstract_syntax_tree);
 }

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 14:00:53 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 21:30:51 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "minish.h"
 
 # define PARSING_TABLE_PATH "/data/parsing_table"
-//# define PARSING_TABLE_PATH "/../data/parsing_table" // !!! For debugging only !!!
+// # define PARSING_TABLE_PATH "/../data/parsing_table" // !!! For debugging only !!!
 
 // Parsing Tree
 
