@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 17:28:13 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:49:48 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,15 @@ typedef struct s_data
 	char	*line;
 	char	**envp;
 	t_table	*parsing_table;
+	int		table_length;
 	t_cmd	*cmd;
 	pid_t	pid;
 }	t_data;
 
 /* Initialization functions */
 t_data	*init_data(char **envp);
-t_table *init_parsing_table(char *main_path);
+t_table	*init_parsing_table(t_data *data);
+void	sigquit_handler(int num);
 void	init_signals(t_data *data);
 void	exit_shell(t_data *data, int exit_code);
 
@@ -138,9 +140,7 @@ void    print_node(t_tree_node *tree);
 void	print_command_args(char	**args);
 void	print_entire_command_struct(t_cmd	*commands);
 void	free_command_struct(t_cmd *command_stack);
-void	free_all(t_table *parsing_table,
-	t_token *token_stack, t_tree_node *abstract_syntax_tree);
-
+void	free_all(t_token *token_stack, t_tree_node *abstract_syntax_tree);
 
 /* Redirections and pipes */
 int		init_pipes(t_data *data);

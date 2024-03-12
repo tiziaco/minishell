@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 19:28:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 17:31:07 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:01:32 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	push_token_to_stack(t_tree_stack **tree_stack, t_token *token_stack)
 {
 	t_tree_stack	*new_tree_stack;
 	
-	//ft_printf("token to be shifted: %d, %s.\n", token_stack->type, token_stack->value);
 	new_tree_stack = (t_tree_stack *)malloc(sizeof(t_tree_stack));
 	new_tree_stack->grammar_type = token_stack->type;
 	new_tree_stack->next_state = -1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 17:32:03 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:52:13 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	parse_input(t_data *data)
 
 	if (tokenize_input(data->line, &token_stack) == EXIT_SUCCESS)
 	{
-		abstract_syntax_tree = create_syntax_tree(token_stack, &data->parsing_table);
+		//print_token_stack(token_stack);
+		abstract_syntax_tree = create_syntax_tree(token_stack, &data->parsing_table, data->table_length);
 		//print_parsing_tree(abstract_syntax_tree, 0);
 		if (abstract_syntax_tree != NULL)
 		{
@@ -30,7 +31,7 @@ int	parse_input(t_data *data)
 			//print_entire_command_struct(data->cmd);
 			if (data->cmd != NULL)
 			{
-				//free_all(parsing_table, token_stack, abstract_syntax_tree);
+				free_all(token_stack, abstract_syntax_tree);
 				return (OP_SUCCESS); //TO BE CHANGED
 			}
 			else

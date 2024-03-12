@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 19:29:01 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 17:32:56 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:05:07 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../../include/libft.h"
 #include <unistd.h>
 
-int	get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack)
+int	get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack, int table_length)
 {
 	t_table	*current_row;
 	int		row_index;
@@ -25,7 +25,7 @@ int	get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack)
 	current_row = *parsing_table;
 	row_index = 0;
 	state = tree_stack->next->next_state;
-	while (row_index <= PARSING_TABLE_LENGTH)
+	while (row_index <= table_length)
 	{
 		if (current_row->state == state)
 		{
@@ -42,7 +42,7 @@ int	get_next_state(t_table	**parsing_table, t_tree_stack *tree_stack)
 	return (next_state);
 }
 
-t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack)
+t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token *token_stack, int table_length)
 {
 	t_table	*current_row;
 	int		row_index;
@@ -57,7 +57,7 @@ t_table	*get_next_row(t_table *parsing_table, t_tree_stack *tree_stack, t_token 
 		token_type = token_stack->type;
 	current_row = parsing_table;
 	row_index = 0;
-	while (row_index < PARSING_TABLE_LENGTH)
+	while (row_index < table_length)
 	{
 		if (current_row->state == tree_stack->next_state)
 		{

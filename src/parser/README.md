@@ -25,5 +25,8 @@
 - Still a weird error with super long echoes
 
 
-
-
+## Things to do next
+- fix memory leaks (check is the allocation with one array too much works (since you are using array_index but argc))
+- possibly implement prefixes
+- single quotes, dobule quotes
+- empty line && echo ""

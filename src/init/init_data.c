@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:15:37 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/08 16:30:42 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:32:36 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ t_data	*init_data(char **envp)
 	data->std_in = dup(STDIN_FILENO);
 	data->std_out = dup(STDOUT_FILENO);
 	data->line = NULL;
+	data->table_length = 0;
 	data->main_path = get_cwd();
 	tcgetattr(STDIN_FILENO, &data->term);
 	//init_cmd(data->cmd);
-	data->parsing_table = init_parsing_table(data->main_path);
+	data->parsing_table = init_parsing_table(data);
 	return (data);
 }
 
