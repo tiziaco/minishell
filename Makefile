@@ -1,13 +1,12 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+         #
+#    By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 11:38:10 by tiacovel          #+#    #+#              #
-#    Updated: 2024/03/02 00:09:55 by jkaller          ###   ########.fr        #
+#    Updated: 2024/03/13 12:31:45 by tiacovel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,26 +34,32 @@ LINK_LIB =  -lft -lreadline
 INCLUDE = -I /opt/homebrew/opt/readline/include
 HIDE = @
 
+# Color and styles
+COLOR_RESET = \033[0m
+BOLD_GREEN = \033[1;32m
+GREEN = \033[0;32m
+RED = \033[0;31m
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@if [ ! -f $(LIBFT_DIR)/libft.a ]; then make -C $(LIBFT_DIR); fi
-	@echo "\033[0;32mlibft COMPILED.\033[0m"
+	@echo "$(GREEN)libft COMPILED.$(COLOR_RESET)"
 	$(HIDE) $(CC) -g -O0 $(OBJ) $(LINK_DIR) $(INCLUDE) -o $(NAME) $(LINK_LIB)
-	@echo "\033[1;32mPROGRAM COMPILED 🥳\033[0m"
+	@echo "$(BOLD_GREEN)PROGRAM COMPILED 🥳$(COLOR_RESET)"
 
 src/%.o: src/%.c
 	$(HIDE) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@echo "\033[0;32mCompiling\033[0m  $< .."
+	@echo "$(GREEN)Compiling$(COLOR_RESET)  $< .."
 
 clean:
 	$(HIDE) make clean -C lib/libft
 	$(HIDE) $(RM) $(OBJ)
-	@echo "\033[0;31mObjs removed.\n\033[0m"
+	@echo "$(RED)Minish objs removed.$(COLOR_RESET)"
 fclean: clean
-	$(HIDE) @make fclean -C lib/libft
-	$(HIDE) $(RM) $(NAME)
-	@echo "\033[0;31mFull clean.\n\033[0m"
+	$(HIDE) @make fclean -C lib/libft > /dev/null
+	$(HIDE) $(RM) $(NAME) > /dev/null
+	@echo "$(RED)Minish fully cleaned.$(COLOR_RESET)"
 
 re: fclean all
 
