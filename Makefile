@@ -6,7 +6,7 @@
 #    By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 11:38:10 by tiacovel          #+#    #+#              #
-#    Updated: 2024/03/13 12:31:45 by tiacovel         ###   ########.fr        #
+#    Updated: 2024/03/14 14:04:13 by tiacovel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ $(NAME): $(OBJ)
 	@echo "$(BOLD_GREEN)PROGRAM COMPILED 🥳$(COLOR_RESET)"
 
 src/%.o: src/%.c
-	$(HIDE) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	$(HIDE) $(CC) -g -O0 $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@echo "$(GREEN)Compiling$(COLOR_RESET)  $< .."
 
 clean:
