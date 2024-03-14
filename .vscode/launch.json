@@ -2,7 +2,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug",
+            "name": "macOS debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            //"miDebuggerPath": "/Users/tizianoiacovelli/lldb-mi/src/lldb-mi",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build"
+        },
+        {
+            "name": "Ubuntu Debug",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/src/main",
