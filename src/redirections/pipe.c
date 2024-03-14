@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:27:23 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/05 15:53:32 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:31:09 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	init_pipes(t_data *data)
 	tmp = data->cmd;
 	while (tmp)
 	{
-		if (tmp->is_piped || (tmp->prev && tmp->prev->is_piped))
+		if (tmp->is_piped) // || (tmp->prev && tmp->prev->is_piped)
 		{
 			fd = malloc(sizeof * fd * 2);
 			if (!fd || pipe(fd) != 0)
@@ -49,10 +49,18 @@ int	set_pipe_fds(t_cmd *cmds, t_cmd *cmd)
 	if (!cmd)
 		return (EXIT_FAILURE);
 	if (cmd->prev && cmd->prev->is_piped)
+	{
+		//close(cmd->prev->pipe_fd[1]);
 		dup2(cmd->prev->pipe_fd[0], STDIN_FILENO);
+		close(cmd->prev->pipe_fd[0]);
+	}
 	if (cmd->is_piped)
+	{
+		//close(cmd->pipe_fd[0]);
 		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
-	close_pipe_fds(cmds, cmd);
+		close(cmd->pipe_fd[1]);
+	}
+	//close_pipe_fds(cmds, cmd);
 	return (EXIT_SUCCESS);
 }
 

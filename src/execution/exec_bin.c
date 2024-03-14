@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:50:51 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/04 13:49:32 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:25:55 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ int	exec_bin(t_data *data)
 	command_path = search_command(data->cmd->command);
 	if (command_path == NULL)
 		return (cmd_error(CMD_NOT_FOUND));
-	execve(command_path, data->cmd->args, data->envp);
-	/* if (execve(command_path, data->cmd->args, data->envp))
+	//execve(command_path, data->cmd->args, data->envp);
+	if (execve(command_path, data->cmd->args, data->envp))
 	{
 		free(command_path);
-		return (EXIT_FAILURE);
-	} */
+		exit(EXIT_FAILURE);
+	}
 	free(command_path);
 	return (EXIT_SUCCESS);
 }
