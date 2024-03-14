@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:30:21 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/12 15:58:01 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:01:20 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	**copy_environment(char **envp, int env_size)
 		}
 		i++;
 	}
+	new_envp[i] = NULL;
 	return (new_envp);
 }
 
