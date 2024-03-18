@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 22:52:13 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/18 19:13:55 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parse_input(t_data *data)
 		if (abstract_syntax_tree != NULL)
 		{
 			data->cmd = add_to_command_struct(abstract_syntax_tree);
-			//print_entire_command_struct(data->cmd);
+			print_entire_command_struct(data->cmd);
 			if (data->cmd != NULL)
 			{
 				free_all(token_stack, abstract_syntax_tree);
