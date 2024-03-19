@@ -10,7 +10,7 @@
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "lldb",
             //"miDebuggerPath": "/Users/tizianoiacovelli/lldb-mi/src/lldb-mi",
             "setupCommands": [
@@ -45,6 +45,9 @@
                 },
                 {
                     "text": "-gdb-set detach-on-fork off"
+                },
+                {
+                    "text": "set follow-fork-mode child"
                 }
             ],
             "preLaunchTask": "build",
