@@ -12,7 +12,8 @@ int main() {
         perror("pipe");
         exit(EXIT_FAILURE);
     }
-    
+    printf("Pipe IN: %d\n", pipefd[1]);
+    printf("Pipe OUT: %d\n", pipefd[0]);
     printf("Parent process ID: %d\n", getpid());
     // Fork a child process for ls
     pid_ls = fork();

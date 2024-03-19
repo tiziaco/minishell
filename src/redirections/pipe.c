@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:27:23 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/14 13:31:09 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:31:26 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	set_pipe_fds(t_cmd *cmds, t_cmd *cmd)
 		return (EXIT_FAILURE);
 	if (cmd->prev && cmd->prev->is_piped)
 	{
-		//close(cmd->prev->pipe_fd[1]);
+		close(cmd->prev->pipe_fd[1]);
 		dup2(cmd->prev->pipe_fd[0], STDIN_FILENO);
 		close(cmd->prev->pipe_fd[0]);
 	}
 	if (cmd->is_piped)
 	{
-		//close(cmd->pipe_fd[0]);
+		close(cmd->pipe_fd[0]);
 		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 		close(cmd->pipe_fd[1]);
 	}
