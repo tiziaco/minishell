@@ -8,7 +8,17 @@
     "commands.h": "c",
     "limits.h": "c",
     "termios.h": "c",
-    "dirent.h": "c"
+    "dirent.h": "c",
+    "array": "c",
+    "compare": "c",
+    "functional": "c",
+    "ostream": "c",
+    "ranges": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c",
+    "optional": "c",
+    "system_error": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "gcc",

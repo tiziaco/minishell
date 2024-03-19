@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 22:46:17 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/19 19:19:42 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ typedef	enum
 {
 	WORD_TOKEN = 10,
 	PIPE_TOKEN = 11,
-	REDIRECTION_INPUT_TOKEN = 12, // '<'
-	REDIRECTION_OUTPUT_TOKEN = 13, // '>'
-	REDIRECTION_HEREDOC_TOKEN = 14, // '<<'
-	REDIRECTION_APPEND_TOKEN = 15, // '>>'
+	INPUT_TOKEN = 12, // '<'
+	OUTPUT_TOKEN = 13, // '>'
+	HEREDOC_TOKEN = 14, // '<<'
+	APPEND_TOKEN = 15, // '>>'
 	END_TOKEN = 16,
 } TokenTypes;
 
@@ -107,13 +107,18 @@ typedef struct s_token
 	char			*value;
 	int				type;
 	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
 
 /* Tokenizer */
-int	tokenize_input(char *input_line, t_token **token_stack);
+int		tokenize_input(char *input_line, t_token **token_stack);
 void	ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token	*ft_lstnew_token(char *value, TokenTypes token_type);
 void	print_token_stack(t_token *token_stack);
+int	tokenize_input_string(char *input_str,
+	t_token **token_stack, int *index, int start);
+int	set_token_status(int token_status, char *line, int index);
+int	check_for_quotes(t_token *token_stack);
 
 /* Parsing Table */
 void print_parsing_tree(t_tree_node *root, int depth);

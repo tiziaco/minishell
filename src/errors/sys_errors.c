@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sys_errors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:48:07 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 16:16:22 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:47:16 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,12 @@ int	red_error(int err_code)
 		printf("Failed to redirect stdout.\n");
 	else if (err_code == INVALID_FNAME)
 		printf("Invalid file name.\n");
+	return (err_code);
+}
+
+int	tokenizer_error(int err_code)
+{
+	if (err_code == EOF_ERROR)
+		printf("Error at End of File.\n");
 	return (err_code);
 }

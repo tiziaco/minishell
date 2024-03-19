@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 12:23:10 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:06:24 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 */
 int	set_redirection(t_data *data, t_cmd *cmd)
 {
-	if (cmd->redirect == REDIRECTION_OUTPUT_TOKEN)
+	if (cmd->redirect == OUTPUT_TOKEN)
 		return (output_truncate(cmd));
-	else if (cmd->redirect == REDIRECTION_APPEND_TOKEN)
+	else if (cmd->redirect == APPEND_TOKEN)
 		return (output_append(cmd));
-	else if (cmd->redirect == REDIRECTION_INPUT_TOKEN)
+	else if (cmd->redirect == INPUT_TOKEN)
 		return (input_redirection(cmd));
-	else if (cmd->redirect == REDIRECTION_HEREDOC_TOKEN)
+	else if (cmd->redirect == HEREDOC_TOKEN)
 		return (input_heredoc(cmd));
 	return (EXIT_SUCCESS);
 }

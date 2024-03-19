@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/12 22:49:48 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:15:29 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@
 # define RED_OUT_ERR	22
 # define INVALID_FNAME	23
 
+/* Tokenizer errors */
+# define EOF_ERROR		24
 
 /* Struct / typedef / enum */
 typedef struct termios	t_term;
@@ -166,6 +168,7 @@ int		execute_command(t_data *data);
 int		sys_error(int err_code);
 int		cmd_error(int err_code);
 int		red_error(int err_code);
+int		tokenizer_error(int err_code);
 
 /* Outils */
 char	*get_cwd(void);
