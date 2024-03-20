@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/20 21:16:38 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 21:40:17 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,28 @@ t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, char **token_
 	t_cmd	*new_command;
 
 	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
+	if (!new_command)
+		return (NULL);
 	if (*token_value != NULL)
     	new_command->command = ft_strdup(*token_value);
-	new_command->argc = 0;
 	new_command->args = (char **)ft_calloc(sizeof(char *), (new_command->argc + 1));
-	//ft_printf("new command created\n");
 	if (*token_value != NULL)
 	{
 		add_args(tree_node, new_command, token_value);
    		free(*token_value);
 		*token_value = NULL;
 	}
-    if (commands->command == NULL)
+	if (commands->command == NULL)
 	{
         *commands = *new_command;
-		//ft_printf("new command created\n");
-    	//print_command_struct(new_command);
+		free(new_command);
 		return (commands);
 	}
 	else
-        ft_cmdadd_back(&commands, new_command);
-	//ft_printf("\nArg added! Complete struct below:");
-    //print_command_struct(new_command);
-    return (new_command);
+	{
+		ft_cmdadd_back(&commands, new_command);
+		return (new_command);
+	}
 }
 
 void	add_file(t_cmd *current_command, char **filename)
