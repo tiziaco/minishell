@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/12 17:07:49 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:30:06 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	init_foreground_mode(t_data *data)
 		if (data->line && data->line[0])
 			add_history(data->line);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = execute_command(data);
+			exit_code = OP_FAIL;
+			//exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
 		//free_data(data, false);
@@ -64,7 +65,8 @@ void	init_background_mode(t_data	*data, char *arg)
 	{
 		data->line = ft_strdup(inputs[i]);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = execute_command(data);
+			exit_code = OP_FAIL;
+			//exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
 		i++;
@@ -89,29 +91,6 @@ int	main(int argc, char **argv, char **envp)
 	exit_shell(data, EXIT_SUCCESS);
 	return (0);
 }
-
-// t_data	*init(t_data *data, char *str)
-// {
-// 	data = malloc(sizeof(t_data));
-// 	if (!data)
-// 		return (NULL);
-// 	data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
-// 	if (!data->cmd)
-// 		return (NULL);
-// 	data->envp = NULL;
-// 	data->cmd = NULL;
-// 	data->line =ft_strdup(str);
-// 	return (data);
-// }
-
-// int	main(int argc, char **argv)
-// {
-// 	t_data	*data;
-
-// 	data = init(data, argv[1]);
-// 	parse_input(data);
-// }
-
 
 /* TEST main for background mode */
 

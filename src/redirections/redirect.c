@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/19 16:06:24 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 20:27:14 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 	ret = EXIT_SUCCESS;
 	if (!cmd)
 		return (ret);
-	if (cmd->fd_in != data->std_in)
+	if (cmd->redirections->fd_in != data->std_in)
 	{
 		if (dup2(data->std_in, STDIN_FILENO) == -1)
 			ret = EXIT_FAILURE;
 		// close(io->stdin_backup);
 	}
-	if (cmd->fd_out != data->std_out)
+	if (cmd->redirections->fd_out != data->std_out)
 	{
 		if (dup2(data->std_out, STDOUT_FILENO) == -1)
 			ret = EXIT_FAILURE;
@@ -42,13 +42,13 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 */
 int	set_redirection(t_data *data, t_cmd *cmd)
 {
-	if (cmd->redirect == OUTPUT_TOKEN)
+	if (cmd->redirections->redirect == OUTPUT_TOKEN)
 		return (output_truncate(cmd));
-	else if (cmd->redirect == APPEND_TOKEN)
+	else if (cmd->redirections->redirect == APPEND_TOKEN)
 		return (output_append(cmd));
-	else if (cmd->redirect == INPUT_TOKEN)
+	else if (cmd->redirections->redirect == INPUT_TOKEN)
 		return (input_redirection(cmd));
-	else if (cmd->redirect == HEREDOC_TOKEN)
+	else if (cmd->redirections->redirect == HEREDOC_TOKEN)
 		return (input_heredoc(cmd));
 	return (EXIT_SUCCESS);
 }

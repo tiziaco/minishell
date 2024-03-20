@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/19 15:15:29 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 19:56:36 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,27 @@
 /* Struct / typedef / enum */
 typedef struct termios	t_term;
 
+typedef struct s_redirect
+{
+	int					redirect;
+	char				*file_name;
+	char				*heredoc_delim;
+	int					fd_in;
+	int					fd_out;
+	struct s_redirect	*next;
+	struct s_redirect	*prev;
+}	t_redirect;
+
 typedef struct s_cmd
 {
 	char			*command;
 	char			**args;
 	bool			is_piped;
-	int				redirect;
+	t_redirect		*redirections;
 	int				*pipe_fd;
-	char			*file_name;
-	char			*heredoc_delim;
 	int				pipe_in;
 	int				pipe_out;
 	int				argc;
-	int				fd_in;
-	int				fd_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -137,6 +144,8 @@ int		parse_input(t_data *data);
 void	fill_command_struct(t_tree_node *tree, t_cmd *commands);
 t_cmd	*add_to_command_struct(t_tree_node *tree);
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+void	ft_redirectadd_back(t_redirect **lst, t_redirect *new);
+t_redirect	*ft_lstnew_redirect(int redirect);
 void	print_command_struct(t_cmd	*commands);
 void    print_node(t_tree_node *tree);
 void	print_command_args(char	**args);

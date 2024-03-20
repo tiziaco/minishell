@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 22:21:33 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 21:02:28 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,29 @@ void	free_args(char **args)
 		free(args[index]);
 		index++;
 	}
-	//free(args); COMMENT WHY DOES THIS FAIL IT??
+	free(args); //COMMENT: THIS USED TO BE AN ISSUE
+}
+
+void	free_redirections(t_redirect *current_node)
+{
+	t_redirect	*next_node;
+
+	while (current_node)
+	{
+		next_node = current_node->next;
+		if (current_node->file_name)
+			free(current_node->file_name);
+		if (current_node->heredoc_delim)
+			free(current_node->heredoc_delim);
+		free(current_node);
+		current_node = next_node;
+	}
 }
 
 void	free_command_struct(t_cmd *command_stack)
 {
-	t_cmd *current_node;
-	
+	t_cmd	*current_node;
+
 	while (command_stack)
 	{
 		current_node = command_stack;
@@ -77,10 +93,8 @@ void	free_command_struct(t_cmd *command_stack)
 			free(current_node->command);
 		if (current_node->args)
 			free_args(current_node->args);
-		if (current_node->file_name)
-			free(current_node->file_name);
-		if (current_node->heredoc_delim)
-			free(current_node->heredoc_delim);
+		if (current_node->redirections)
+			free_redirections(current_node->redirections);
 		current_node = NULL;
 		command_stack = command_stack->next;
 		free(current_node);

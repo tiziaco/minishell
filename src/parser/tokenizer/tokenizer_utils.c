@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 14:43:49 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/20 16:37:46 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 21:09:02 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	create_linked_redirection(char *input, t_token **token_stack,
 		sep[i] = '\0';
 		ft_lstadd_back_token(token_stack, ft_lstnew_token(sep, token_type));
 	}
+	free(sep);
 	return (0);
 }
 
@@ -83,6 +84,7 @@ int	create_linked_word(char *input, t_token **token_stack, int index, int start)
 	}
 	word[i] = '\0';
 	ft_lstadd_back_token(token_stack, ft_lstnew_token(word, WORD_TOKEN));
+	free(word);
 	return (0);
 }
 

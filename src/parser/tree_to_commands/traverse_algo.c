@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/19 16:06:42 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 21:16:38 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "../../../include/libft.h"
 #include <unistd.h>
 #include <stdio.h>
+
+t_redirect	*find_last_node(t_redirect *last_node)
+{
+	while (last_node->next)
+		last_node = last_node->next;
+	return (last_node);
+}
 
 void	add_args(t_tree_node *tree_node, t_cmd *current_command, char **token_value)
 {
@@ -65,15 +72,18 @@ t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, char **token_
     return (new_command);
 }
 
-void	add_file(t_tree_node *tree_node, t_cmd *current_command, char **filename)
+void	add_file(t_cmd *current_command, char **filename)
 {
-	if (*filename == NULL)
+	t_redirect	*last_node;
+
+	last_node = find_last_node(current_command->redirections);
+	if (last_node == NULL)
 		return ;
-	if (!current_command->file_name)
-		current_command->file_name = ft_strdup(*filename);
+	if (!last_node->file_name)
+		last_node->file_name = ft_strdup(*filename);
 	free(*filename);
 	*filename = NULL;
-	//ft_printf("file detected\n");
+	ft_printf("file detected\n");
 	//print_command_struct(current_command);
 }
 
@@ -89,15 +99,30 @@ void	add_command(t_tree_node *tree_node, t_cmd *current_command, char **command_
 	//print_command_struct(current_command);
 }
 
-void	add_heredoc_delim(t_tree_node *tree_node, t_cmd *current_command, char **heredoc_delim)
+void	add_heredoc_delim(t_cmd *current_command, char **heredoc_delim)
 {
-	if (*heredoc_delim == NULL)
+	t_redirect	*last_node;
+
+	last_node = find_last_node(current_command->redirections);
+	if (last_node == NULL)
 		return ;
-	if (!current_command->heredoc_delim)
-		current_command->heredoc_delim = ft_strdup(*heredoc_delim);
+	if (!last_node->heredoc_delim)
+		last_node->heredoc_delim = ft_strdup(*heredoc_delim);
 	free(*heredoc_delim);
 	*heredoc_delim = NULL;
 	//ft_printf("heredoc delim detected\n");
+	//print_command_struct(current_command);
+}
+
+void	add_redirect(int redirect, t_cmd *current_command)
+{
+	t_redirect	*new_node;
+
+	new_node = ft_lstnew_redirect(redirect);
+	if (new_node == NULL)
+		return ;
+	ft_redirectadd_back(&current_command->redirections, new_node);
+	//ft_printf("redirect detected: %i\n", redirect);
 	//print_command_struct(current_command);
 }
 
@@ -133,17 +158,17 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 	}
 	else if (tree_node->grammar_type >= INPUT_TOKEN && tree_node->grammar_type <= APPEND_TOKEN)
 	{
-		current_command->redirect = tree_node->grammar_type;
-		//ft_printf("redirection added\n");
+		add_redirect(tree_node->grammar_type, current_command);
+		ft_printf("redirection added\n");
 		//print_command_struct(current_command);
 	}
 	else if (tree_node->leaf_header == FILENAME)
 	{
-		add_file(tree_node, current_command, &tmp_token_val);
-		//ft_printf("file added\n");
+		add_file(current_command, &tmp_token_val);
+		ft_printf("file added\n");
 	}
 	else if (tree_node->leaf_header == HERE_END)
-		add_heredoc_delim(tree_node, current_command, &tmp_token_val);
+		add_heredoc_delim(current_command, &tmp_token_val);
 	else if (tree_node->grammar_type == -2)
 	{
 		free(tmp_token_val);
