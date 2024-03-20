@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:15:29 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/19 20:04:35 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:00:26 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int	tokenize_input(char *input_line, t_token **token_stack)
 		tokenizer_error(EOF_ERROR);
 	if (*token_stack == NULL || (*token_stack)->value == NULL)
 		return (EXIT_FAILURE);
-	//check_for_quotes(*token_stack);
+	check_for_quotes(*token_stack);
 	return (EXIT_SUCCESS);
 }

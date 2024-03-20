@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:17:06 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/19 21:04:18 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 17:03:01 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,44 @@ char	*realloc_string(char *str, int str_len)
 	return (new_str);
 }
 
-void remove_quotes(t_token **token)
+void	remove_quotes(t_token **token_stack)
 {
-	char *value = (*token)->value;
+	char *value = (*token_stack)->value;
 	int i = 0;
 	int j = 0;
-	bool in_quotes = false;
-	while (value[i] != '\0') {
-		if (value[i] == '\\') {
-			// Handle escaped characters
-			if (value[i + 1] != '\0') {
+	char quote_type = value[0];
+	bool inside_quote = false;
+
+	while (value[i] != '\0')
+	{
+		if (value[i] == '\\')
+		{
+			if (value[i + 1] == '\"') {
 				value[j++] = value[i + 1];
 				i += 2;
 			}
-			else {
-				// Backslash at the end of the string, treat it as a literal backslash
+			else
 				value[j++] = value[i++];
-			}
 		}
-		else if (value[i] == '\'' || value[i] == '\"') {
-			// Skip quotes
-			in_quotes = !in_quotes;
+		else if ((value[i] == '\'' || value[i] == '\"') && inside_quote == false)
+		{
+			quote_type = value[i];
 			i++;
+			inside_quote = true;
 		}
-		else {
-			// Copy characters excluding quotes
+		else if (value[i] == quote_type)
+		{
+			quote_type = value[0];
+			i++;
+			inside_quote = false;
+		}
+		else
 			value[j++] = value[i++];
-		}
 	}
-	value[j] = '\0'; // Terminate the string
-	(*token)->value = realloc((*token)->value, strlen(value) + 1); // Resize the token value
+	value[j] = '\0';
+	(*token_stack)->value = realloc_string((*token_stack)->value, strlen(value) + 1);
 }
+
 
 bool	quotes_in_string(char *str)
 {

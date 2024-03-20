@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 14:43:49 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/19 19:18:06 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:37:46 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,9 @@ int	tokenize_input_string(char *input_str,
 
 int	set_token_status(int token_status, char *line, int index)
 {
-	if (line[index] == '\'' && token_status == 0)
+	if (line[index - 1] == '\\')
+		return (token_status);
+	else if (line[index] == '\'' && token_status == 0)
 		token_status = 1;
 	else if (line[index] == '\"' && token_status == 0)
 		token_status = 2;
