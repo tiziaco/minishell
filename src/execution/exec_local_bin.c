@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:38:26 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 17:27:59 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:51:28 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ bool	is_path(char *str)
 	return (true);
 }
 
-int	exec_local_bin(t_data *data)
+int	exec_local_bin(t_data *data, t_cmd *cmd)
 {
 	int	status;
 
-	status = check_command_path(data->cmd);
+	status = check_command_path(cmd);
 	if (status != EXIT_SUCCESS)
 		return (status);
-	if (execve(data->cmd->command, data->cmd->args, data->envp))
+	if (execve(cmd->command, cmd->args, data->envp))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:48:07 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 16:16:22 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:41:35 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ int	red_error(int err_code)
 		printf("Failed to redirect stdout.\n");
 	else if (err_code == INVALID_FNAME)
 		printf("Invalid file name.\n");
+	else if (err_code == DUP_ERROR)
+		printf("Error while duplicating the fd.\n");
 	return (err_code);
 }

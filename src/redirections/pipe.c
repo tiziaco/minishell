@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:27:23 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/19 11:31:26 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:00:41 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	init_pipes(t_data *data)
 	tmp = data->cmd;
 	while (tmp)
 	{
-		if (tmp->is_piped) // || (tmp->prev && tmp->prev->is_piped)
+		if (tmp->is_piped)
 		{
 			fd = malloc(sizeof * fd * 2);
 			if (!fd || pipe(fd) != 0)
@@ -44,35 +44,55 @@ int	init_pipes(t_data *data)
 *		pipe_fd[1] = write end of pipe.
 *	Returns true when the pipe file descriptors are set.
 */
-int	set_pipe_fds(t_cmd *cmds, t_cmd *cmd)
+int	set_pipe_fds(t_cmd *cmd)
 {
 	if (!cmd)
 		return (EXIT_FAILURE);
-	if (cmd->prev && cmd->prev->is_piped)
+	if (cmd->is_piped && cmd->prev == NULL)
 	{
-		close(cmd->prev->pipe_fd[1]);
-		dup2(cmd->prev->pipe_fd[0], STDIN_FILENO);
-		close(cmd->prev->pipe_fd[0]);
+		cmd->pipe_in = 0;
+		cmd->pipe_out = cmd->pipe_fd[1];
 	}
-	if (cmd->is_piped)
+	else if (cmd->is_piped && cmd->prev->is_piped)
 	{
-		close(cmd->pipe_fd[0]);
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
-		close(cmd->pipe_fd[1]);
+		cmd->pipe_in = cmd->prev->pipe_fd[0];
+		cmd->pipe_out = cmd->pipe_fd[1];
 	}
-	//close_pipe_fds(cmds, cmd);
+	else if (cmd->prev && cmd->prev->is_piped && !cmd->is_piped)
+	{
+		cmd->pipe_in = cmd->prev->pipe_fd[0];
+		cmd->pipe_out = 1;
+	}
+	/* else
+		perror("Unexpected case!!"); */
 	return (EXIT_SUCCESS);
 }
-
-void	close_pipe_fds(t_cmd *cmds, t_cmd *skip_cmd)
+void	redirect_pipe_fds(t_cmd *cmd)
 {
-	while (cmds)
+	if (cmd->pipe_in != 0)
 	{
-		if (cmds != skip_cmd && cmds->pipe_fd)
-		{
-			close(cmds->pipe_fd[0]);
-			close(cmds->pipe_fd[1]);
-		}
-		cmds = cmds->next;
+		dup2 (cmd->pipe_in, 0);
+		close (cmd->pipe_in);
+	}
+	if (cmd->pipe_out != 1)
+	{
+		dup2 (cmd->pipe_out, 1);
+		close (cmd->pipe_out);
+	}
+}
+
+void	close_pipe_fds(t_cmd *cmd)
+{
+	if (cmd->is_piped && cmd->next != NULL)
+			close (cmd->pipe_fd[1]);
+	else if (cmd->is_piped && cmd->prev->is_piped)
+	{
+		close(cmd->prev->pipe_fd[0]);
+		close(cmd->pipe_fd[1]);
+	}
+	else if (cmd->prev && cmd->prev->is_piped && !cmd->is_piped)
+	{
+		close(cmd->prev->pipe_fd[0]);
+		close(cmd->prev->pipe_fd[1]);
 	}
 }

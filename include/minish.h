@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/12 22:49:48 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 17:11:34 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define RED_OUT_TRUNC	2
 # define RED_IN			3
 # define RED_IN_HERE	4
+# define DUP_ERROR		5
 
 /* System error */
 # define OP_SUCCESS		1
@@ -118,11 +119,7 @@ char	**copy_environment(char **envp, int env_size);
 int		set_var(t_data *data, char *key, char *val);
 int		remove_var(t_data *data, int key_index);
 
-/* Redirections and pipes */
-int		init_pipes(t_data *data);
-int		set_pipe_fds(t_cmd *cmds, t_cmd *cmd);
-void	close_pipe_fds(t_cmd *cmds, t_cmd *skip_cmd);
-
+/* Redirections*/
 int		set_redirection(t_data *data, t_cmd *cmd);
 int		restore_std_io(t_data *data, t_cmd *cmd);
 int		output_truncate(t_cmd *cmd);
@@ -144,8 +141,9 @@ void	free_all(t_token *token_stack, t_tree_node *abstract_syntax_tree);
 
 /* Redirections and pipes */
 int		init_pipes(t_data *data);
-int		set_pipe_fds(t_cmd *cmds, t_cmd *cmd);
-void	close_pipe_fds(t_cmd *cmds, t_cmd *skip_cmd);
+int		set_pipe_fds(t_cmd *cmd);
+void	redirect_pipe_fds(t_cmd *cmd);
+void	close_pipe_fds(t_cmd *cmd);
 
 int		set_redirection(t_data *data, t_cmd *cmd);
 int		restore_std_io(t_data *data, t_cmd *cmd);
@@ -157,9 +155,9 @@ int		input_heredoc(t_cmd *cmd);
 /* Execution */
 bool	is_builtin(char *arg);
 bool	is_path(char *str);
-int		exec_builtin(t_data *data);
-int		exec_local_bin(t_data *data);
-int		exec_bin(t_data *data);
+int		exec_builtin(t_data *data, t_cmd *cmd);
+int		exec_local_bin(t_data *data, t_cmd *cmd);
+int		exec_bin(t_data *data, t_cmd *cmd);
 int		execute_command(t_data *data);
 
 /* Error handlers */
