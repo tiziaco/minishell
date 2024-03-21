@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:37:05 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 17:30:36 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:26:57 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	output_truncate(t_cmd *cmd)
 {
 	int	fd;
 
-	if (check_file_name(cmd->file_name) == 0)
+	if (check_file_name(cmd->redirections->file_name) == 0)
 		return (red_error(INVALID_FNAME));
-	fd = open(cmd->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	fd = open(cmd->redirections->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	printf("file descriptor %d\n", fd);
-	printf("file name %s\n", cmd->file_name);
+	printf("file name %s\n", cmd->redirections->file_name);
 	if (fd == -1)
 		return (red_error(FILE_NF));
 	if (dup2(fd, STDOUT_FILENO) == -1)
@@ -49,9 +49,9 @@ int	output_append(t_cmd *cmd)
 {
 	int	fd;
 
-	if (check_file_name(cmd->file_name) == 0)
+	if (check_file_name(cmd->redirections->file_name) == 0)
 		return (red_error(INVALID_FNAME));
-	fd = open(cmd->file_name, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	fd = open(cmd->redirections->file_name, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd == -1)
 		return (red_error(FILE_NF));
 	if (dup2(fd, STDOUT_FILENO) == -1)

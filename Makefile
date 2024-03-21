@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 11:38:10 by tiacovel          #+#    #+#              #
-#    Updated: 2024/03/14 14:04:13 by tiacovel         ###   ########.fr        #
+#    Updated: 2024/03/21 15:36:01 by jkaller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC =	$(wildcard src/*.c) $(wildcard src/builtins/*.c) \
 		$(wildcard src/parser_old/*.c) $(wildcard src/redirections/*.c) \
 		$(wildcard src/parser/*.c) $(wildcard src/parser/tokenizer/*.c) \
 		$(wildcard src/parser/parsing_table/*.c) \
+		$(wildcard src/parser/expansion/*.c) \
 		$(wildcard src/parser/parsing_tree/*.c) \
 		$(wildcard src/parser/cleanup/*.c) \
 		$(wildcard src/parser/tree_to_commands/*.c) \

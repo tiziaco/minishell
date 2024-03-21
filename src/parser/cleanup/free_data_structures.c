@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 22:21:33 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:32:29 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,41 @@ void	free_args(char **args)
 		free(args[index]);
 		index++;
 	}
-	//free(args); COMMENT WHY DOES THIS FAIL IT??
+	free(args); //COMMENT: THIS USED TO BE AN ISSUE
 }
 
-void	free_command_struct(t_cmd *command_stack)
+void	free_redirections(t_redirect *current_node)
 {
-	t_cmd *current_node;
-	
-	while (command_stack)
+	t_redirect	*next_node;
+
+	while (current_node)
 	{
-		current_node = command_stack;
-		if (current_node->command)
-			free(current_node->command);
-		if (current_node->args)
-			free_args(current_node->args);
+		next_node = current_node->next;
 		if (current_node->file_name)
 			free(current_node->file_name);
 		if (current_node->heredoc_delim)
 			free(current_node->heredoc_delim);
-		current_node = NULL;
-		command_stack = command_stack->next;
 		free(current_node);
+		current_node = next_node;
 	}
-	free(command_stack);
+}
+
+void	free_command_struct(t_cmd *current_node)
+{
+	t_cmd	*next_node;
+
+	while (current_node)
+	{
+		next_node = current_node->next;
+		if (current_node->command)
+			free(current_node->command);
+		if (current_node->args)
+			free_args(current_node->args);
+		if (current_node->redirections)
+			free_redirections(current_node->redirections);
+		free(current_node);
+		current_node = next_node;
+	}
 }
 
 void	free_all(t_token *token_stack, t_tree_node *abstract_syntax_tree)

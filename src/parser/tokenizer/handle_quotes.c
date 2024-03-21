@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:17:06 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/20 17:03:01 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/20 21:47:18 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*realloc_string(char *str, int str_len)
 		return (NULL);
 	if (str != NULL)
 		strcpy(new_str, str);
+	free(str);
 	return (new_str);
 }
 

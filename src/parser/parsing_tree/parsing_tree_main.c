@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:14:38 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 22:17:00 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:38:11 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_tree_node	*create_syntax_tree(t_token *token_stack,
 			process_done_flag = 1;
 		else
 		{
-			ft_printf("Syntax Error\n");
+			parsing_tree_error(SYNTAX_ERROR);
 			process_done_flag = -1; 
 		}
 	}

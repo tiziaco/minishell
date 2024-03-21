@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:41:25 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/19 19:19:42 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 15:34:02 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int	tokenize_input_string(char *input_str,
 	t_token **token_stack, int *index, int start);
 int	set_token_status(int token_status, char *line, int index);
 int	check_for_quotes(t_token *token_stack);
+char	*realloc_string(char *str, int str_len);
+void	check_for_expansions(t_token *token_stack);
 
 /* Parsing Table */
 void print_parsing_tree(t_tree_node *root, int depth);

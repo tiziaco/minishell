@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:37:20 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/07 20:07:12 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:05:39 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ t_cmd	*init_cmd(void)
 
 	commmand_stack = (t_cmd *)ft_calloc(sizeof(*commmand_stack), 1);
 	if (!commmand_stack)
-		return (NULL); //COMMENT: modify this
-	commmand_stack->redirect = -1;
+		return (NULL);
 	return (commmand_stack);
 }
 

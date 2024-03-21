@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sys_errors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:48:07 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 18:14:21 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:32:50 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,12 @@ int	tokenizer_error(int err_code)
 {
 	if (err_code == EOF_ERROR)
 		printf("Error at End of File.\n");
+	return (err_code);
+}
+
+int	parsing_tree_error(int err_code)
+{
+	if (err_code == SYNTAX_ERROR)
+		printf("Syntax Error.\n");
 	return (err_code);
 }
