@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/20 21:43:10 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:49:12 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ int	parse_input(t_data *data)
 			print_entire_command_struct(data->cmd);
 			if (data->cmd != NULL)
 			{
-				ft_printf("hello");
 				free_all(token_stack, abstract_syntax_tree);
-				free_command_struct(data->cmd); //COMMENT: JUST TO THE PARSE
+				free_command_struct(data->cmd); //COMMENT: JUST TO TEST THE PARSE
 				return (OP_SUCCESS); //TO BE CHANGED
 			}
 			else
