@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:48:07 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/19 14:47:16 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:37:48 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,12 @@ int	tokenizer_error(int err_code)
 {
 	if (err_code == EOF_ERROR)
 		printf("Error at End of File.\n");
+	return (err_code);
+}
+
+int	parsing_tree_error(int err_code)
+{
+	if (err_code == SYNTAX_ERROR)
+		printf("Syntax Error.\n");
 	return (err_code);
 }

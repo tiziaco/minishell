@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/20 19:56:36 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:37:28 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@
 
 /* Tokenizer errors */
 # define EOF_ERROR		24
+
+/* Parsing Tree errors */
+# define SYNTAX_ERROR		25
 
 /* Struct / typedef / enum */
 typedef struct termios	t_term;
@@ -178,6 +181,7 @@ int		sys_error(int err_code);
 int		cmd_error(int err_code);
 int		red_error(int err_code);
 int		tokenizer_error(int err_code);
+int		parsing_tree_error(int err_code);
 
 /* Outils */
 char	*get_cwd(void);

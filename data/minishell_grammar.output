@@ -26,13 +26,13 @@ Grammar
    16 io_redirect: io_file
    17            | io_here
 
-   18 io_file: REDIRECTION_INPUT_TOKEN filename
-   19        | REDIRECTION_OUTPUT_TOKEN filename
-   20        | REDIRECTION_APPEND_TOKEN filename
+   18 io_file: INPUT_TOKEN filename
+   19        | OUTPUT_TOKEN filename
+   20        | APPEND_TOKEN filename
 
    21 filename: WORD_TOKEN
 
-   22 io_here: REDIRECTION_HEREDOC_TOKEN here_end
+   22 io_here: HEREDOC_TOKEN here_end
 
    23 here_end: END_TOKEN
 
@@ -43,10 +43,10 @@ Terminals, with rules where they appear
     error (256)
     WORD_TOKEN (258) 8 9 14 15 21
     PIPE_TOKEN (259) 2
-    REDIRECTION_INPUT_TOKEN (260) 18
-    REDIRECTION_OUTPUT_TOKEN (261) 19
-    REDIRECTION_HEREDOC_TOKEN (262) 22
-    REDIRECTION_APPEND_TOKEN (263) 20
+    INPUT_TOKEN (260) 18
+    OUTPUT_TOKEN (261) 19
+    HEREDOC_TOKEN (262) 22
+    APPEND_TOKEN (263) 20
     END_TOKEN (264) 23
 
 
@@ -94,10 +94,10 @@ State 0
     0 $accept: • pipe_sequence $end
 
     WORD_TOKEN                 shift, and go to state 1
-    REDIRECTION_INPUT_TOKEN    shift, and go to state 2
-    REDIRECTION_OUTPUT_TOKEN   shift, and go to state 3
-    REDIRECTION_HEREDOC_TOKEN  shift, and go to state 4
-    REDIRECTION_APPEND_TOKEN   shift, and go to state 5
+    INPUT_TOKEN    shift, and go to state 2
+    OUTPUT_TOKEN   shift, and go to state 3
+    HEREDOC_TOKEN  shift, and go to state 4
+    APPEND_TOKEN   shift, and go to state 5
 
     pipe_sequence   go to state 6
     simple_command  go to state 7
@@ -117,7 +117,7 @@ State 1
 
 State 2
 
-   18 io_file: REDIRECTION_INPUT_TOKEN • filename
+   18 io_file: INPUT_TOKEN • filename
 
     WORD_TOKEN  shift, and go to state 13
 
@@ -126,7 +126,7 @@ State 2
 
 State 3
 
-   19 io_file: REDIRECTION_OUTPUT_TOKEN • filename
+   19 io_file: OUTPUT_TOKEN • filename
 
     WORD_TOKEN  shift, and go to state 13
 
@@ -135,7 +135,7 @@ State 3
 
 State 4
 
-   22 io_here: REDIRECTION_HEREDOC_TOKEN • here_end
+   22 io_here: HEREDOC_TOKEN • here_end
 
     END_TOKEN  shift, and go to state 16
 
@@ -144,7 +144,7 @@ State 4
 
 State 5
 
-   20 io_file: REDIRECTION_APPEND_TOKEN • filename
+   20 io_file: APPEND_TOKEN • filename
 
     WORD_TOKEN  shift, and go to state 13
 
@@ -173,10 +173,10 @@ State 8
     7               | cmd_name •
 
     WORD_TOKEN                 shift, and go to state 21
-    REDIRECTION_INPUT_TOKEN    shift, and go to state 2
-    REDIRECTION_OUTPUT_TOKEN   shift, and go to state 3
-    REDIRECTION_HEREDOC_TOKEN  shift, and go to state 4
-    REDIRECTION_APPEND_TOKEN   shift, and go to state 5
+    INPUT_TOKEN    shift, and go to state 2
+    OUTPUT_TOKEN   shift, and go to state 3
+    HEREDOC_TOKEN  shift, and go to state 4
+    APPEND_TOKEN   shift, and go to state 5
 
     $default  reduce using rule 7 (simple_command)
 
@@ -194,10 +194,10 @@ State 9
    11 cmd_prefix: cmd_prefix • io_redirect
 
     WORD_TOKEN                 shift, and go to state 24
-    REDIRECTION_INPUT_TOKEN    shift, and go to state 2
-    REDIRECTION_OUTPUT_TOKEN   shift, and go to state 3
-    REDIRECTION_HEREDOC_TOKEN  shift, and go to state 4
-    REDIRECTION_APPEND_TOKEN   shift, and go to state 5
+    INPUT_TOKEN    shift, and go to state 2
+    OUTPUT_TOKEN   shift, and go to state 3
+    HEREDOC_TOKEN  shift, and go to state 4
+    APPEND_TOKEN   shift, and go to state 5
 
     $default  reduce using rule 5 (simple_command)
 
@@ -237,14 +237,14 @@ State 13
 
 State 14
 
-   18 io_file: REDIRECTION_INPUT_TOKEN filename •
+   18 io_file: INPUT_TOKEN filename •
 
     $default  reduce using rule 18 (io_file)
 
 
 State 15
 
-   19 io_file: REDIRECTION_OUTPUT_TOKEN filename •
+   19 io_file: OUTPUT_TOKEN filename •
 
     $default  reduce using rule 19 (io_file)
 
@@ -258,14 +258,14 @@ State 16
 
 State 17
 
-   22 io_here: REDIRECTION_HEREDOC_TOKEN here_end •
+   22 io_here: HEREDOC_TOKEN here_end •
 
     $default  reduce using rule 22 (io_here)
 
 
 State 18
 
-   20 io_file: REDIRECTION_APPEND_TOKEN filename •
+   20 io_file: APPEND_TOKEN filename •
 
     $default  reduce using rule 20 (io_file)
 
@@ -282,10 +282,10 @@ State 20
     2 pipe_sequence: pipe_sequence PIPE_TOKEN • simple_command
 
     WORD_TOKEN                 shift, and go to state 1
-    REDIRECTION_INPUT_TOKEN    shift, and go to state 2
-    REDIRECTION_OUTPUT_TOKEN   shift, and go to state 3
-    REDIRECTION_HEREDOC_TOKEN  shift, and go to state 4
-    REDIRECTION_APPEND_TOKEN   shift, and go to state 5
+    INPUT_TOKEN    shift, and go to state 2
+    OUTPUT_TOKEN   shift, and go to state 3
+    HEREDOC_TOKEN  shift, and go to state 4
+    APPEND_TOKEN   shift, and go to state 5
 
     simple_command  go to state 27
     cmd_name        go to state 8
@@ -309,10 +309,10 @@ State 22
    15           | cmd_suffix • WORD_TOKEN
 
     WORD_TOKEN                 shift, and go to state 28
-    REDIRECTION_INPUT_TOKEN    shift, and go to state 2
-    REDIRECTION_OUTPUT_TOKEN   shift, and go to state 3
-    REDIRECTION_HEREDOC_TOKEN  shift, and go to state 4
-    REDIRECTION_APPEND_TOKEN   shift, and go to state 5
+    INPUT_TOKEN    shift, and go to state 2
+    OUTPUT_TOKEN   shift, and go to state 3
+    HEREDOC_TOKEN  shift, and go to state 4
+    APPEND_TOKEN   shift, and go to state 5
 
     $default  reduce using rule 6 (simple_command)
 
@@ -341,10 +341,10 @@ State 25
     4               | cmd_prefix cmd_word •
 
     WORD_TOKEN                 shift, and go to state 21
-    REDIRECTION_INPUT_TOKEN    shift, and go to state 2
-    REDIRECTION_OUTPUT_TOKEN   shift, and go to state 3
-    REDIRECTION_HEREDOC_TOKEN  shift, and go to state 4
-    REDIRECTION_APPEND_TOKEN   shift, and go to state 5
+    INPUT_TOKEN    shift, and go to state 2
+    OUTPUT_TOKEN   shift, and go to state 3
+    HEREDOC_TOKEN  shift, and go to state 4
+    APPEND_TOKEN   shift, and go to state 5
 
     $default  reduce using rule 4 (simple_command)
 
@@ -389,10 +389,10 @@ State 30
    15           | cmd_suffix • WORD_TOKEN
 
     WORD_TOKEN                 shift, and go to state 28
-    REDIRECTION_INPUT_TOKEN    shift, and go to state 2
-    REDIRECTION_OUTPUT_TOKEN   shift, and go to state 3
-    REDIRECTION_HEREDOC_TOKEN  shift, and go to state 4
-    REDIRECTION_APPEND_TOKEN   shift, and go to state 5
+    INPUT_TOKEN    shift, and go to state 2
+    OUTPUT_TOKEN   shift, and go to state 3
+    HEREDOC_TOKEN  shift, and go to state 4
+    APPEND_TOKEN   shift, and go to state 5
 
     $default  reduce using rule 3 (simple_command)
 

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/20 21:40:17 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:17:51 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_redirect	*find_last_node(t_redirect *last_node)
 	return (last_node);
 }
 
-void	add_args(t_tree_node *tree_node, t_cmd *current_command, char **token_value)
+void	add_args(t_cmd *current_command, char **token_value)
 {
 	char **tmp_args;
 	
@@ -42,11 +42,12 @@ void	add_args(t_tree_node *tree_node, t_cmd *current_command, char **token_value
 	//print_command_struct(current_command);
 }
 
-t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, char **token_value)
+t_cmd *create_new_command(t_cmd *commands, char **token_value)
 {
 	t_cmd	*new_command;
 
 	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
+	ft_printf("new command created");
 	if (!new_command)
 		return (NULL);
 	if (*token_value != NULL)
@@ -54,7 +55,7 @@ t_cmd *create_new_command(t_tree_node *tree_node, t_cmd *commands, char **token_
 	new_command->args = (char **)ft_calloc(sizeof(char *), (new_command->argc + 1));
 	if (*token_value != NULL)
 	{
-		add_args(tree_node, new_command, token_value);
+		add_args(new_command, token_value);
    		free(*token_value);
 		*token_value = NULL;
 	}
@@ -86,12 +87,12 @@ void	add_file(t_cmd *current_command, char **filename)
 	//print_command_struct(current_command);
 }
 
-void	add_command(t_tree_node *tree_node, t_cmd *current_command, char **command_name)
+void	add_command(t_cmd *current_command, char **command_name)
 {
 	if (*command_name == NULL)
 		return ;
 	current_command->command = ft_strdup(*command_name);
-	add_args(tree_node, current_command, command_name);
+	add_args(current_command, command_name);
 	free(*command_name);
 	*command_name = NULL;
 	//ft_printf("command detected\n");
@@ -131,7 +132,7 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 	static char 		*tmp_token_val = NULL;
 
 	if (!current_command)
-		current_command = create_new_command(tree_node, commands, &tmp_token_val);
+		current_command = create_new_command(commands, &tmp_token_val);
 	if (tree_node->grammar_type == WORD_TOKEN || tree_node->grammar_type == TREE_FILE || tree_node->grammar_type == TREE_LIMITER)
 	{
 		tmp_token_val = ft_strdup(tree_node->token_value);
@@ -140,14 +141,14 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 	else if (tree_node->leaf_header == CMD_NAME || tree_node->leaf_header == CMD_WORD)
 	{
 		if (current_command->command == NULL)
-			add_command(tree_node, current_command, &tmp_token_val);
+			add_command(current_command, &tmp_token_val);
 		else
-			current_command = create_new_command(tree_node, commands, &tmp_token_val);
+			current_command = create_new_command(commands, &tmp_token_val);
 	}
-	else if (tree_node->leaf_header == CMD_SUFFIX)
+	else if (tree_node->leaf_header == CMD_SUFFIX || tree_node->leaf_header == CMD_PREFIX)
 	{
 		if (tmp_token_val != NULL)
-			add_args(tree_node, current_command, &tmp_token_val);
+			add_args(current_command, &tmp_token_val);
 	}
 	else if (tree_node->grammar_type == PIPE_TOKEN)
 	{
@@ -172,8 +173,9 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 	{
 		free(tmp_token_val);
 		tmp_token_val = NULL;
-	}	
-}	
+		current_command = NULL;
+	}
+}
 
 void	fill_command_struct(t_tree_node *tree, t_cmd *command_stack)
 {
