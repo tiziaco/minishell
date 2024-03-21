@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/12 22:30:15 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:06:42 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 		//ft_printf("pipe added\n");
 		//print_command_struct(current_command);
 	}
-	else if (tree_node->grammar_type >= REDIRECTION_INPUT_TOKEN && tree_node->grammar_type <= REDIRECTION_APPEND_TOKEN)
+	else if (tree_node->grammar_type >= INPUT_TOKEN && tree_node->grammar_type <= APPEND_TOKEN)
 	{
 		current_command->redirect = tree_node->grammar_type;
 		//ft_printf("redirection added\n");

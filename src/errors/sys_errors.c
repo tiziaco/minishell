@@ -6,9 +6,10 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:48:07 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/20 12:41:35 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:14:21 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../include/commands.h"
 
@@ -52,5 +53,12 @@ int	red_error(int err_code)
 		printf("Invalid file name.\n");
 	else if (err_code == DUP_ERROR)
 		printf("Error while duplicating the fd.\n");
+	return (err_code);
+}
+
+int	tokenizer_error(int err_code)
+{
+	if (err_code == EOF_ERROR)
+		printf("Error at End of File.\n");
 	return (err_code);
 }

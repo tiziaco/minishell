@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:18:06 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/04 17:31:11 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/19 18:35:41 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 	while (last && last->next)
 		last = last->next;
 	last->next = new;
+	new->prev = last;
 }
 
 t_token	*ft_lstnew_token(char *value, TokenTypes token_type)
@@ -47,6 +48,7 @@ t_token	*ft_lstnew_token(char *value, TokenTypes token_type)
 		node->value = ft_strdup(value);
 	node->type = token_type;
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
 }
 

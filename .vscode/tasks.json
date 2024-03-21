@@ -35,6 +35,8 @@
                 "${fileDirname}/parser/parsing_tree/reduce_operation_utils2.c",
                 "${fileDirname}/parser/parsing_tree/shift_operation_utils.c",
                 "${fileDirname}/parser/tokenizer/adjusted_list_function.c",
+                "${fileDirname}/parser/tokenizer/handle_quotes.c",
+                "${fileDirname}/parser/tokenizer/tokenizer_utils.c",
                 "${fileDirname}/parser/tokenizer/tokenizer.c",
                 "${fileDirname}/parser/tree_to_commands/traverse_algo.c",
                 "${fileDirname}/parser/tree_to_commands/tree_to_commands_lists.c",
