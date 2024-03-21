@@ -40,6 +40,6 @@ int	tokenize_input(char *input_line, t_token **token_stack)
 	if (*token_stack == NULL || (*token_stack)->value == NULL)
 		return (EXIT_FAILURE);
 	check_for_quotes(*token_stack);
-	//check_for_expansions(*token_stack);
+	check_for_expansions(*token_stack);
 	return (EXIT_SUCCESS);
 }
