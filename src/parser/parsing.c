@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:48:07 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/21 15:37:36 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 18:44:18 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ int	parse_input(t_data *data)
 
 	if (tokenize_input(data->line, &token_stack) == EXIT_SUCCESS)
 	{
-		print_token_stack(token_stack);
+		//print_token_stack(token_stack);
 		abstract_syntax_tree = create_syntax_tree(token_stack, &data->parsing_table, data->table_length);
-		print_parsing_tree(abstract_syntax_tree, 0);
+		//print_parsing_tree(abstract_syntax_tree, 0);
 		if (abstract_syntax_tree != NULL)
 		{
 			data->cmd = add_to_command_struct(abstract_syntax_tree);
-			print_entire_command_struct(data->cmd);
+			//print_entire_command_struct(data->cmd);
 			if (data->cmd != NULL)
 			{
 				free_all(token_stack, abstract_syntax_tree);
-				free_command_struct(data->cmd); //COMMENT: JUST TO TEST THE PARSE
+				//free_command_struct(data->cmd); //COMMENT: JUST TO TEST THE PARSE
 				return (OP_SUCCESS); //TO BE CHANGED
 			}
 			else
@@ -44,7 +44,5 @@ int	parse_input(t_data *data)
 		//free_token_stack(token_stack);
 		return (OP_FAIL);
 	}
-	ft_printf("check");
-	free_command_struct(data->cmd);
 	return (OP_SUCCESS);
 }

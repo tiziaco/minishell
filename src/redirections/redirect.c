@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/20 20:27:14 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 18:42:13 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 */
 int	set_redirection(t_data *data, t_cmd *cmd)
 {
+	if (!cmd->redirections)
+		return (EXIT_SUCCESS);
 	if (cmd->redirections->redirect == OUTPUT_TOKEN)
 		return (output_truncate(cmd));
 	else if (cmd->redirections->redirect == APPEND_TOKEN)

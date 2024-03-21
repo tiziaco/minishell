@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/20 20:30:06 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 18:35:50 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	init_foreground_mode(t_data *data)
 		if (data->line && data->line[0])
 			add_history(data->line);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = OP_FAIL;
-			//exit_code = execute_command(data);
+			exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
 		//free_data(data, false);
@@ -65,8 +64,7 @@ void	init_background_mode(t_data	*data, char *arg)
 	{
 		data->line = ft_strdup(inputs[i]);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = OP_FAIL;
-			//exit_code = execute_command(data);
+			exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/21 13:17:51 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/21 18:44:59 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_cmd *create_new_command(t_cmd *commands, char **token_value)
 	t_cmd	*new_command;
 
 	new_command = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
-	ft_printf("new command created");
+	//ft_printf("new command created");
 	if (!new_command)
 		return (NULL);
 	if (*token_value != NULL)
@@ -83,7 +83,7 @@ void	add_file(t_cmd *current_command, char **filename)
 		last_node->file_name = ft_strdup(*filename);
 	free(*filename);
 	*filename = NULL;
-	ft_printf("file detected\n");
+	//ft_printf("file detected\n");
 	//print_command_struct(current_command);
 }
 
@@ -159,13 +159,13 @@ void	check_node(t_tree_node *tree_node, t_cmd *commands)
 	else if (tree_node->grammar_type >= INPUT_TOKEN && tree_node->grammar_type <= APPEND_TOKEN)
 	{
 		add_redirect(tree_node->grammar_type, current_command);
-		ft_printf("redirection added\n");
+		//ft_printf("redirection added\n");
 		//print_command_struct(current_command);
 	}
 	else if (tree_node->leaf_header == FILENAME)
 	{
 		add_file(current_command, &tmp_token_val);
-		ft_printf("file added\n");
+		//ft_printf("file added\n");
 	}
 	else if (tree_node->leaf_header == HERE_END)
 		add_heredoc_delim(current_command, &tmp_token_val);
