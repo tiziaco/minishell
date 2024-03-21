@@ -1,53 +1,71 @@
 {
-    "version": "0.2.0",
-    "configurations": [
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "macOS debug",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/main",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb",
+      "setupCommands": [
         {
-            "name": "macOS debug",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/src/main",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
-            //"miDebuggerPath": "/Users/tizianoiacovelli/lldb-mi/src/lldb-mi",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-                {
-                    "text": "-gdb-set detach-on-fork off"
-                }
-            ],
-            "preLaunchTask": "build"
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
         },
         {
-            "name": "Ubuntu Debug",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/src/main",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-                {
-                    "text": "-gdb-set detach-on-fork off"
-                }
-            ],
-            "preLaunchTask": "build",
+          "text": "-gdb-set detach-on-fork off"
         }
-    ]
+      ],
+      "preLaunchTask": "build"
+    },
+    {
+      "name": "Ubuntu Debug",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/main",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "text": "-gdb-set detach-on-fork off"
+        }
+      ],
+      "preLaunchTask": "build"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/jkaller/Desktop/HomeOf42/Core_Curriculum_Projects/Rank03/minishell",
+      "program": "/home/jkaller/Desktop/HomeOf42/Core_Curriculum_Projects/Rank03/minishell/src/main",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
 }
