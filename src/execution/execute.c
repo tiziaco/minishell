@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 18:37:17 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/22 11:02:39 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ int	execute_command(t_data *data)
 		if (current_cmd)
 		{
 			close_pipe_fds(current_cmd);
+			restore_std_io(data, current_cmd);
 			current_cmd = current_cmd->next;
 		}
 	}
 	wait_processes(data);
-	restore_std_io(data, current_cmd);
+	//restore_std_io(data, current_cmd);
 	free_command_struct(data->cmd);
 	return (status);
 }

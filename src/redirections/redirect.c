@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 18:42:13 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:41:38 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
 
-int	restore_std_io(t_data *data, t_cmd *cmd)
+/* int	restore_std_io(t_data *data, t_cmd *cmd)
 {
 	int	ret;
 
@@ -32,46 +32,39 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 		// close(io->stdout_backup);
 	}
 	return (ret);
-}
+} */
 
-/* redirect_io:
-*	Duplicates the input and output fds to the standard input and output.
-*	Backs up the standard input and output before replacing them in order
-*	to restore them after execution.
-*	Returns 1 for success, 0 in case of error.
-*/
-int	set_redirection(t_data *data, t_cmd *cmd)
+int	restore_std_io(t_data *data, t_cmd *cmd)
 {
-	if (!cmd->redirections)
+	if (!cmd)
 		return (EXIT_SUCCESS);
-	if (cmd->redirections->redirect == OUTPUT_TOKEN)
-		return (output_truncate(cmd));
-	else if (cmd->redirections->redirect == APPEND_TOKEN)
-		return (output_append(cmd));
-	else if (cmd->redirections->redirect == INPUT_TOKEN)
-		return (input_redirection(cmd));
-	else if (cmd->redirections->redirect == HEREDOC_TOKEN)
-		return (input_heredoc(cmd));
+	if (dup2(data->std_in, STDIN_FILENO) == -1)
+		return (EXIT_FAILURE);
+	if (dup2(data->std_out, STDOUT_FILENO) == -1)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-/* int	redirect_io(t_data *data, t_cmd *cmd)
-{
-	int	ret;
 
-	ret = EXIT_SUCCESS;
-	if (!cmd)
-		return (ret);
-	io->stdin_backup = dup(STDIN_FILENO);
-	if (io->stdin_backup == -1)
-		ret = errmsg_cmd("dup", "stdin backup", strerror(errno), false);
-	io->stdout_backup = dup(STDOUT_FILENO);
-	if (io->stdout_backup == -1)
-		ret = errmsg_cmd("dup", "stdout backup", strerror(errno), false);
-	if (io->fd_in != -1)
-		if (dup2(io->fd_in, STDIN_FILENO) == -1)
-			ret = errmsg_cmd("dup2", io->infile, strerror(errno), false);
-	if (io->fd_out != -1)
-		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
-			ret = errmsg_cmd("dup2", io->outfile, strerror(errno), false);
-	return (ret);
-} */
+int	set_redirection(t_data *data, t_cmd *cmd)
+{
+	t_redirect	*redirection;
+	int			status;
+
+	if (!cmd->redirections)
+		return (EXIT_SUCCESS);
+	redirection = cmd->redirections;
+	while (redirection)
+	{
+		if (redirection->redirect == OUTPUT_TOKEN)
+			status = output_truncate(redirection);
+		else if (redirection->redirect == APPEND_TOKEN)
+			status = output_append(redirection);
+		else if (redirection->redirect == INPUT_TOKEN)
+			status = input_redirection(redirection);
+		else if (redirection->redirect == HEREDOC_TOKEN)
+			status = input_heredoc(redirection);
+		redirection = redirection->next;
+	}
+	
+	return (EXIT_SUCCESS);
+}

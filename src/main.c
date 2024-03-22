@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 18:35:50 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/22 11:49:20 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	init_foreground_mode(t_data *data)
 	int	exit_code;
 
 	init_signals(data);
-	init_signals(data);
 	while (1)
 	{
 		data->line = readline(MSH_PROMPT);
@@ -46,7 +45,6 @@ void	init_foreground_mode(t_data *data)
 			exit_code = execute_command(data);
 		else
 			exit_code = OP_FAIL;
-		//free_data(data, false);
 	}
 }
 
@@ -68,8 +66,6 @@ void	init_background_mode(t_data	*data, char *arg)
 		else
 			exit_code = OP_FAIL;
 		i++;
-		//free_data(data, false);
-		//free_data(data, false);
 	}
 	free_double_pointer(inputs);
 }
