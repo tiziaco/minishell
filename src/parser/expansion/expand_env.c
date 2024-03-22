@@ -6,7 +6,7 @@
 /*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 14:34:51 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/22 11:22:11 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/22 17:23:49 by jkaller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*handle_expansion(char *token_value)
 	return_string = ft_calloc(sizeof(char), ft_strlen(token_value));
 	while (token_value[index] != '\0')
 	{
-		if (token_value[index] == '$')
+		if (token_value[index] == '$' && (token_value[index + 1] != ' ' && token_value[index + 1] != '\0'))
 			return_string = ft_strjoin_free(return_string,
 					expand_env(token_value, &index));
 		else
