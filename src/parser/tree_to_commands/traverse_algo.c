@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverse_algo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:03:02 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/21 18:44:59 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/22 11:36:07 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_cmd *create_new_command(t_cmd *commands, char **token_value)
 	if (*token_value != NULL)
     	new_command->command = ft_strdup(*token_value);
 	new_command->args = (char **)ft_calloc(sizeof(char *), (new_command->argc + 1));
+	new_command->pipe_in = 0;
+	new_command->pipe_out = 1;
 	if (*token_value != NULL)
 	{
 		add_args(new_command, token_value);
