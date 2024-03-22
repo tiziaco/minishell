@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 18:25:26 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/22 13:10:48 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,10 @@ int		remove_var(t_data *data, int key_index);
 /* Redirections*/
 int		set_redirection(t_data *data, t_cmd *cmd);
 int		restore_std_io(t_data *data, t_cmd *cmd);
-int		output_truncate(t_cmd *cmd);
-int		output_append(t_cmd *cmd);
-int		input_redirection(t_cmd *cmd);
-int		input_heredoc(t_cmd *cmd);
+int		output_truncate(t_redirect *redirection);
+int		output_append(t_redirect *redirection);
+int		input_redirection(t_redirect *redirection);
+int		input_heredoc(t_redirect *redirection);
 
 //parser
 int		parse_input(t_data *data);
@@ -161,10 +161,6 @@ void	close_pipe_fds(t_cmd *cmd);
 
 int		set_redirection(t_data *data, t_cmd *cmd);
 int		restore_std_io(t_data *data, t_cmd *cmd);
-int		output_truncate(t_cmd *cmd);
-int		output_append(t_cmd *cmd);
-int		input_redirection(t_cmd *cmd);
-int		input_heredoc(t_cmd *cmd);
 
 /* Execution */
 bool	is_builtin(char *arg);
