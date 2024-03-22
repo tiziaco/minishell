@@ -44,6 +44,9 @@
         },
         {
           "text": "-gdb-set detach-on-fork off"
+        },
+        {
+            "text": "set follow-fork-mode child"
         }
       ],
       "preLaunchTask": "build"
