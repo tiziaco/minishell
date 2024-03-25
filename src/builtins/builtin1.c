@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 13:08:23 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:02:39 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	ft_pwd(void)
 	return (OP_SUCCESS);
 }
 
-int	ft_exit(void)
+void	ft_exit(t_data *data)
 {
-	return (OP_SUCCESS);
+	exit_shell(data, EXIT_SUCCESS);
 }
 
 int	ft_env(char **envp)

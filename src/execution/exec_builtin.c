@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:21:59 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 16:50:15 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:09:35 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ int	exec_builtin(t_data *data, t_cmd *cmd)
 		return (ft_export(data, cmd->args));
 	if (ft_strcmp(cmd->command, "unset") == 0)
 		return (ft_unset(data, cmd->args));
+	if (ft_strcmp(cmd->command, "exit") == 0)
+		ft_exit(data);
 	return (OP_FAIL);
 }

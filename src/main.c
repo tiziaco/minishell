@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 11:49:20 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:05:22 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,3 @@ int	main(int argc, char **argv, char **envp)
 	exit_shell(data, EXIT_SUCCESS);
 	return (0);
 }
-
-/* TEST main for background mode */
-
-/* int	main(int _, char **__, char **envp)
-{
-	t_data	*data;
-	int		argc = 3;
-	char	*argv[4] = {argv[0] = "minishell\0", argv[1] = "-c", argv[2] = "pwd", argv[3] = NULL};
-
-	data = init_data(envp);
-	if (!data)
-		return (EXIT_FAILURE);
-	check_args(data, argc, argv);
-	if (data->background_mode)
-		init_background_mode(data, argv[2]);
-	else
-		init_foreground_mode(data);
-	exit_shell(data, EXIT_SUCCESS);
-	return (0);
-} */
