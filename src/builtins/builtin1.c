@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/25 12:02:39 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:35:45 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_echo(char **str)
 		i++;
 	}
 	printf("\n");
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_cd(char *str)
@@ -36,9 +36,9 @@ int	ft_cd(char *str)
 	if (chdir(str) == -1)
 	{
 		ft_printf("ft_cd: no such file or directory: %s\n", str);
-		return (OP_FAIL);
+		return (EXIT_FAILURE);
 	}
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_pwd(void)
@@ -56,7 +56,7 @@ int	ft_pwd(void)
 		return (sys_error(CMD_ERROR));
 	}
 	free(cwd);
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 void	ft_exit(t_data *data)
@@ -74,5 +74,5 @@ int	ft_env(char **envp)
 		printf("%s\n", *curr_env);
 		curr_env++;
 	}
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }

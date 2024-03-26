@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/25 12:05:22 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:20:50 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	init_foreground_mode(t_data *data)
 		if (data->line && data->line[0])
 			add_history(data->line);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = execute_command(data);
+		{
+			data->exit_code = execute_command(data);
+			printf("EXIT CODE :: %d\n",data->exit_code);
+		}
 		else
 			exit_code = OP_FAIL;
 	}

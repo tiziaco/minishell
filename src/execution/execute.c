@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 11:02:39 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:18:58 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static int	execute_in_child_process(t_data *data, t_cmd *current_cmd)
 		return (sys_error(FORK_ERROR));
 	else if (data->pid == 0)
 	{
-		/* printf("Child process executing command: %s\n", current_cmd->command);
-		printf("Child process ID: %d\n", getpid()); */
 		redirect_pipe_fds(current_cmd);
 		if (is_builtin(current_cmd->command))
 			status = exec_builtin(data, current_cmd);
@@ -56,9 +54,9 @@ static int	execute_in_child_process(t_data *data, t_cmd *current_cmd)
 			status = exec_local_bin(data, current_cmd);
 		else
 			status = exec_bin(data, current_cmd);
-		//exit(status);
+		exit(status);
 	}
-	return (EXIT_SUCCESS);
+	return (status);
 }
 
 int	execute_command(t_data *data)
@@ -78,7 +76,6 @@ int	execute_command(t_data *data)
 			status = exec_builtin(data, current_cmd);
 		else if (current_cmd)
 			status = execute_in_child_process(data, current_cmd);
-		//restore_std_io(data, current_cmd);
 		if (current_cmd)
 		{
 			close_pipe_fds(current_cmd);
@@ -86,7 +83,7 @@ int	execute_command(t_data *data)
 			current_cmd = current_cmd->next;
 		}
 	}
-	wait_processes(data);
+	status = wait_processes(data);
 	//restore_std_io(data, current_cmd);
 	free_command_struct(data->cmd);
 	return (status);
