@@ -46,6 +46,7 @@ t_data	*init_data(char **envp)
 	data->table_length = 0;
 	data->main_path = get_cwd();
 	tcgetattr(STDIN_FILENO, &data->term);
+	data->exit_code = 0;
 	data->parsing_table = init_parsing_table(data);
 	return (data);
 }

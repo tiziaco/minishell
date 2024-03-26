@@ -20,7 +20,7 @@ int	parse_input(t_data *data)
 	t_token		*token_stack;
 	t_tree_node	*abstract_syntax_tree;
 
-	if (tokenize_input(data->line, &token_stack) == EXIT_SUCCESS)
+	if (tokenize_input(data, &token_stack) == EXIT_SUCCESS)
 	{
 		//print_token_stack(token_stack);
 		abstract_syntax_tree = create_syntax_tree(token_stack, &data->parsing_table, data->table_length);

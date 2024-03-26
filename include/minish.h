@@ -103,6 +103,7 @@ typedef struct s_data
 	int		std_out;
 	bool	background_mode;
 	t_term	term;
+	int     exit_code;
 	char	*main_path;
 	char	*line;
 	char	**envp;

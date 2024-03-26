@@ -63,8 +63,10 @@ void	delete_node(t_token **token_stack, t_token *node_to_delete)
 
 char	*ft_getenv(char *env_key, t_data *data)
 {
-	//if (ft_strcmp(env_key, "?") == 0)
-	return (getenv(env_key));
+	if (ft_strcmp(env_key, "?") == 0)
+		return(ft_itoa(data->exit_code));
+	else
+		return (getenv(env_key));
 }
 
 char	*expand_env(char *token_value, int *index, t_data *data)
@@ -77,7 +79,7 @@ char	*expand_env(char *token_value, int *index, t_data *data)
 	(*index)++;
 	env_key = ft_calloc(sizeof(char), ft_strlen(token_value));
 	while (token_value[*index] != '$' && token_value[*index] != '\0'
-		&& ft_isalpha(token_value[*index]) > 0)
+		&& (ft_isalpha(token_value[*index]) > 0 || token_value[*index] == '?'))
 	{
 		env_key[j] = token_value[*index];
 		(*index)++;
