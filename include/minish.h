@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/26 11:47:36 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:25:06 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ int		parsing_tree_error(int err_code);
 /* Outils */
 char	*get_cwd(void);
 bool	is_directory(char *cmd);
+bool	is_n_flag(char *arg);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);
