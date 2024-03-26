@@ -61,7 +61,13 @@ void	delete_node(t_token **token_stack, t_token *node_to_delete)
 	free(node_to_delete);
 }
 
-char	*expand_env(char *token_value, int *index)
+char	*ft_getenv(char *env_key, t_data *data)
+{
+	//if (ft_strcmp(env_key, "?") == 0)
+	return (getenv(env_key));
+}
+
+char	*expand_env(char *token_value, int *index, t_data *data)
 {
 	char	*env_value;
 	char	*env_key;
@@ -78,7 +84,7 @@ char	*expand_env(char *token_value, int *index)
 		j++;
 	}
 	env_key[j] = '\0';
-	env_value = getenv(env_key);
+	env_value = ft_getenv(env_key, data);
 	free(env_key);
 	if (env_value == NULL)
 	{
@@ -87,7 +93,7 @@ char	*expand_env(char *token_value, int *index)
 	return (env_value);
 }
 
-char	*handle_expansion(char *token_value)
+char	*handle_expansion(char *token_value, t_data *data)
 {
 	char	*return_string;
 	int		index;
@@ -98,7 +104,7 @@ char	*handle_expansion(char *token_value)
 	{
 		if (token_value[index] == '$' && (token_value[index + 1] != ' ' && token_value[index + 1] != '\0'))
 			return_string = ft_strjoin_free(return_string,
-					expand_env(token_value, &index));
+					expand_env(token_value, &index, data));
 		else
 		{
 			return_string[index] = token_value[index];
@@ -109,7 +115,7 @@ char	*handle_expansion(char *token_value)
 	return (return_string);
 }
 
-void	check_for_expansions(t_token *token_stack)
+void	check_for_expansions(t_token *token_stack, t_data *data)
 {
 	t_token	*current;
 	int		index;
@@ -121,7 +127,7 @@ void	check_for_expansions(t_token *token_stack)
 		token_stack = token_stack->next;
 		if (ft_strrchr(current->value, '$') != 0)
 		{
-			current->value = handle_expansion(current->value);
+			current->value = handle_expansion(current->value, data);
 			if (current->value[0] == '\0')
 				delete_node(&token_stack, current);
 		}

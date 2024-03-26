@@ -146,6 +146,8 @@ t_cmd	*add_to_command_struct(t_tree_node *tree);
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
 void	ft_redirectadd_back(t_redirect **lst, t_redirect *new);
 t_redirect	*ft_lstnew_redirect(int redirect);
+int		tokenize_input(t_data *data, t_token **token_stack);
+char	*handle_expansion(char *token_value, t_data *data);
 void	print_command_struct(t_cmd	*commands);
 void    print_node(t_tree_node *tree);
 void	print_command_args(char	**args);

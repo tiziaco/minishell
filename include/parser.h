@@ -111,7 +111,6 @@ typedef struct s_token
 }	t_token;
 
 /* Tokenizer */
-int		tokenize_input(char *input_line, t_token **token_stack);
 void	ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token	*ft_lstnew_token(char *value, TokenTypes token_type);
 void	print_token_stack(t_token *token_stack);
@@ -120,7 +119,6 @@ int	tokenize_input_string(char *input_str,
 int	set_token_status(int token_status, char *line, int index);
 int	check_for_quotes(t_token *token_stack);
 char	*realloc_string(char *str, int str_len);
-void	check_for_expansions(t_token *token_stack);
 
 /* Parsing Table */
 void print_parsing_tree(t_tree_node *root, int depth);

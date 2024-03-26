@@ -16,7 +16,7 @@
 #include "../../../include/commands.h"
 #include <unistd.h>
 
-int	tokenize_input(char *input_line, t_token **token_stack)
+int	tokenize_input(t_data *data, t_token **token_stack)
 {
 	int	i;
 	int	token_status;
@@ -26,11 +26,11 @@ int	tokenize_input(char *input_line, t_token **token_stack)
 	i = -1;
 	start = 0;
 	token_status = 0;
-	while (++i <= ft_strlen(input_line))
+	while (++i <= ft_strlen(data->line))
 	{
-		token_status = set_token_status(token_status, input_line, i);
+		token_status = set_token_status(token_status, data->line, i);
 		if (token_status == 0)
-			start = tokenize_input_string(input_line, token_stack, &i, start);
+			start = tokenize_input_string(data->line, token_stack, &i, start);
 	}
 	if (token_status != 0)
 	{
@@ -40,6 +40,6 @@ int	tokenize_input(char *input_line, t_token **token_stack)
 	if (*token_stack == NULL || (*token_stack)->value == NULL)
 		return (EXIT_FAILURE);
 	check_for_quotes(*token_stack);
-	check_for_expansions(*token_stack);
+	check_for_expansions(*token_stack, data);
 	return (EXIT_SUCCESS);
 }
