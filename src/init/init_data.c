@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:15:37 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 11:14:35 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:29:02 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ t_data	*init_data(char **envp)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	/* data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!data->cmd)
-		return (NULL);
+		return (NULL); */
 	data->envp = copy_environment(envp, get_env_size(envp));
 	if (!data->envp)
 		exit_shell(data, EXIT_FAILURE);
 	data->std_in = dup(STDIN_FILENO);
 	data->std_out = dup(STDOUT_FILENO);
 	data->line = NULL;
+	data->pid = 0;
 	data->table_length = 0;
 	data->main_path = get_cwd();
 	tcgetattr(STDIN_FILENO, &data->term);
@@ -53,10 +54,6 @@ t_data	*init_data(char **envp)
 void	exit_shell(t_data *data, int exit_code)
 {
 	if (data)
-	{
-		/* if (data->cmd && data->cmd->io_fds)
-			close_fds(data->cmd, true); */
 		free_data(data, true);
-	}
 	exit(exit_code);
 }

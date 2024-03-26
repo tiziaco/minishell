@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:10:14 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 14:12:04 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:23:58 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ void	free_data(t_data *data, bool clear_all)
 	{
 		if (data && data->envp)
 			free_double_pointer(data->envp);
+		if (data && data->main_path)
+			free(data->main_path);
+		if (data && data->parsing_table)
+			free(data->parsing_table);
 		rl_clear_history();
+		free(data);
 	}
 }
