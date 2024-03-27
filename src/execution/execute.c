@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/27 15:33:46 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:15:34 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	execute_child_process(t_data *data, t_cmd *cmd)
 {
 	int	status;
 
-	if (set_redirection(data, cmd) != EXIT_SUCCESS)
+	if (set_redirection(cmd) != EXIT_SUCCESS)
 		exit(EXIT_FAILURE);
 	set_pipe_fds(cmd);
 	redirect_pipe_fds(cmd);
@@ -84,7 +84,7 @@ int	execute_command(t_data *data)
 	if (data->cmd && is_builtin(data->cmd->command) 
 		&& !data->cmd->is_piped)
 	{
-		if (set_redirection(data, data->cmd) == EXIT_SUCCESS)
+		if (set_redirection(data->cmd) == EXIT_SUCCESS)
 			status = exec_builtin(data, data->cmd);
 		restore_std_io(data, data->cmd);
 	}
