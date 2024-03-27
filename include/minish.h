@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 13:10:48 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:11:05 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,20 @@
 # define TMP_FILENAME "/tmp/heredoc_tmp.tmp"
 //# define TMP_FILENAME "/home/tiacovel/core_curriculum/minishell/heredoc_tmp.tmp"
 
-/* Redirections */
-# define RED_OUT_APP	1
-# define RED_OUT_TRUNC	2
-# define RED_IN			3
-# define RED_IN_HERE	4
-# define DUP_ERROR		5
-
 /* System error */
 # define OP_SUCCESS		1
 # define OP_FAIL		-1
-# define MEM_ERROR  	2
+# define MEM_ERROR  	7
 # define ARG_ERROR  	3
 # define CMD_ERROR		4
 # define FORK_ERROR		5
+# define DUP_ERROR		6
 
 /* Command errors */
 # define INVALID_KEY	10
-# define INVALID_PARM	11
-# define CMD_NOT_FOUND	12
-# define CMD_NOT_EXEC	13
+# define INVALID_PARM	2
+# define CMD_NOT_FOUND	127
+# define CMD_NOT_EXEC	126
 
 /* Redirection errors */
 # define FILE_NF		20
@@ -103,6 +97,7 @@ typedef struct s_data
 	int		std_out;
 	bool	background_mode;
 	t_term	term;
+	int		exit_code;
 	char	*main_path;
 	char	*line;
 	char	**envp;
@@ -132,7 +127,7 @@ int		set_var(t_data *data, char *key, char *val);
 int		remove_var(t_data *data, int key_index);
 
 /* Redirections*/
-int		set_redirection(t_data *data, t_cmd *cmd);
+int		set_redirection(t_cmd *cmd);
 int		restore_std_io(t_data *data, t_cmd *cmd);
 int		output_truncate(t_redirect *redirection);
 int		output_append(t_redirect *redirection);
@@ -159,9 +154,6 @@ int		set_pipe_fds(t_cmd *cmd);
 void	redirect_pipe_fds(t_cmd *cmd);
 void	close_pipe_fds(t_cmd *cmd);
 
-int		set_redirection(t_data *data, t_cmd *cmd);
-int		restore_std_io(t_data *data, t_cmd *cmd);
-
 /* Execution */
 bool	is_builtin(char *arg);
 bool	is_path(char *str);
@@ -180,6 +172,7 @@ int		parsing_tree_error(int err_code);
 /* Outils */
 char	*get_cwd(void);
 bool	is_directory(char *cmd);
+bool	is_n_flag(char *arg);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);

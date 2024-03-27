@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:27:23 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 18:00:41 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:57:29 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ int	set_pipe_fds(t_cmd *cmd)
 		cmd->pipe_in = cmd->prev->pipe_fd[0];
 		cmd->pipe_out = 1;
 	}
-	/* else
-		perror("Unexpected case!!"); */
 	return (EXIT_SUCCESS);
 }
+
 void	redirect_pipe_fds(t_cmd *cmd)
 {
 	if (cmd->pipe_in != 0)
@@ -84,7 +83,7 @@ void	redirect_pipe_fds(t_cmd *cmd)
 void	close_pipe_fds(t_cmd *cmd)
 {
 	if (cmd->is_piped && cmd->next != NULL)
-			close (cmd->pipe_fd[1]);
+		close (cmd->pipe_fd[1]);
 	else if (cmd->is_piped && cmd->prev->is_piped)
 	{
 		close(cmd->prev->pipe_fd[0]);

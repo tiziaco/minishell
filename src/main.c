@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 17:00:48 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:02:57 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	check_args(t_data *data, int argc, char **argv)
 	return (OP_SUCCESS);
 }
 
-void	init_foreground_mode(t_data *data)
+void	launch_interactive_mode(t_data *data)
 {
 	int	exit_code;
 
@@ -38,17 +38,20 @@ void	init_foreground_mode(t_data *data)
 	{
 		data->line = readline(MSH_PROMPT);
 		if (data->line == NULL)
-			break;
+			break ;
 		if (data->line && data->line[0])
 			add_history(data->line);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = execute_command(data);
+		{
+			data->exit_code = execute_command(data);
+			//printf("EXIT CODE :: %d\n",data->exit_code);
+		}
 		else
 			exit_code = OP_FAIL;
 	}
 }
 
-void	init_background_mode(t_data	*data, char *arg)
+void	launch_background_mode(t_data	*data, char *arg)
 {
 	char	**inputs;
 	int		exit_code;
@@ -62,9 +65,9 @@ void	init_background_mode(t_data	*data, char *arg)
 	{
 		data->line = ft_strdup(inputs[i]);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = execute_command(data);
+			data->exit_code = execute_command(data);
 		else
-			exit_code = OP_FAIL;
+			data->exit_code = OP_FAIL;
 		i++;
 	}
 	free_double_pointer(inputs);
@@ -79,30 +82,9 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	check_args(data, argc, argv);
 	if (data->background_mode)
-		init_background_mode(data, argv[2]);
+		launch_background_mode(data, argv[2]);
 	else
-		init_foreground_mode(data);
-	//free_data(data, true);
-	exit_shell(data, EXIT_SUCCESS);
+		launch_interactive_mode(data);
+	exit_shell(data, data->exit_code);
 	return (0);
 }
-
-/* TEST main for background mode */
-
-/* int	main(int _, char **__, char **envp)
-{
-	t_data	*data;
-	int		argc = 3;
-	char	*argv[4] = {argv[0] = "minishell\0", argv[1] = "-c", argv[2] = "pwd", argv[3] = NULL};
-
-	data = init_data(envp);
-	if (!data)
-		return (EXIT_FAILURE);
-	check_args(data, argc, argv);
-	if (data->background_mode)
-		init_background_mode(data, argv[2]);
-	else
-		init_foreground_mode(data);
-	exit_shell(data, EXIT_SUCCESS);
-	return (0);
-} */

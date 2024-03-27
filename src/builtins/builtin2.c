@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:39:24 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:19:40 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:02:50 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	**get_key_val(char *arg)
 int	ft_export(t_data *data, char **args)
 {
 	int		i;
-	int		status;
 	char	**key_val;
 
 	i = 1;
@@ -48,15 +47,15 @@ int	ft_export(t_data *data, char **args)
 		if (ft_strchr(args[i], '=') == NULL)
 			return (cmd_error(INVALID_PARM));
 		key_val = get_key_val(args[i]);
-		if (set_var(data, key_val[0], key_val[1]) != OP_SUCCESS)
+		if (set_var(data, key_val[0], key_val[1]) != EXIT_SUCCESS)
 		{
 			free_double_pointer(key_val);
-			return (sys_error(OP_FAIL));
+			return (EXIT_FAILURE);
 		}
 		free_double_pointer(key_val);
 		i++;
 	}
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_unset(t_data *data, char **args)
@@ -74,5 +73,5 @@ int	ft_unset(t_data *data, char **args)
 			remove_var(data, key_index);
 		i++;
 	}
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }

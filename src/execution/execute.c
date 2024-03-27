@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:28:34 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 11:02:39 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:15:34 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	wait_processes(t_data *data)
 	int		status;
 	int		save_status;
 
-	// close_fds(data->cmd, false);
 	save_status = 0;
 	wpid = 0;
 	while (wpid != -1)
@@ -38,56 +37,59 @@ static int	wait_processes(t_data *data)
 	return (status);
 }
 
-static int	execute_in_child_process(t_data *data, t_cmd *current_cmd)
+static void	execute_child_process(t_data *data, t_cmd *cmd)
 {
 	int	status;
 
-	data->pid = fork();
-	if (data->pid == -1)
-		return (sys_error(FORK_ERROR));
-	else if (data->pid == 0)
-	{
-		/* printf("Child process executing command: %s\n", current_cmd->command);
-		printf("Child process ID: %d\n", getpid()); */
-		redirect_pipe_fds(current_cmd);
-		if (is_builtin(current_cmd->command))
-			status = exec_builtin(data, current_cmd);
-		else if (is_path(current_cmd->command))
-			status = exec_local_bin(data, current_cmd);
-		else
-			status = exec_bin(data, current_cmd);
-		//exit(status);
-	}
-	return (EXIT_SUCCESS);
+	if (set_redirection(cmd) != EXIT_SUCCESS)
+		exit(EXIT_FAILURE);
+	set_pipe_fds(cmd);
+	redirect_pipe_fds(cmd);
+	if (is_builtin(cmd->command))
+		status = exec_builtin(data, cmd);
+	else if (is_path(cmd->command))
+		status = exec_local_bin(data, cmd);
+	else
+		status = exec_bin(data, cmd);
+	exit(status);
 }
 
-int	execute_command(t_data *data)
+static int	execute_pipeline(t_data *data)
 {
-	int		status;
 	t_cmd	*current_cmd;
+	int		status;
 
 	init_pipes(data);
 	current_cmd = data->cmd;
 	while (current_cmd != NULL)
 	{
-		set_pipe_fds(current_cmd);
-		if (set_redirection(data, current_cmd) != EXIT_SUCCESS)
-			current_cmd = current_cmd->next;
-		if (current_cmd && is_builtin(current_cmd->command) 
-			&& !current_cmd->is_piped)
-			status = exec_builtin(data, current_cmd);
-		else if (current_cmd)
-			status = execute_in_child_process(data, current_cmd);
-		//restore_std_io(data, current_cmd);
-		if (current_cmd)
-		{
-			close_pipe_fds(current_cmd);
-			restore_std_io(data, current_cmd);
-			current_cmd = current_cmd->next;
-		}
+		data->pid = fork();
+		if (data->pid == -1)
+			return (sys_error(FORK_ERROR));
+		else if (data->pid == 0)
+			execute_child_process(data, current_cmd);
+		close_pipe_fds(current_cmd);
+		restore_std_io(data, current_cmd);
+		current_cmd = current_cmd->next;
 	}
-	wait_processes(data);
-	//restore_std_io(data, current_cmd);
+	status = wait_processes(data);
+	return (status);
+}
+
+int	execute_command(t_data *data)
+{
+	int	status;
+
+	status = EXIT_FAILURE;
+	if (data->cmd && is_builtin(data->cmd->command) 
+		&& !data->cmd->is_piped)
+	{
+		if (set_redirection(data->cmd) == EXIT_SUCCESS)
+			status = exec_builtin(data, data->cmd);
+		restore_std_io(data, data->cmd);
+	}
+	else
+		status = execute_pipeline(data);
 	free_command_struct(data->cmd);
 	return (status);
 }
