@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/26 13:20:50 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:45:54 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	check_args(t_data *data, int argc, char **argv)
 	return (OP_SUCCESS);
 }
 
-void	init_foreground_mode(t_data *data)
+void	launch_interactive_mode(t_data *data)
 {
 	int	exit_code;
 
@@ -44,14 +44,14 @@ void	init_foreground_mode(t_data *data)
 		if (parse_input(data) == OP_SUCCESS)
 		{
 			data->exit_code = execute_command(data);
-			printf("EXIT CODE :: %d\n",data->exit_code);
+			//printf("EXIT CODE :: %d\n",data->exit_code);
 		}
 		else
 			exit_code = OP_FAIL;
 	}
 }
 
-void	init_background_mode(t_data	*data, char *arg)
+void	launch_background_mode(t_data	*data, char *arg)
 {
 	char	**inputs;
 	int		exit_code;
@@ -82,9 +82,9 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	check_args(data, argc, argv);
 	if (data->background_mode)
-		init_background_mode(data, argv[2]);
+		launch_background_mode(data, argv[2]);
 	else
-		init_foreground_mode(data);
+		launch_interactive_mode(data);
 	exit_shell(data, EXIT_SUCCESS);
 	return (0);
 }
