@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/27 16:00:20 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:47:18 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	launch_background_mode(t_data	*data, char *arg)
 	{
 		data->line = ft_strdup(inputs[i]);
 		if (parse_input(data) == OP_SUCCESS)
-			exit_code = execute_command(data);
+			data->exit_code = execute_command(data);
 		else
-			exit_code = OP_FAIL;
+			data->exit_code = OP_FAIL;
 		i++;
 	}
 	free_double_pointer(inputs);
@@ -85,6 +85,6 @@ int	main(int argc, char **argv, char **envp)
 		launch_background_mode(data, argv[2]);
 	else
 		launch_interactive_mode(data);
-	exit_shell(data, EXIT_SUCCESS);
+	exit_shell(data, data->exit_code);
 	return (0);
 }
