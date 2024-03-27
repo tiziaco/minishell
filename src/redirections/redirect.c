@@ -6,33 +6,11 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 12:41:38 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:33:06 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/commands.h"
-
-/* int	restore_std_io(t_data *data, t_cmd *cmd)
-{
-	int	ret;
-
-	ret = EXIT_SUCCESS;
-	if (!cmd)
-		return (ret);
-	if (cmd->redirections->fd_in != data->std_in)
-	{
-		if (dup2(data->std_in, STDIN_FILENO) == -1)
-			ret = EXIT_FAILURE;
-		// close(io->stdin_backup);
-	}
-	if (cmd->redirections->fd_out != data->std_out)
-	{
-		if (dup2(data->std_out, STDOUT_FILENO) == -1)
-			ret = EXIT_FAILURE;
-		// close(io->stdout_backup);
-	}
-	return (ret);
-} */
 
 int	restore_std_io(t_data *data, t_cmd *cmd)
 {
@@ -65,6 +43,5 @@ int	set_redirection(t_data *data, t_cmd *cmd)
 			status = input_heredoc(redirection);
 		redirection = redirection->next;
 	}
-	
-	return (EXIT_SUCCESS);
+	return (status);
 }
