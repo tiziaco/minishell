@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:12:13 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/26 16:25:06 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:11:05 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int		set_var(t_data *data, char *key, char *val);
 int		remove_var(t_data *data, int key_index);
 
 /* Redirections*/
-int		set_redirection(t_data *data, t_cmd *cmd);
+int		set_redirection(t_cmd *cmd);
 int		restore_std_io(t_data *data, t_cmd *cmd);
 int		output_truncate(t_redirect *redirection);
 int		output_append(t_redirect *redirection);
@@ -153,9 +153,6 @@ int		init_pipes(t_data *data);
 int		set_pipe_fds(t_cmd *cmd);
 void	redirect_pipe_fds(t_cmd *cmd);
 void	close_pipe_fds(t_cmd *cmd);
-
-int		set_redirection(t_data *data, t_cmd *cmd);
-int		restore_std_io(t_data *data, t_cmd *cmd);
 
 /* Execution */
 bool	is_builtin(char *arg);

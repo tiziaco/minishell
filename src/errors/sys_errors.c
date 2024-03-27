@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   sys_errors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:48:07 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/21 18:32:50 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:58:11 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/commands.h"
 

@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:39:24 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/26 11:37:27 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:02:50 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	**get_key_val(char *arg)
 int	ft_export(t_data *data, char **args)
 {
 	int		i;
-	int		status;
 	char	**key_val;
 
 	i = 1;

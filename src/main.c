@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:16:11 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/27 15:45:54 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:00:20 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	launch_interactive_mode(t_data *data)
 	{
 		data->line = readline(MSH_PROMPT);
 		if (data->line == NULL)
-			break;
+			break ;
 		if (data->line && data->line[0])
 			add_history(data->line);
 		if (parse_input(data) == OP_SUCCESS)

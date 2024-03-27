@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:26:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/27 14:33:06 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:10:20 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	restore_std_io(t_data *data, t_cmd *cmd)
 	return (EXIT_SUCCESS);
 }
 
-int	set_redirection(t_data *data, t_cmd *cmd)
+int	set_redirection(t_cmd *cmd)
 {
 	t_redirect	*redirection;
 	int			status;

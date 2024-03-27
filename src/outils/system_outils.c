@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:07:28 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/26 16:24:40 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:56:01 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	*get_cwd(void)
 	if (!cwd)
 		return (NULL);
 	if (getcwd(cwd, PATH_MAX) == NULL)
-		return(NULL);
-    return(cwd);
+		return (NULL);
+	return (cwd);
 }
 
 bool	is_directory(char *cmd)
