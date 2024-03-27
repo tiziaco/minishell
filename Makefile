@@ -6,7 +6,7 @@
 #    By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/08 11:38:10 by tiacovel          #+#    #+#              #
-#    Updated: 2024/03/27 16:02:26 by tiacovel         ###   ########.fr        #
+#    Updated: 2024/03/27 16:30:17 by tiacovel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ	= $(SRC:.c=.o)
 
 RM		= rm -f
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= #-Wall -Wextra -Werror
 LINK_DIR = -Llib/libft -L/opt/homebrew/opt/readline/lib
 LINK_LIB =  -lft -lreadline
 INCLUDE = -I /opt/homebrew/opt/readline/include
