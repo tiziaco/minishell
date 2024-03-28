@@ -56,6 +56,11 @@ void	delete_node(t_token **token_stack, t_token *node_to_delete)
 	if (node_to_delete->next != NULL)
 		node_to_delete->next->prev = node_to_delete->prev;
 	if (node_to_delete->prev != NULL)
+	{
+	if (node_to_delete->prev != NULL)
+		if (node_to_delete->next == NULL)
+			node_to_delete->prev->next = NULL;
+	}
 		node_to_delete->prev->next = node_to_delete->next;
 	free(node_to_delete->value);
 	free(node_to_delete);
@@ -89,9 +94,7 @@ char	*expand_env(char *token_value, int *index, t_data *data)
 	env_value = ft_getenv(env_key, data);
 	free(env_key);
 	if (env_value == NULL)
-	{
 		return ("\0");
-	}
 	return (env_value);
 }
 

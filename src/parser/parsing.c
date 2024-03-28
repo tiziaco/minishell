@@ -23,8 +23,13 @@ int	parse_input(t_data *data)
 	if (tokenize_input(data, &token_stack) == EXIT_SUCCESS)
 	{
 		//print_token_stack(token_stack);
+		if (token_stack && token_stack->type == 16)
+		{
+			free_token_stack(token_stack);
+			return (0);
+		}
 		abstract_syntax_tree = create_syntax_tree(token_stack, &data->parsing_table, data->table_length);
-		//print_parsing_tree(abstract_syntax_tree, 0);
+		// print_parsing_tree(abstract_syntax_tree, 0);
 		if (abstract_syntax_tree != NULL)
 		{
 			data->cmd = add_to_command_struct(abstract_syntax_tree);
