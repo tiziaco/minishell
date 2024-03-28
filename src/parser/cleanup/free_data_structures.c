@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data_structures.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:32:57 by jkaller           #+#    #+#             */
-/*   Updated: 2024/03/21 13:32:29 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:50:17 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	free_command_struct(t_cmd *current_node)
 			free_args(current_node->args);
 		if (current_node->redirections)
 			free_redirections(current_node->redirections);
+		if (current_node->pipe_fd)
+			free(current_node->pipe_fd);
 		free(current_node);
 		current_node = next_node;
 	}

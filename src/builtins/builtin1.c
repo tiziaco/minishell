@@ -6,7 +6,7 @@
 /*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:50 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/11 13:08:23 by tiacovel         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:25:33 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,36 @@
 
 int	ft_echo(char **str)
 {
-	int	i;
-	char *test;
+	int		i;
+	bool	n_flag;
 
 	i = 1;
-	while (str[i] != NULL)
+	n_flag = false;
+	while (str[i] && is_n_flag(str[i]))
 	{
-		test = str[i];
-		ft_printf("%s", str[i]);
-		if (str[i + 1] != NULL)
-			ft_printf("%c", ' ');
+		n_flag = true;
 		i++;
 	}
-	printf("\n");
-	return (OP_SUCCESS);
+	while (str[i] != NULL)
+	{
+		printf("%s", str[i]);
+		if (str[i + 1] != NULL)
+			printf("%c", ' ');
+		i++;
+	}
+	if (!n_flag)
+		printf("\n");
+	return (EXIT_SUCCESS);
 }
 
 int	ft_cd(char *str)
 {
 	if (chdir(str) == -1)
 	{
-		ft_printf("ft_cd: no such file or directory: %s\n", str);
-		return (OP_FAIL);
+		printf("ft_cd: no such file or directory: %s\n", str);
+		return (EXIT_FAILURE);
 	}
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_pwd(void)
@@ -49,19 +55,19 @@ int	ft_pwd(void)
 	if (!cwd)
 		return (sys_error(MEM_ERROR));
 	if (getcwd(cwd, PATH_MAX) != NULL)
-		ft_printf("%s\n", cwd);
+		printf("%s\n", cwd);
 	else
 	{
 		free(cwd);
 		return (sys_error(CMD_ERROR));
 	}
 	free(cwd);
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-int	ft_exit(void)
+void	ft_exit(t_data *data)
 {
-	return (OP_SUCCESS);
+	exit_shell(data, EXIT_SUCCESS);
 }
 
 int	ft_env(char **envp)
@@ -74,5 +80,5 @@ int	ft_env(char **envp)
 		printf("%s\n", *curr_env);
 		curr_env++;
 	}
-	return (OP_SUCCESS);
+	return (EXIT_SUCCESS);
 }

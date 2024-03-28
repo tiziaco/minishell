@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_clean.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaller <jkaller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tiacovel <tiacovel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:10:14 by tiacovel          #+#    #+#             */
-/*   Updated: 2024/03/22 17:25:57 by jkaller          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:06:52 by tiacovel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,14 @@ void	free_cmd(t_cmd *cmd)
 
 void	free_data(t_data *data, bool clear_all)
 {
-	if (data == NULL)
-		return ;
-	if (clear_all && data)
+	if (clear_all)
 	{
 		if (data->envp)
 			free_double_pointer(data->envp);
-		if (data->line)
-			free_pointer(data->line);
-		if (data->main_path)
-			free_pointer(data->main_path);
-		if (data->line)
-			free_pointer(data->line);
+		if (data && data->main_path)
+			free(data->main_path);
+		if (data && data->parsing_table)
+			free(data->parsing_table);
 		rl_clear_history();
 		free(data);
 	}
