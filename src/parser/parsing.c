@@ -23,7 +23,7 @@ int	parse_input(t_data *data)
 	if (tokenize_input(data, &token_stack) == EXIT_SUCCESS)
 	{
 		//print_token_stack(token_stack);
-		if (token_stack && token_stack->type == 16)
+		if (token_stack && token_stack->type == END_TOKEN)
 		{
 			free_token_stack(token_stack);
 			return (0);
